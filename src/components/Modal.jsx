@@ -1,0 +1,1 @@
+// https://flowbite.com/blocks/application/crud-delete-confirm/#confirm-delete-with-alert
