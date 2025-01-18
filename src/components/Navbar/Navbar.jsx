@@ -15,6 +15,7 @@ export default function Navbar() {
 
     return (
         <div className="fixed bottom-0 w-full bg-white border-t border-gray-300">
+            {/* TODO: make cols amount of navItems */}
             <nav className="max-w-[384px] mx-auto px-4 grid grid-cols-5">
                 {navItems.map((item) => (
                     <NavButton key={item.to} {...item} />
