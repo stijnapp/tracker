@@ -11,7 +11,7 @@ body {
 }
 
 .btn {
-    @apply hover-effect w-fit font-semibold py-1.5 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-white ring-primary
+    @apply hover-effect w-fit font-semibold py-3 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-white ring-primary
 }
 
 .btn-primary {
