@@ -1,7 +1,9 @@
-import PageTitle from "../components/PageTitle";
+import Page from "../components/Page";
 
 export default function History() {
     return (
-        <PageTitle title="History" />
+        <Page title="History">
+            ...
+        </Page>
     )
 }

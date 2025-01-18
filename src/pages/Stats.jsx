@@ -1,7 +1,9 @@
-import PageTitle from "../components/PageTitle";
+import Page from "../components/Page";
 
 export default function Stats() {
     return (
-        <PageTitle title="Stats" />
+        <Page title="Stats">
+            ...
+        </Page>
     )
 }

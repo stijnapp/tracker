@@ -10,10 +10,8 @@ import Workout from './pages/Workout';
 export default function App() {
     return (
         <>
-            <header>
-                <Navbar />
-            </header>
-            <main className="min-h-dvh max-w-[384px] mx-auto px-4 pt-8 pb-40 bg-gray-100 text-dark flex flex-col gap-4">
+            <Navbar />
+            <div className="min-h-dvh max-w-[384px] mx-auto px-4 pt-8 pb-40 bg-gray-100 text-dark flex flex-col gap-4">
                 <Routes>
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />
@@ -22,7 +20,7 @@ export default function App() {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
-            </main>
+            </div>
         </>
     )
 }

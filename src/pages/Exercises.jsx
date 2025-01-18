@@ -1,7 +1,9 @@
-import PageTitle from "../components/PageTitle";
+import Page from "../components/Page";
 
 export default function Exercises() {
     return (
-        <PageTitle title="Exercises" />
+        <Page title="Exercises">
+            ...
+        </Page>
     )
 }

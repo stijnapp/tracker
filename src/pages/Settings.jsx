@@ -1,7 +1,9 @@
-import PageTitle from "../components/PageTitle";
+import Page from "../components/Page";
 
 export default function Settings() {
     return (
-        <PageTitle title="Settings" />
+        <Page title="Settings">
+            ...
+        </Page>
     )
 }
