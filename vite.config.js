@@ -10,4 +10,6 @@ export default defineConfig({
       plugins: [tailwindcss],
     },
   },
+  // Not needed for a custom domain
+  base: '/tracker/',
 })
