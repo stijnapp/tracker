@@ -11,5 +11,5 @@ export default defineConfig({
     },
   },
   // Not needed for a custom domain
-  base: '/tracker/',
+  base: '/Tracker/',
 })
