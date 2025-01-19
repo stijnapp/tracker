@@ -48,6 +48,7 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     if (isHiding && !message) return null
 
     // TODO: animate height so content doesn't jump
+    // TODO: backdrop blur
     return (
         <div className={`${className} ${isHiding ? 'opacity-0 translate-x-10' : 'opacity-100'} flex items-center justify-between w-full py-2 px-4 gap-4 rounded-md transition-all ${duration} ease-out bg-danger/5 border border-danger text-danger`} role="alert">
             <div className="font-medium break-words brightness-[0.75]">
