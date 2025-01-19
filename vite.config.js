@@ -10,5 +10,5 @@ export default defineConfig({
       plugins: [tailwindcss],
     },
   },
-  base: '/Tracker/',
+  base: '/tracker/',
 })
