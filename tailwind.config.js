@@ -14,6 +14,14 @@ export default {
         warning: '#eab308',
         success: '#16a34a',
         info: '#3b82f6',
+        body: {
+          light: '#f3f4f6',
+          dark: '#1c1e22',
+        },
+        floating: {
+          light: '#ffffff',
+          dark: '#16181b',
+        },
         light: '#f3f4f6',
         dark: '#2f323a',
       },

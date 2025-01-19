@@ -14,7 +14,7 @@ export default function Navbar() {
     ];
 
     return (
-        <div className="fixed bottom-0 w-full bg-white border-t border-gray-300">
+        <div className="fixed bottom-0 w-full bg-floating-light dark:bg-floating-dark border-t border-gray-300 dark:border-white/20">
             <nav className="max-w-[384px] mx-auto px-4">
                 <ul className="flex flex-row justify-between">
                     {navItems.map((item) => (
