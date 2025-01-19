@@ -15,10 +15,14 @@ export default function Navbar() {
 
     return (
         <div className="fixed bottom-0 w-full bg-white border-t border-gray-300">
-            <nav className="max-w-[384px] mx-auto px-4 flex flex-row">
-                {navItems.map((item) => (
-                    <NavButton key={item.to} {...item} />
-                ))}
+            <nav className="max-w-[384px] mx-auto px-4">
+                <ul className="flex flex-row justify-between">
+                    {navItems.map((item) => (
+                        <li key={item.to} className="basis-full">
+                            <NavButton {...item} />
+                        </li>
+                    ))}
+                </ul>
             </nav>
         </div>
     )
