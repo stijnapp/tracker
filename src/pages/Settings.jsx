@@ -1,6 +1,7 @@
 import Page from "../components/Page";
 
 export default function Settings() {
+    // TODO: replace with radio button and save to localstorage
     const toggleDarkmode = () => {
         document.documentElement.classList.toggle('dark')
     }
