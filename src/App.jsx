@@ -11,7 +11,7 @@ export default function App() {
     return (
         <>
             <Navbar />
-            <div className="min-h-dvh max-w-[384px] mx-auto px-4 pt-8 pb-40 bg-gray-100 text-dark flex flex-col gap-4">
+            <div className="min-h-dvh max-w-[384px] mx-auto px-4 pt-8 pb-40 bg-light text-dark flex flex-col gap-4">
                 <Routes>
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />
