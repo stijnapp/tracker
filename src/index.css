@@ -6,6 +6,7 @@ body {
     @apply min-h-dvh bg-white dark:bg-floating-dark;
 }
 
+body,
 body * {
     @apply transition-colors duration-300;
 }
