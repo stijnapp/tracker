@@ -6,7 +6,6 @@ import { useEffect } from "react"
 export default function Page({ title = "", className = "", children }) {
     useEffect(() => {
         const formatTitle = title.charAt(0).toUpperCase() + title.slice(1)
-
         document.title = `Tracker - ${formatTitle}`
     }, [title])
 
