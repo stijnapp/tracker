@@ -11,6 +11,7 @@ export default function Settings() {
         { value: 'system', label: 'System' },
     ]
 
+    // TODO: Move this to a custom hook
     const updateTheme = (newTheme) => {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 

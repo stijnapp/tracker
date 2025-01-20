@@ -12,6 +12,7 @@ export default function App() {
     const [theme] = useLocalStorage('theme', 'system')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 
+    // TODO: Body color is updated a little too late
     if (!prefersDark || theme === 'light') {
         document.documentElement.classList.remove('dark')
     } else {

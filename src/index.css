@@ -6,10 +6,11 @@ body {
     @apply min-h-dvh bg-white dark:bg-floating-dark;
 }
 
-body,
+/* TODO: apply only to settings page, because only IT matters */
+/* body,
 body * {
     @apply transition-colors duration-300;
-}
+} */
 
 section {
     @apply text-gray-600;
