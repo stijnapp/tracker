@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 /**
  * Custom hook to manage state with localStorage.
@@ -9,14 +9,15 @@ import { useEffect, useState } from "react";
  */
 export default function useLocalStorage(key, initialValue) {
     const [value, setValue] = useState(() => {
-        const jsonValue = localStorage.getItem(key);
-        if (jsonValue != null) return JSON.parse(jsonValue);
-        return initialValue;
-    });
+        const jsonValue = localStorage.getItem(key)
+        if (jsonValue != null) return JSON.parse(jsonValue)
+        return initialValue
+    })
 
-    useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(value));
-    }, [key, value]);
+    const setLocalStorageValue = (newValue) => {
+        setValue(newValue)
+        localStorage.setItem(key, JSON.stringify(newValue))
+    }
 
-    return [value, setValue];
+    return [value, setLocalStorageValue]
 }
