@@ -11,10 +11,21 @@ export default function Settings() {
         { value: 'system', label: 'System' },
     ]
 
+    const updateTheme = (newTheme) => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+
+        if (!prefersDark || newTheme === 'light') {
+            document.documentElement.classList.remove('dark')
+        } else {
+            document.documentElement.classList.add('dark')
+        }
+
+        setTheme(newTheme)
+    }
+
     return (
         <Page title="Settings">
-            {/* <button onClick={toggleDarkmode} className="btn-primary">Toggle darkmode</button> */}
-            <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} />
+            <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={updateTheme} />
         </Page>
     )
 }
