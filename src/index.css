@@ -3,14 +3,13 @@
 @tailwind utilities;
 
 body {
-    @apply min-h-dvh bg-white dark:bg-floating-dark;
+    @apply min-h-dvh bg-white dark:bg-floating-dark theme-transition;
 }
 
-/* TODO: apply only to settings page, because only IT matters */
-/* body,
-body * {
+/* TODO: only page background needs this, not text (in app.jsx) */
+.theme-transition {
     @apply transition-colors duration-300;
-} */
+}
 
 section {
     @apply text-gray-600;

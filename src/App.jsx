@@ -22,7 +22,7 @@ export default function App() {
     return (
         <>
             <Navbar />
-            <div className="min-h-dvh max-w-[384px] overflow-x-hidden mx-auto px-4 pt-8 pb-40 bg-body-light dark:bg-body-dark text-dark dark:text-light flex flex-col gap-4">
+            <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 pt-8 pb-40 bg-body-light dark:bg-body-dark text-dark dark:text-light">
                 <Routes>
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />
