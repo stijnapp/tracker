@@ -50,14 +50,14 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     // TODO: animate height so content doesn't jump
     // TODO: backdrop blur
     return (
-        <div className={`${className} ${isHiding ? 'opacity-0 translate-x-10' : 'opacity-100'} flex items-center justify-between w-full py-2 px-4 gap-4 rounded-md transition-all ${duration} ease-out bg-danger/5 border border-danger text-danger`} role="alert">
+        <div className={`${className} ${isHiding ? 'opacity-0 translate-x-10' : 'opacity-100'} flex items-center justify-between w-full py-2 px-4 gap-2 rounded-md transition-all ${duration} ease-out bg-danger/5 border border-danger text-danger brightness-110 dark:brightness-125`} role="alert">
             <div className="font-medium break-words brightness-[0.75]">
                 {message}
             </div>
             {isCloseable &&
-                <button onClick={() => setIsHiding(true)} className="flex items-center justify-center h-8 w-8 aspect-square -mr-1.5 rounded-md focus:ring-2 focus:ring-danger/80 hover:bg-danger/15 brightness-[0.75]" aria-label="Close">
+                <button onClick={() => setIsHiding(true)} className="flex items-center justify-center h-10 w-10 aspect-square -mr-2 rounded-md focus:ring-2 focus:ring-danger/80 hover:bg-danger/15 brightness-[0.75]" aria-label="Close">
                     <span className="sr-only">Close</span>
-                    <FontAwesomeIcon icon={faXmark} />
+                    <FontAwesomeIcon icon={faXmark} className="text-lg" />
                 </button>
             }
         </div>
