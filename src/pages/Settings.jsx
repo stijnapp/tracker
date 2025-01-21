@@ -1,3 +1,5 @@
+import { faDesktop, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import Card from "../components/Card";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import Page from "../components/Page";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -6,9 +8,9 @@ export default function Settings() {
     const [theme, setTheme] = useLocalStorage('theme', 'system')
 
     const themeOptions = [
-        { value: 'light', label: 'Light' },
-        { value: 'dark', label: 'Dark' },
-        { value: 'system', label: 'System' },
+        { value: 'light', label: 'Light', icon: faSun },
+        { value: 'dark', label: 'Dark', icon: faMoon },
+        { value: 'system', label: 'System', icon: faDesktop },
     ]
 
     // TODO: Move this to a custom hook
@@ -26,7 +28,9 @@ export default function Settings() {
 
     return (
         <Page title="Settings">
-            <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={updateTheme} />
+            <Card>
+                <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={updateTheme} />
+            </Card>
         </Page>
     )
 }
