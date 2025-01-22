@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
-    @apply min-h-dvh bg-white dark:bg-floating-dark;
+    @apply min-h-dvh bg-white dark:bg-floating-dark theme-transition;
 }
 
-body,
-body * {
+/* TODO: only page background needs this, not text (in app.jsx) */
+.theme-transition {
     @apply transition-colors duration-300;
 }
 
