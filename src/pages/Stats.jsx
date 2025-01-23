@@ -10,8 +10,10 @@ export default function Stats() {
         <Page title="Stats">
             <Card title="Alert test" className="flex flex-col gap-4">
                 <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
+                <button className="btn-secondary" onClick={() => setError('Change')}>Change alert text</button>
+                <button className="btn-warning" disabled={error === null} onClick={() => setError(null)}>Clear text</button>
+                {error !== null && <p className="text-sm text-danger">There is an error</p>}
                 <Alert message={error} setMessage={setError} autoClose />
-                <button className="btn-secondary" disabled>asdf</button>
             </Card>
 
             <Card title="Button test">
