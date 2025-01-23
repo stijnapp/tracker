@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
 
 /**
@@ -11,12 +10,20 @@ import useLocalStorage from "./useLocalStorage";
  */
 export default function useTheme() {
     const [theme, setTheme] = useLocalStorage('theme', 'system')
+    const allowedThemes = ['light', 'dark', 'system']
+
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     const isDarkTheme = theme === 'dark' || (theme === 'system' && prefersDark)
 
-    useEffect(() => {
-        document.documentElement.classList.toggle('dark', isDarkTheme)
-    }, [isDarkTheme])
+    document.documentElement.classList.toggle('dark', isDarkTheme)
 
-    return [theme, setTheme]
+    const updateTheme = (value) => {
+        if (!allowedThemes.includes(value)) {
+            console.error(`Invalid theme value: ${value}`)
+            return
+        }
+        setTheme(value)
+    }
+
+    return [theme, updateTheme]
 }

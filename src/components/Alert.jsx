@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
  *  className?: string
  * }} props
  */
-export default function Alert({ message, setMessage, type = "danger", isCloseable = true, autoClose = false, className = "" }) {
+export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
     // TODO: implement type
     const [isHiding, setIsHiding] = useState(true)
     const duration = 'duration-200'
