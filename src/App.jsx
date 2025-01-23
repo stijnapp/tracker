@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import useLocalStorage from './hooks/useLocalStorage';
+import useTheme from './hooks/useTheme';
 import Exercises from './pages/Exercises';
 import History from './pages/History';
 import NotFound from './pages/NotFound';
@@ -9,15 +9,7 @@ import Stats from './pages/Stats';
 import Workout from './pages/Workout';
 
 export default function App() {
-    const [theme] = useLocalStorage('theme', 'system')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-    // TODO: Body color is updated a little too late
-    if (!prefersDark || theme === 'light') {
-        document.documentElement.classList.remove('dark')
-    } else {
-        document.documentElement.classList.add('dark')
-    }
+    useTheme()
 
     return (
         <>

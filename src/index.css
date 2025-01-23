@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 body {
-    @apply min-h-dvh bg-white dark:bg-floating-dark theme-transition;
+    @apply min-h-dvh bg-floating-light dark:bg-floating-dark theme-transition;
 }
 
-/* TODO: only page background needs this, not text (in app.jsx) */
 .theme-transition {
     @apply transition-colors duration-300;
 }
@@ -20,7 +19,7 @@ strong {
 }
 
 .btn {
-    @apply w-fit font-semibold py-2 px-4 rounded-md transition-all duration-200 focus:outline-none focus:ring-offset-2 ring-offset-light dark:ring-offset-dark focus:ring-[3px] ring-opacity-70;
+    @apply font-semibold py-2 px-4 rounded-md transition-all duration-200 focus:outline-none focus:ring-offset-2 ring-offset-light dark:ring-offset-dark focus:ring-[3px] ring-opacity-70;
 }
 
 .btn-primary {
@@ -28,7 +27,7 @@ strong {
 }
 
 .btn-secondary {
-    @apply btn bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 ring-gray-500;
+    @apply btn bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 ring-gray-400 dark:ring-gray-600;
 }
 
 .btn-danger {
