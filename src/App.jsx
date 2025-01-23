@@ -9,15 +9,7 @@ import Stats from './pages/Stats';
 import Workout from './pages/Workout';
 
 export default function App() {
-    const [theme] = useLocalStorage('theme', 'system')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-    // TODO: Body color is updated a little too late
-    if (!prefersDark || theme === 'light') {
-        document.documentElement.classList.remove('dark')
-    } else {
-        document.documentElement.classList.add('dark')
-    }
+    useLocalStorage('theme', 'system')
 
     return (
         <>
