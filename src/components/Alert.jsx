@@ -1,6 +1,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import { getMsFromDuration } from "../helpers/stringManipulation";
 
 /**
  * 
@@ -16,7 +17,7 @@ import { useEffect, useRef, useState } from "react";
 export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
     // TODO: implement type
     const [isHiding, setIsHiding] = useState(true)
-    const duration = 'duration-200'
+    const duration = 'duration-[200ms]'
     const autoCloseAfterMs = 'duration-[5s]'
     const progressBarRef = useRef()
 
@@ -60,24 +61,6 @@ export default function Alert({ message, setMessage, /* type = "danger", */ isCl
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isHiding])
-
-    const getMsFromDuration = (duration) => {
-        if (!duration.includes('[') || !duration.includes(']')) {
-            return parseInt(duration.replace('duration-', ''))
-        }
-
-        const value = duration.split('[')[1].split(']')[0]
-        if (value.includes('ms')) {
-            return parseInt(value.replace('ms', ''))
-        } else if (value.includes('s')) {
-            return parseInt(value.replace('s', '') * 1000)
-        } else if (value.includes('m')) {
-            return parseInt(value.replace('m', '') * 1000 * 60)
-        } else {
-            console.error('Invalid duration value', value)
-            return 0
-        }
-    }
 
     if (isHiding && !message) return null
 
