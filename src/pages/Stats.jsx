@@ -25,7 +25,7 @@ export default function Stats() {
 
             <Card title="Alert test">
                 <button className="btn-danger mb-4" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
-                <Alert message={error} setMessage={setError} />
+                <Alert message={error} setMessage={setError} autoClose />
             </Card>
         </Page>
     )
