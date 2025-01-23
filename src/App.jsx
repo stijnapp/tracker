@@ -14,7 +14,7 @@ export default function App() {
     return (
         <>
             <Navbar />
-            <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 pt-8 pb-40 bg-body-light dark:bg-body-dark text-dark dark:text-light transition-[background] duration-300">
+            <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 pt-8 pb-24 bg-body-light dark:bg-body-dark text-dark dark:text-light transition-[background] duration-300">
                 <Routes>
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />
