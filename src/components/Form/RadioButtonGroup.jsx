@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @returns {JSX.Element}
  */
 export default function RadioButtonGroup({ label, options, value, setValue, className = "" }) {
+    // TODO: tab doesn't seem to work
     return (
         <fieldset className={className}>
             <legend className="mb-2 font-semibold">{label}</legend>
