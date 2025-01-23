@@ -9,7 +9,7 @@
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#1c1e22",
-    "theme_color": "#1d8098",
+    "theme_color": "#1c1e22",
     "icons": [
         {
             "src": "/tracker/maskable-192x192.png",
