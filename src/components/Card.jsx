@@ -8,9 +8,11 @@
 */
 export default function Card({ title = "", className = "", children }) {
     return (
-        <div className={`p-4 rounded-lg shadow bg-floating-light dark:bg-floating-dark theme-transition ${className}`}>
-            {title && <h1 className="text-2xl font-semibold mb-4">{title}</h1>}
-            {children}
+        <div className="p-4 rounded-lg shadow bg-floating-light dark:bg-floating-dark theme-transition">
+            {title && <h1 className="font-semibold mb-2">{title}</h1>}
+            <div className={className}>
+                {children}
+            </div>
         </div>
     )
 }
