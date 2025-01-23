@@ -44,7 +44,7 @@ strong {
 }
 
 .btn-warning {
-    @apply btn bg-warning text-white ring-warning;
+    @apply btn bg-warning text-gray-800 ring-warning;
 }
 
 .btn-success {
