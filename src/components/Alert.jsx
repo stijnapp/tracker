@@ -16,7 +16,7 @@ import { getMsFromDuration } from "../helpers/stringManipulation";
 export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
     // TODO: implement type
     const [isHiding, setIsHiding] = useState(true)
-    const duration = 'duration-[200ms]'
+    const duration = 'duration-[300ms]'
     const autoCloseAfterMs = 'duration-[5s]'
     const progressBarRef = useRef()
 
@@ -63,9 +63,8 @@ export default function Alert({ message, setMessage, /* type = "danger", */ isCl
 
     if (isHiding && !message) return null
 
-    // TODO: animate height so content doesn't jump
     return (
-        <div className={`${className} ${isHiding ? 'opacity-0 translate-x-2/4 ease-in' : 'opacity-100 ease-out'} flex items-center justify-between w-full py-2 px-4 gap-2 overflow-hidden rounded-md transition-all ${duration} ease-out bg-danger/5 backdrop-blur-2xl dark:backdrop-blur-3xl border border-danger text-danger brightness-110 dark:brightness-125`} role="alert">
+        <div className={`${className} ${isHiding ? 'opacity-0 h-0 py-0 ease-in' : 'opacity-100 h-auto py-2 ease-out'} flex items-center justify-between w-full px-4 gap-2 overflow-hidden rounded-md transition-all ${duration} bg-danger/5 backdrop-blur-2xl dark:backdrop-blur-3xl border border-danger text-danger brightness-110 dark:brightness-125`} role="alert">
             <div className="font-medium break-words brightness-[0.75]">
                 {message}
             </div>

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    interpolate-size: allow-keywords;
+}
+
 body {
     @apply min-h-dvh bg-floating-light dark:bg-floating-dark theme-transition;
 }
