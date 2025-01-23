@@ -12,7 +12,7 @@ export default function Card({ title = "", showLine = false, className = "", chi
         <article className="p-4 rounded-lg shadow bg-floating-light dark:bg-floating-dark theme-transition">
             {title &&
                 <>
-                    <h1 className="mb-3 font-semibold text-lg">{title}</h1>
+                    <h1 className="mb-3 font-semibold text-xl">{title}</h1>
                     {showLine && <hr className="h-px mb-4 bg-gray-400/30 border-0" />}
                 </>
             }
