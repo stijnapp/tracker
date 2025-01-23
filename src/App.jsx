@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import useLocalStorage from './hooks/useLocalStorage';
+import useTheme from './hooks/useTheme';
 import Exercises from './pages/Exercises';
 import History from './pages/History';
 import NotFound from './pages/NotFound';
@@ -9,7 +9,7 @@ import Stats from './pages/Stats';
 import Workout from './pages/Workout';
 
 export default function App() {
-    useLocalStorage('theme', 'system')
+    useTheme()
 
     return (
         <>
