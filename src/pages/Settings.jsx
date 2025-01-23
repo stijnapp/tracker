@@ -17,7 +17,7 @@ export default function Settings() {
     ]
 
     return (
-        <Page title="Settings" className="flex flex-col gap-4">
+        <Page title="Settings">
             <Card title="Appearance">
                 <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} hideLabel />
             </Card>

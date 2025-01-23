@@ -14,7 +14,7 @@ export default function Page({ title = "", className = "", children }) {
             <header className="mb-4 text-4xl tracking-tight font-bold text-dark dark:text-light">
                 {title}
             </header>
-            <main className={className}>
+            <main className={`flex flex-col gap-4 ${className}`}>
                 {children}
             </main>
         </>
