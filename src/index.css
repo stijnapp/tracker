@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply min-h-dvh bg-white dark:bg-floating-dark theme-transition;
+    @apply min-h-dvh bg-floating-light dark:bg-floating-dark theme-transition;
 }
 
 .theme-transition {
