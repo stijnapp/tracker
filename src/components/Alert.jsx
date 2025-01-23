@@ -17,7 +17,7 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     // TODO: implement type
     // TODO: implement autoCloseAfterMs
     const [isHiding, setIsHiding] = useState(true)
-    const duration = "duration-300"
+    const duration = "duration-200"
 
     if (setMessage === undefined) {
         console.error('Alert component requires setMessage prop')
@@ -50,7 +50,7 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     // TODO: animate height so content doesn't jump
     // TODO: backdrop blur
     return (
-        <div className={`${className} ${isHiding ? 'opacity-0 translate-x-10' : 'opacity-100'} flex items-center justify-between w-full py-2 px-4 gap-2 rounded-md transition-all ${duration} ease-out bg-danger/5 border border-danger text-danger brightness-110 dark:brightness-125`} role="alert">
+        <div className={`${className} ${isHiding ? 'opacity-0 translate-x-2/4 ease-in' : 'opacity-100 ease-out'} flex items-center justify-between w-full py-2 px-4 gap-2 rounded-md transition-all ${duration} ease-out bg-danger/5 border border-danger text-danger brightness-110 dark:brightness-125`} role="alert">
             <div className="font-medium break-words brightness-[0.75]">
                 {message}
             </div>
