@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 
 /**
- * 
  * @param {{ to: string, icon: IconProp, text: string }} props
  */
 export default function NavButton({ to, icon, text }) {

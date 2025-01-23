@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { getMsFromDuration } from "../helpers/stringManipulation";
 
 /**
- * 
  * @param {{
  *  message: string | '' | null,
  *  setMessage: (value: string) => void,

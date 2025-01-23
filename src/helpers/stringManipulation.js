@@ -1,3 +1,7 @@
+/**
+ * @param {string} durationString
+ * @returns {number}
+ */
 export function getMsFromDuration(durationString) {
     const durationRegex = /duration-\[(\d+)(ms|s|m)\]/
     const [match, duration, durationUnit] = durationString.match(durationRegex)
