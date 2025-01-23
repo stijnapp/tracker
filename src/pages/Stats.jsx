@@ -8,6 +8,12 @@ export default function Stats() {
 
     return (
         <Page title="Stats">
+            <Card title="Alert test" className="flex flex-col gap-4">
+                <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
+                <Alert message={error} setMessage={setError} autoClose />
+                <button className="btn-secondary" disabled>asdf</button>
+            </Card>
+
             <Card title="Button test">
                 <p className="font-semibold">Basic</p>
                 <div className="flex flex-row flex-wrap gap-2 transition-transform duration-200">
@@ -36,12 +42,6 @@ export default function Stats() {
                     <button className="btn-success" disabled>Success</button>
                     <button className="btn-info" disabled>Info</button>
                 </div>
-            </Card>
-
-            <Card title="Alert test" className="flex flex-col gap-4">
-                <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
-                <Alert message={error} setMessage={setError} autoClose />
-                <button className="btn-secondary" disabled>asdf</button>
             </Card>
         </Page>
     )
