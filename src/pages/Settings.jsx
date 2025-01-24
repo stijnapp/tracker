@@ -7,12 +7,14 @@ import Card from "../components/Card";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import HR from "../components/HR";
 import Page from "../components/Page";
+import { db } from "../helpers/db";
 import useTheme from "../hooks/useTheme";
 
 export default function Settings() {
     const [theme, setTheme] = useTheme()
     // TODO: implement export and import data
     const [promoteExport, setPromoteExport] = useState(true)
+    const [refresh, setRefresh] = useState(false)
 
     const themeOptions = [
         { value: 'light', label: 'Light', icon: faSun },
@@ -30,6 +32,18 @@ export default function Settings() {
         setPromoteExport(true)
     }
 
+    const handleDeleteAllData = () => {
+        console.log('Deleting all data...')
+        db.deleteAllData()
+        setRefresh(!refresh)
+    }
+
+    const handleSetTestData = () => {
+        console.log('Setting test data...')
+        db.setTestData()
+        setRefresh(!refresh)
+    }
+
     return (
         <Page title="Settings">
             <Card title="Appearance">
@@ -44,8 +58,8 @@ export default function Settings() {
                 <HR className="mt-8" />
                 <p className="mb-2 font-semibold text-danger">Danger zone</p>
                 {/* TODO: confirmation modal. Has to type something before able to confirm */}
-                <button className="btn-danger w-full mb-4" disabled>Delete all data</button>
-                <button className="btn-danger w-full" disabled>Replace data with testdata</button>
+                <button className="btn-danger w-full mb-4" disabled={localStorage.getItem('db') ? false : true} onClick={handleDeleteAllData}>Delete all data</button>
+                <button className="btn-danger w-full" onClick={handleSetTestData}>Replace data with testdata</button>
             </Card>
         </Page>
     )
