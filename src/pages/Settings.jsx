@@ -43,6 +43,7 @@ export default function Settings() {
                 </div>
                 <HR className="mt-8" />
                 <p className="mb-2 font-semibold text-danger">Danger zone</p>
+                {/* TODO: confirmation modal. Has to type something before able to confirm */}
                 <button className="btn-danger w-full mb-4" disabled>Delete all data</button>
                 <button className="btn-danger w-full" disabled>Replace data with testdata</button>
             </Card>
