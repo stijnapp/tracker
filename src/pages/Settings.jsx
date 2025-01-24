@@ -5,6 +5,7 @@ import Alert from "../components/Alert";
 import Badge from "../components/Badge";
 import Card from "../components/Card";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
+import HR from "../components/HR";
 import Page from "../components/Page";
 import useTheme from "../hooks/useTheme";
 
@@ -40,6 +41,10 @@ export default function Settings() {
                     <button className={`${promoteExport ? 'btn-primary' : 'btn-secondary'} w-full`} onClick={handleExport}>Export Data<FontAwesomeIcon icon={faUpload} className="ml-2" /></button>
                     <button className="btn-secondary w-full" onClick={handleImport}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                 </div>
+                <HR className="mt-8" />
+                <p className="mb-2 font-semibold text-danger">Danger zone</p>
+                <button className="btn-danger w-full mb-4" disabled>Delete all data</button>
+                <button className="btn-danger w-full" disabled>Replace data with testdata</button>
             </Card>
         </Page>
     )
