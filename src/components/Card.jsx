@@ -9,7 +9,7 @@
 */
 export default function Card({ title = "", showLine = false, className = "", children }) {
     return (
-        <article className="p-4 rounded-lg shadow bg-floating-light dark:bg-floating-dark theme-transition">
+        <article className="p-4 rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">
             {title &&
                 <>
                     <h1 className="mb-3 font-semibold text-xl">{title}</h1>
