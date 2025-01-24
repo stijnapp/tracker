@@ -1,15 +1,15 @@
 import { getCurrentDateTime } from "./dateTime"
 
+// TODO: dont get next id from length, get it from the highest id + 1
 export const db = {
-    // General
+    // ! General
     getAllData() {
         return JSON.parse(localStorage.getItem("db")) ?? { workouts: [], activeWorkoutId: null, exercises: [], tags: [] }
     },
     setAllData(data) {
         localStorage.setItem("db", JSON.stringify(data))
     },
-    // TODO: Remove this function
-    // TODO: is the testdata correct?
+    // TODO: Remove this function once the app is finished
     setTestData() {
         localStorage.setItem("db", JSON.stringify(testData))
     },
@@ -17,7 +17,7 @@ export const db = {
         localStorage.removeItem("db")
     },
 
-    // Workouts
+    // ! Workouts
     getAllWorkouts() {
         return JSON.parse(localStorage.getItem("db"))?.workouts ?? []
     },
@@ -37,7 +37,6 @@ export const db = {
         return newWorkout
     },
     updateWorkout(id, updatedWorkout) {
-        // TODO: don't update exercises
         const allData = this.getAllData()
         const index = allData.workouts.findIndex(workout => workout.id === id)
         if (index === -1) return false
@@ -46,7 +45,6 @@ export const db = {
         this.setAllData(allData)
         return true
     },
-    // TODO: add/update/change-order/delete exercise within workout
     deleteWorkout(id) {
         const allData = this.getAllData()
         if (!allData.workouts.some(workout => workout.id === id)) return false
@@ -58,7 +56,52 @@ export const db = {
         return true
     },
 
-    // Active workout
+    // ! Exercises within workout
+    getWorkoutExerciseById(workoutId, exerciseId) {
+        const workout = this.getWorkoutById(workoutId)
+        return workout?.exercises.find(exercise => exercise.id === exerciseId) ?? null
+    },
+    addWorkoutExercise(workoutId, exerciseReferenceId) {
+        const workout = this.getWorkoutById(workoutId)
+        if (!workout) return null
+        const newExercise = {
+            id: workout.exercises.length + 1,
+            exerciseId: exerciseReferenceId,
+            order: workout.exercises.reduce((highestOrder, exercise) => Math.max(highestOrder, exercise.order), 0) + 1,
+            sets: [
+                { id: 1, weight: null, reps: null },
+                { id: 2, weight: null, reps: null },
+                { id: 3, weight: null, reps: null },
+            ],
+        }
+        workout.exercises.push(newExercise)
+        this.updateWorkout(workoutId, workout)
+        return newExercise
+    },
+    updateWorkoutExercise(workoutId, exerciseId, updatedExercise) {
+        const workout = this.getWorkoutById(workoutId)
+        if (!workout) return false
+        const index = workout.exercises.findIndex(exercise => exercise.id === exerciseId)
+        if (index === -1) return false
+        updatedExercise.id = exerciseId
+        workout.exercises[index] = updatedExercise
+        this.updateWorkout(workoutId, workout)
+        return true
+    },
+    deleteWorkoutExercise(workoutId, exerciseId) {
+        const workout = this.getWorkoutById(workoutId)
+        if (!workout) return false
+        if (!workout.exercises.some(exercise => exercise.id === exerciseId)) return false
+        workout.exercises = workout.exercises.filter(exercise => exercise.id !== exerciseId)
+        this.updateWorkout(workoutId, workout)
+        return true
+    },
+    // TODO: change order of exercise within workout (id, newOrder), then update all affected exercises with new order
+
+
+    // TODO: add/update/delete set within exercise
+
+    // ! Active workout
     getActiveWorkoutId() {
         return JSON.parse(localStorage.getItem("db"))?.activeWorkoutId ?? null
     },
@@ -73,7 +116,9 @@ export const db = {
         return true
     },
 
-    // Exercises
+    // TODO: get data from *previous workout* to prefill new workout
+
+    // ! Exercises
     getAllExercises() {
         return JSON.parse(localStorage.getItem("db"))?.exercises ?? []
     },
@@ -113,7 +158,7 @@ export const db = {
         return true
     },
 
-    // Tags
+    // ! Tags
     getAllTags() {
         return JSON.parse(localStorage.getItem("db"))?.tags ?? []
     },
@@ -163,10 +208,12 @@ const testData = {
                     order: 1,
                     sets: [
                         {
+                            id: 1,
                             weight: 50,
                             reps: 12,
                         },
                         {
+                            id: 2,
                             weight: 50,
                             reps: 12,
                         },
@@ -178,6 +225,7 @@ const testData = {
                     order: 2,
                     sets: [
                         {
+                            id: 1,
                             weight: 37.25,
                             reps: 13,
                         },
