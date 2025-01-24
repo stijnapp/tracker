@@ -1,6 +1,5 @@
 import { getCurrentDateTime } from "./dateTime"
 
-// TODO: dont get next id from length, get it from the highest id + 1
 export const db = {
     // ! General
     getAllData() {
@@ -27,7 +26,7 @@ export const db = {
     addWorkout() {
         const allData = this.getAllData()
         const newWorkout = {
-            id: allData.workouts.length + 1,
+            id: allData.workouts.reduce((highestId, workout) => Math.max(highestId, workout.id), 0) + 1,
             date: getCurrentDateTime(),
             exercises: [],
         }
@@ -65,7 +64,7 @@ export const db = {
         const workout = this.getWorkoutById(workoutId)
         if (!workout) return null
         const newExercise = {
-            id: workout.exercises.length + 1,
+            id: workout.exercises.reduce((highestId, exercise) => Math.max(highestId, exercise.id), 0) + 1,
             exerciseId: exerciseReferenceId,
             order: workout.exercises.reduce((highestOrder, exercise) => Math.max(highestOrder, exercise.order), 0) + 1,
             sets: [
@@ -131,7 +130,7 @@ export const db = {
     addExercise(newExerciseName) {
         const allData = this.getAllData()
         const newExercise = {
-            id: allData.exercises.length + 1,
+            id: allData.exercises.reduce((highestId, exercise) => Math.max(highestId, exercise.id), 0) + 1,
             name: newExerciseName,
             nickname: null,
             description: "",
@@ -171,7 +170,7 @@ export const db = {
     addTag(newTagName) {
         const allData = this.getAllData()
         const newTag = {
-            id: allData.tags.length + 1,
+            id: allData.tags.reduce((highestId, tag) => Math.max(highestId, tag.id), 0) + 1,
             name: newTagName,
         }
         allData.tags.push(newTag)
