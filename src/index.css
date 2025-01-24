@@ -26,7 +26,6 @@ strong {
     @apply font-semibold py-2 px-4 rounded-md transition-all duration-200 focus:outline-none focus:ring-offset-2 ring-offset-light dark:ring-offset-dark focus:ring-[3px] ring-opacity-70;
 }
 
-/* disabled btn */
 .btn:disabled {
     @apply cursor-not-allowed opacity-50;
 }
@@ -37,6 +36,9 @@ strong {
 
 .btn-secondary {
     @apply btn bg-gray-400/30 ring-gray-400 dark:ring-gray-600;
+    transition:color 0s;
+    -webkit-transition:color 0s;
+    -moz-transition:color 0s;
 }
 
 .btn-danger {
