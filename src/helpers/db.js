@@ -95,8 +95,39 @@ export const db = {
         this.updateWorkout(workoutId, workout)
         return true
     },
-    // TODO: change order of exercise within workout (id, newOrder), then update all affected exercises with new order
+    updateWorkoutExerciseOrder(workoutId, exerciseId, newOrder) {
+        const workout = this.getWorkoutById(workoutId)
+        if (!workout) return false
 
+        if (newOrder < 1 || newOrder > workout.exercises.length) return false
+
+        const exercise = workout.exercises.find(exercise => exercise.id === exerciseId)
+        if (!exercise) return false
+
+        const oldOrder = exercise.order
+        if (oldOrder === newOrder) return false
+
+        if (oldOrder < newOrder) {
+            workout.exercises
+                .filter(exercise => exercise.order > oldOrder && exercise.order <= newOrder)
+                .forEach(exercise => exercise.order--)
+        } else {
+            workout.exercises
+                .filter(exercise => exercise.order < oldOrder && exercise.order >= newOrder)
+                .forEach(exercise => exercise.order++)
+        }
+        exercise.order = newOrder
+
+        // check if order starts at 1, ends at length and has no duplicates
+        const orders = workout.exercises.map(exercise => exercise.order)
+        if (orders.some(order => order < 1 || order > workout.exercises.length) || new Set(orders).size !== orders.length) {
+            console.error('Invalid order:', orders)
+            return false
+        }
+
+        this.updateWorkout(workoutId, workout)
+        return true
+    },
 
     // TODO: add/update/delete set within exercise
 
