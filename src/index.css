@@ -36,7 +36,7 @@ strong {
 }
 
 .btn-secondary {
-    @apply btn bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 ring-gray-400 dark:ring-gray-600;
+    @apply btn bg-gray-400/30 ring-gray-400 dark:ring-gray-600;
 }
 
 .btn-danger {
