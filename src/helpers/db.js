@@ -118,12 +118,15 @@ export const db = {
         }
         exercise.order = newOrder
 
-        // check if order starts at 1, ends at length and has no duplicates
-        const orders = workout.exercises.map(exercise => exercise.order)
-        if (orders.some(order => order < 1 || order > workout.exercises.length) || new Set(orders).size !== orders.length) {
-            console.error('Invalid order:', orders)
-            return false
-        }
+        workout.exercises.sort((a, b) => a.order - b.order)
+
+        // loop through exercises and check if order is the same as index + 1
+        workout.exercises.forEach((exercise, index) => {
+            if (exercise.order !== index + 1) {
+                console.error('Invalid order:', exercise.order, index + 1)
+                exercise.order = index + 1
+            }
+        })
 
         this.updateWorkout(workoutId, workout)
         return true
