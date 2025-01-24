@@ -1,6 +1,9 @@
 import { faChartLine, faClockRotateLeft, faDumbbell, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
 import NavButton from "./NavButton";
 
+/**
+ * @returns {JSX.Element}
+ */
 export default function Navbar() {
     /**
      * @type {Array<{ to: string, icon: IconProp, text: string }>}

@@ -11,7 +11,8 @@ import { getMsFromDuration } from "../helpers/stringManipulation";
  *  isCloseable?: boolean,
  *  autoClose?: boolean,
  *  className?: string
- * }} props
+ * }} args
+ * @returns {JSX.Element | null}
  */
 export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
     // TODO: implement type

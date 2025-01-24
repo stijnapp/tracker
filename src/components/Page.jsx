@@ -1,7 +1,8 @@
 import { useEffect } from "react"
 
 /**
- * @param {{title?: string, className?: string, children?: React.ReactNode}} props
+ * @param {{title?: string, className?: string, children?: React.ReactNode}} args
+ * @returns {JSX.Element}
  */
 export default function Page({ title = "", className = "", children }) {
     useEffect(() => {
