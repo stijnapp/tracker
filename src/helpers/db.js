@@ -257,7 +257,37 @@ export const db = {
         return true
     },
 
-    // TODO: get data from *previous workout* to prefill new workout
+    /**
+     * @returns {number|null}
+     */
+    getPreviousWorkoutId() {
+        // find the workout with the highest id that is not the active workout
+        const allData = this.getAllData()
+        const activeWorkoutId = this.getActiveWorkoutId()
+        const previousWorkoutId = allData.workouts
+            .filter(workout => workout.id !== activeWorkoutId)
+            .reduce((highestId, workout) => Math.max(highestId, workout.id), 0)
+        return previousWorkoutId === 0 ? null : previousWorkoutId
+    },
+    /**
+     * @returns {Workout|null}
+     */
+    getPreviousWorkout() {
+        return this.getWorkoutById(this.getPreviousWorkoutId())
+    },
+    /**
+     * @param {number} exerciseId
+     * @returns {WorkoutExercise|null}
+     */
+    getPreviousWorkoutExerciseById(exerciseId) {
+        const allData = this.getAllData()
+        const activeWorkoutId = this.getActiveWorkoutId()
+        const workoutWithPreviousExercise = allData.workouts
+            .filter(workout => workout.id !== activeWorkoutId)
+            .find(workout => workout.exercises.some(exercise => exercise.exerciseId === exerciseId))
+        if (!workoutWithPreviousExercise) return null
+        return workoutWithPreviousExercise.exercises.find(exercise => exercise.exerciseId === exerciseId) ?? null
+    },
 
     // ! Exercises
     /**
