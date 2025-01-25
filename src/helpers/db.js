@@ -1,10 +1,61 @@
 import { getCurrentDateTime } from "./dateTime"
 
+/**
+ * @typedef {Object} DB
+ * @property {Array<Workout>} workouts
+ * @property {number|null} activeWorkoutId
+ * @property {Array<Exercise>} exercises
+ * @property {Array<Tag>} tags
+ */
+
+/**
+ * @typedef {Object} Workout
+ * @property {number} id
+ * @property {string} date
+ * @property {Array<WorkoutExercise>} exercises
+ */
+
+/**
+ * @typedef {Object} WorkoutExercise
+ * @property {number} id
+ * @property {number} exerciseId
+ * @property {number} order
+ * @property {Array<Set>} sets
+ */
+
+/**
+ * @typedef {Object} Set
+ * @property {number} id
+ * @property {number|null} weight
+ * @property {number|null} reps
+ */
+
+/**
+ * @typedef {Object} Exercise
+ * @property {number} id
+ * @property {string} name
+ * @property {string|null} nickname
+ * @property {string} description
+ * @property {number|null} tagId
+ */
+
+/**
+ * @typedef {Object} Tag
+ * @property {number} id
+ * @property {string} name
+ */
+
 export const db = {
     // ! General
+    /**
+     * @returns {DB}
+     */
     getAllData() {
         return JSON.parse(localStorage.getItem("db")) ?? { workouts: [], activeWorkoutId: null, exercises: [], tags: [] }
     },
+    /**
+     * @param {DB} data
+     */
     setAllData(data) {
         localStorage.setItem("db", JSON.stringify(data))
     },
@@ -17,12 +68,22 @@ export const db = {
     },
 
     // ! Workouts
+    /**
+     * @returns {Array<Workout>}
+     */
     getAllWorkouts() {
         return JSON.parse(localStorage.getItem("db"))?.workouts ?? []
     },
+    /**
+     * @param {number} id
+     * @returns {Workout|null}
+     */
     getWorkoutById(id) {
         return this.getAllWorkouts().find(workout => workout.id === id) ?? null
     },
+    /**
+     * @returns {Workout}
+     */
     addWorkout() {
         const allData = this.getAllData()
         const newWorkout = {
@@ -35,6 +96,12 @@ export const db = {
         this.setAllData(allData)
         return newWorkout
     },
+    /**
+     * 
+     * @param {number} id
+     * @param {Workout} updatedWorkout
+     * @returns {boolean}
+     */
     updateWorkout(id, updatedWorkout) {
         const allData = this.getAllData()
         const index = allData.workouts.findIndex(workout => workout.id === id)
@@ -44,6 +111,10 @@ export const db = {
         this.setAllData(allData)
         return true
     },
+    /**
+     * @param {number} id
+     * @returns {boolean}
+     */
     deleteWorkout(id) {
         const allData = this.getAllData()
         if (!allData.workouts.some(workout => workout.id === id)) return false
@@ -56,10 +127,20 @@ export const db = {
     },
 
     // ! Exercises within workout
+    /**
+     * @param {number} workoutId
+     * @param {number} exerciseId
+     * @returns {WorkoutExercise|null}
+     */
     getWorkoutExerciseById(workoutId, exerciseId) {
         const workout = this.getWorkoutById(workoutId)
         return workout?.exercises.find(exercise => exercise.id === exerciseId) ?? null
     },
+    /**
+     * @param {number} workoutId
+     * @param {number} exerciseReferenceId
+     * @returns {WorkoutExercise|null}
+     */
     addWorkoutExercise(workoutId, exerciseReferenceId) {
         const workout = this.getWorkoutById(workoutId)
         if (!workout) return null
@@ -77,6 +158,12 @@ export const db = {
         this.updateWorkout(workoutId, workout)
         return newExercise
     },
+    /**
+     * @param {number} workoutId
+     * @param {number} exerciseId
+     * @param {WorkoutExercise} updatedExercise
+     * @returns {boolean}
+     */
     updateWorkoutExercise(workoutId, exerciseId, updatedExercise) {
         const workout = this.getWorkoutById(workoutId)
         if (!workout) return false
@@ -87,6 +174,11 @@ export const db = {
         this.updateWorkout(workoutId, workout)
         return true
     },
+    /**
+     * @param {number} workoutId
+     * @param {number} exerciseId
+     * @returns {boolean}
+     */
     deleteWorkoutExercise(workoutId, exerciseId) {
         const workout = this.getWorkoutById(workoutId)
         if (!workout) return false
@@ -95,6 +187,12 @@ export const db = {
         this.updateWorkout(workoutId, workout)
         return true
     },
+    /**
+     * @param {number} workoutId
+     * @param {number} exerciseId
+     * @param {number} newOrder
+     * @returns {boolean}
+     */
     updateWorkoutExerciseOrder(workoutId, exerciseId, newOrder) {
         const workout = this.getWorkoutById(workoutId)
         if (!workout) return false
@@ -135,12 +233,22 @@ export const db = {
     // TODO: add/update/delete set within exercise
 
     // ! Active workout
+    /**
+     * @returns {number|null}
+     */
     getActiveWorkoutId() {
         return JSON.parse(localStorage.getItem("db"))?.activeWorkoutId ?? null
     },
+    /**
+     * @returns {Workout|null}
+     */
     getActiveWorkout() {
         return this.getWorkoutById(this.getActiveWorkoutId())
     },
+    /**
+     * @param {number} id
+     * @returns {boolean}
+     */
     setActiveWorkoutId(id) {
         const allData = this.getAllData()
         if (!allData.workouts.some(workout => workout.id === id)) return false
@@ -152,15 +260,30 @@ export const db = {
     // TODO: get data from *previous workout* to prefill new workout
 
     // ! Exercises
+    /**
+     * @returns {Array<Exercise>}
+     */
     getAllExercises() {
         return JSON.parse(localStorage.getItem("db"))?.exercises ?? []
     },
+    /**
+     * @param {number} id
+     * @returns {Exercise|null}
+     */
     getExerciseById(id) {
         return this.getAllExercises().find(exercise => exercise.id === id) ?? null
     },
+    /**
+     * @param {string} name
+     * @returns {Exercise|null}
+     */
     getExerciseByName(name) {
         return this.getAllExercises().find(exercise => exercise.name.trim().toLowerCase() === name.trim().toLowerCase()) ?? null
     },
+    /**
+     * @param {string} newExerciseName
+     * @returns {Exercise}
+     */
     addExercise(newExerciseName) {
         const allData = this.getAllData()
         const newExercise = {
@@ -174,6 +297,11 @@ export const db = {
         this.setAllData(allData)
         return newExercise
     },
+    /**
+     * @param {number} id
+     * @param {Exercise} updatedExercise
+     * @returns {boolean}
+     */
     updateExercise(id, updatedExercise) {
         const allData = this.getAllData()
         const index = allData.exercises.findIndex(exercise => exercise.id === id)
@@ -183,6 +311,10 @@ export const db = {
         this.setAllData(allData)
         return true
     },
+    /**
+     * @param {number} id
+     * @returns {boolean}
+     */
     deleteExercise(id) {
         const allData = this.getAllData()
         if (!allData.exercises.some(exercise => exercise.id === id)) return false
@@ -192,15 +324,30 @@ export const db = {
     },
 
     // ! Tags
+    /**
+     * @returns {Array<Tag>}
+     */
     getAllTags() {
         return JSON.parse(localStorage.getItem("db"))?.tags ?? []
     },
+    /**
+     * @param {number} id
+     * @returns {Tag|null}
+     */
     getTagById(id) {
         return this.getAllTags().find(tag => tag.id === id) ?? null
     },
+    /**
+     * @param {string} name
+     * @returns {Tag|null}
+     */
     getTagByName(name) {
         return this.getAllTags().find(tag => tag.name.trim().toLowerCase() === name.trim().toLowerCase()) ?? null
     },
+    /**
+     * @param {string} newTagName
+     * @returns {Tag}
+     */
     addTag(newTagName) {
         const allData = this.getAllData()
         const newTag = {
@@ -211,6 +358,11 @@ export const db = {
         this.setAllData(allData)
         return newTag
     },
+    /**
+     * @param {number} id
+     * @param {Tag} updatedTag
+     * @returns {boolean}
+     */
     updateTag(id, updatedTag) {
         const allData = this.getAllData()
         const index = allData.tags.findIndex(tag => tag.id === id)
@@ -220,6 +372,10 @@ export const db = {
         this.setAllData(allData)
         return true
     },
+    /**
+     * @param {number} id
+     * @returns {boolean}
+     */
     deleteTag(id) {
         const allData = this.getAllData()
         if (!allData.tags.some(tag => tag.id === id)) return false
@@ -229,6 +385,9 @@ export const db = {
     },
 }
 
+/**
+ * @type {DB}
+ */
 const testData = {
     workouts: [
         {
