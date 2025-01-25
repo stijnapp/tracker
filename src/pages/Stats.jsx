@@ -18,12 +18,12 @@ export default function Stats() {
 
             <Card title="Button test">
                 <p className="font-semibold">Basic</p>
-                <div className="flex flex-row flex-wrap gap-2 transition-transform duration-200">
+                <div className="flex flex-row flex-wrap gap-2">
                     <button className="btn-primary">Primary</button>
                     <button className="btn-secondary">Secondary</button>
                 </div>
                 <p className="font-semibold mt-4">Extra</p>
-                <div className="flex flex-row flex-wrap gap-2 transition-transform duration-200">
+                <div className="flex flex-row flex-wrap gap-2">
                     <button className="btn-danger">Danger</button>
                     <button className="btn-warning">Warning</button>
                     <button className="btn-success">Success</button>
@@ -33,12 +33,12 @@ export default function Stats() {
 
             <Card title="Disabled buttons">
                 <p className="font-semibold">Basic</p>
-                <div className="flex flex-row flex-wrap gap-2 transition-transform duration-200">
+                <div className="flex flex-row flex-wrap gap-2">
                     <button className="btn-primary" disabled>Primary</button>
                     <button className="btn-secondary" disabled>Secondary</button>
                 </div>
                 <p className="font-semibold mt-4">Extra</p>
-                <div className="flex flex-row flex-wrap gap-2 transition-transform duration-200">
+                <div className="flex flex-row flex-wrap gap-2">
                     <button className="btn-danger" disabled>Danger</button>
                     <button className="btn-warning" disabled>Warning</button>
                     <button className="btn-success" disabled>Success</button>

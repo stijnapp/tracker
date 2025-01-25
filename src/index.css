@@ -11,7 +11,7 @@ body {
 }
 
 .theme-transition {
-    @apply transition-colors duration-300;
+    @apply transition-[background-color] duration-300;
 }
 
 section {
@@ -23,7 +23,7 @@ strong {
 }
 
 .btn {
-    @apply font-semibold py-2 px-4 rounded-md transition-all duration-200 focus:outline-none focus:ring-offset-2 ring-offset-light dark:ring-offset-dark focus:ring-[3px] ring-opacity-70;
+    @apply font-semibold py-2 px-4 rounded-md transition-[--tw-ring] duration-200 focus:outline-none focus:ring-offset-2 ring-offset-light dark:ring-offset-dark focus:ring-[3px] ring-opacity-70;
 }
 
 .btn:disabled {
@@ -36,9 +36,6 @@ strong {
 
 .btn-secondary {
     @apply btn bg-gray-400/30 ring-gray-400 dark:ring-gray-600;
-    transition:color 0s;
-    -webkit-transition:color 0s;
-    -moz-transition:color 0s;
 }
 
 .btn-danger {
