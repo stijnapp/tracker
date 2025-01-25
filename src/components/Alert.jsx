@@ -6,7 +6,7 @@ import { getMsFromDuration } from "../helpers/stringManipulation";
 /**
  * @param {{
  *  message: string | '' | null,
- *  setMessage: (value: string) => void,
+ *  setMessage: (value: string) => void, // required if isCloseable is true
  *  type?: 'danger' | 'warning' | 'success' | 'info',
  *  isCloseable?: boolean,
  *  autoClose?: boolean,
@@ -23,8 +23,11 @@ export default function Alert({ message, setMessage, /* type = "danger", */ isCl
     const autoCloseAfterMs = 'duration-[5s]'
     const progressBarRef = useRef()
 
-    if (setMessage === undefined) {
+    if (isCloseable && setMessage === undefined) {
         console.error('Alert component requires setMessage prop')
+    }
+    if (!isCloseable && autoClose) {
+        console.error('Alert component cannot be autoClose without isCloseable')
     }
 
     useEffect(() => {
@@ -46,7 +49,7 @@ export default function Alert({ message, setMessage, /* type = "danger", */ isCl
             setIsHiding(!message)
         }
 
-        if (message && autoClose) {
+        if (isCloseable && message && autoClose) {
             setTimeout(() => {
                 progressBarRef.current.style.width = '100%'
             }, 0)
@@ -74,10 +77,10 @@ export default function Alert({ message, setMessage, /* type = "danger", */ isCl
                     setCachedMessage(message)
                 } else if (message === null || autoClose) {
                     // message cleared
-                    setMessage(null)
+                    if (isCloseable) setMessage(null)
                     setCachedMessage(null)
                 } else {
-                    setMessage('')
+                    if (isCloseable) setMessage('')
                     setCachedMessage('')
                 }
             }, getMsFromDuration(duration))
