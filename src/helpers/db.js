@@ -55,14 +55,21 @@ export const db = {
     },
     /**
      * @param {DB} data
+     * @returns {void}
      */
     setAllData(data) {
         localStorage.setItem("db", JSON.stringify(data))
     },
     // TODO: Remove this function once the app is finished
+    /**
+     * @returns {void}
+     */
     setTestData() {
         localStorage.setItem("db", JSON.stringify(testData))
     },
+    /**
+     * @returns {void}
+     */
     deleteAllData() {
         localStorage.removeItem("db")
     },
@@ -328,6 +335,15 @@ export const db = {
         return newExercise
     },
     /**
+     * @param {Array<Exercise>} exercises
+     * @returns {void}
+     */
+    updateAllExercises(exercises) {
+        const allData = this.getAllData()
+        allData.exercises = exercises
+        this.setAllData(allData)
+    },
+    /**
      * @param {number} id
      * @param {Exercise} updatedExercise
      * @returns {boolean}
@@ -462,14 +478,14 @@ const testData = {
             id: 1,
             name: 'Lat pulldown',
             nickname: null,
-            description: 'description',
+            description: 'Keep back straight',
             tagId: 2
         },
         {
             id: 2,
             name: 'Chest press',
             nickname: null,
-            description: 'description',
+            description: 'Just like bench press',
             tagId: 1
         },
     ],
