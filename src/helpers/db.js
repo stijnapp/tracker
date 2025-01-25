@@ -73,6 +73,12 @@ export const db = {
     deleteAllData() {
         localStorage.removeItem("db")
     },
+    /**
+     * @returns {boolean}
+     */
+    hasData() {
+        return localStorage.getItem("db") !== null
+    },
 
     // ! Workouts
     /**
