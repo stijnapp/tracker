@@ -55,7 +55,7 @@ export default function Settings() {
                     <button className={`${promoteExport ? 'btn-primary' : 'btn-secondary'} w-full`} onClick={handleExport}>Export Data<FontAwesomeIcon icon={faUpload} className="ml-2" /></button>
                     <button className="btn-secondary w-full" onClick={handleImport}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                 </div>
-                <HR className="mt-8" />
+                <HR className="-mb-2" />
                 <p className="mb-2 font-semibold text-danger">Danger zone</p>
                 {/* TODO: confirmation modal. Has to type something before able to confirm */}
                 <button className="btn-danger w-full mb-4" disabled={localStorage.getItem('db') ? false : true} onClick={handleDeleteAllData}>Delete all data</button>
