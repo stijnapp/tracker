@@ -8,7 +8,8 @@ import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import HR from "../components/HR";
 import Page from "../components/Page";
 import Spinner from "../components/Spinner";
-import { dateToText, getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
+import { exportDatabaseToJsonFile, importJsonFileToDatabase, openDataFile } from "../helpers/data";
+import { getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
 import { db } from "../helpers/db";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useTheme from "../hooks/useTheme";
@@ -21,7 +22,8 @@ import useTheme from "../hooks/useTheme";
  */
 export default function Settings({ deferredPrompt }) {
     const [theme, setTheme] = useTheme()
-    const [dbData, setDbData] = useState(db.getAllData())
+    // TODO: dont give error for unused variable named 'ignored'
+    const [ignored, setDbData] = useState(db.getAllData())
     const [lastExportDate, setLastExportDate] = useLocalStorage('lastExportDate', getCurrentDateTime(true))
 
     const isPWA = window.matchMedia('(display-mode: standalone)').matches
@@ -40,23 +42,19 @@ export default function Settings({ deferredPrompt }) {
     }
 
     const handleExport = () => {
-        const dataStr = JSON.stringify(dbData, null, 2)
-        const blob = new Blob([dataStr], { type: 'application/json' })
-        const url = URL.createObjectURL(blob)
-        const downloadLink = document.createElement('a')
-        downloadLink.href = url
-        downloadLink.download = `trackerExport_${dateToText()}.json`
-        downloadLink.click()
-        URL.revokeObjectURL(url)
-
+        exportDatabaseToJsonFile()
         setLastExportDate(getCurrentDateTime(true))
     }
 
     const handleImport = () => {
-        // TODO: import data
         // TODO: confirmation modal (it will overwrite all data)
-        console.log('Importing data...')
-        setLastExportDate(getCurrentDateTime(true))
+
+        openDataFile((file) => {
+            importJsonFileToDatabase(file, () => {
+                setDbData(db.getAllData())
+                setLastExportDate(getCurrentDateTime(true))
+            })
+        })
     }
 
     const handleDeleteAllData = () => {
@@ -82,6 +80,7 @@ export default function Settings({ deferredPrompt }) {
             </Card>
 
             {!isPWA && (
+                // TODO: dont show if deferredPrompt is null. Then animate in when it available
                 <Card title="Download">
                     <p className="mb-2">Download the app to use it offline</p>
                     <button className={`${deferredPrompt ? 'btn-primary' : 'btn-secondary'} w-full`} disabled={!deferredPrompt} onClick={handleInstall}>Install{!deferredPrompt && <Spinner className="ml-2" />}</button>
@@ -94,7 +93,9 @@ export default function Settings({ deferredPrompt }) {
                     <button className={`${promoteExport ? 'btn-primary' : 'btn-secondary'} w-full`} onClick={handleExport}>Export Data<FontAwesomeIcon icon={faUpload} className="ml-2" /></button>
                     <button className="btn-secondary w-full" onClick={handleImport}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                 </div>
-                <p className="mt-2">Last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
+                {db.hasData() && (
+                    <p className="mt-2">Last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
+                )}
                 <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
 
                 <HR className="-my-2" />
