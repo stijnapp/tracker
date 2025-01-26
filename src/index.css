@@ -31,7 +31,7 @@ section {
 }
 
 .btn-secondary {
-    @apply btn bg-gray-400/30 ring-gray-400 dark:ring-gray-600;
+    @apply btn bg-secondary/25 ring-secondary;
 }
 
 .btn-danger {
