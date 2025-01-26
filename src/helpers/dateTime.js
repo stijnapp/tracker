@@ -14,21 +14,53 @@ export function getCurrentDateTime(includeSeconds = false) {
     return currentDateTime.toJSON().substring(0, includeSeconds ? 19 : 16)
 }
 
-// TODO: jsdoc
+/**
+ * @param {string} [date=null]
+ * @returns {string}
+ * @example
+ * dateToText() // '2-22-2022'
+ * dateToText('2022-02-22T14:00') // '2-22-2022'
+ */
 export function dateToText(date = null) {
     return new Date(date ?? getCurrentDateTime()).toLocaleDateString()
 }
 
+/**
+ * @param {string} [time=null]
+ * @param {boolean} [includeSeconds=false]
+ * @returns {string}
+ * @example
+ * timeToText() // '15:00'
+ * timeToText('2022-02-22T15:00') // '15:00'
+ * timeToText('2022-02-22T15:00', true) // '15:00:00'
+ */
 export function timeToText(time = null, includeSeconds = false) {
     return new Date(time ?? getCurrentDateTime(includeSeconds)).toLocaleTimeString([], includeSeconds ? timeFormat : { hour: timeFormat.hour, minute: timeFormat.minute })
 }
 
+/**
+ * @param {string} [dateTime=null]
+ * @param {boolean} [includeSeconds=false]
+ * @returns {string}
+ * @example
+ * dateTimeToText() // '2-22-2022, 15:00'
+ * dateTimeToText('2022-02-22T15:00') // '2-22-2022, 15:00'
+ * dateTimeToText('2022-02-22T15:00', true) // '2-22-2022, 15:00:00'
+ */
 export function dateTimeToText(dateTime = null, includeSeconds = false) {
     return new Date(dateTime ?? getCurrentDateTime(includeSeconds)).toLocaleString([], includeSeconds ? { ...dateFormat, ...timeFormat } : { ...dateFormat, hour: timeFormat.hour, minute: timeFormat.minute })
 }
 
-export function humanizeElapsedTime(date) {
-    const now = new Date()
+/**
+ * @param {string} date
+ * @returns {string}
+ * @example
+ * timeDifferenceToText('2022-02-22T15:00:00') // 'just now'
+ * timeDifferenceToText('2022-02-22T14:00:00') // '1 hour ago'
+ * timeDifferenceToText('2022-02-24T15:00:00') // '2 days from now'
+ */
+export function timeDifferenceToText(date) {
+    const now = getCurrentDateTime(true)
     const parsedDate = new Date(date)
     const seconds = Math.floor((now - parsedDate) / 1000)
 

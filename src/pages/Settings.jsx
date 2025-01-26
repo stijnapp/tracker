@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import HR from "../components/HR";
 import Page from "../components/Page";
-import { dateToText, getCurrentDateTime, timeAgo } from "../helpers/dateTime";
+import { dateToText, getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
 import { db } from "../helpers/db";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useTheme from "../hooks/useTheme";
@@ -17,7 +17,7 @@ export default function Settings() {
     const [dbData, setDbData] = useState(db.getAllData())
     const [lastExportDate, setLastExportDate] = useLocalStorage('lastExportDate', getCurrentDateTime(true))
 
-    const promoteExport = (new Date() - new Date(lastExportDate)) / (1000 * 60 * 60 * 24) > 7
+    const promoteExport = (getCurrentDateTime(true) - new Date(lastExportDate)) / (1000 * 60 * 60 * 24) > 7
 
     const themeOptions = [
         { value: 'light', label: 'Light', icon: faSun },
@@ -68,14 +68,14 @@ export default function Settings() {
             </Card>
 
             <Card title="Data">
-                <Alert message={promoteExport ? 'It has been more than 7 days ago since you last exported your data' : null} isCloseable={false} className="mb-4" />
                 <div className="flex gap-4">
                     <button className={`${promoteExport ? 'btn-primary' : 'btn-secondary'} w-full`} onClick={handleExport}>Export Data<FontAwesomeIcon icon={faUpload} className="ml-2" /></button>
                     <button className="btn-secondary w-full" onClick={handleImport}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                 </div>
-                <p className="mt-2">Last export was <strong>{timeAgo(lastExportDate)}</strong></p>
+                <p className="mt-2">Last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
+                <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
 
-                <HR className="-mb-2" />
+                <HR className="-my-2" />
 
                 <p className="mb-2 font-semibold text-danger">Danger zone</p>
                 {/* TODO: confirmation modal. Has to type something before able to confirm */}
