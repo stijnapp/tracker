@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import useTheme from './hooks/useTheme';
@@ -9,7 +10,21 @@ import Stats from './pages/Stats';
 import Workout from './pages/Workout';
 
 export default function App() {
+    const [deferredPrompt, setDeferredPrompt] = useState(null)
     useTheme()
+
+    useEffect(() => {
+        const handleBeforeInstallPrompt = (e) => {
+            e.preventDefault()
+            setDeferredPrompt(e)
+        }
+
+        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+
+        return () => {
+            window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+        }
+    }, [])
 
     return (
         <>
@@ -20,7 +35,7 @@ export default function App() {
                     <Route path="/stats" element={<Stats />} />
                     <Route path="/workout" element={<Workout />} />
                     <Route path="/exercises" element={<Exercises />} />
-                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/settings" element={<Settings deferredPrompt={deferredPrompt} />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
             </div>

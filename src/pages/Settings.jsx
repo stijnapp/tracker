@@ -7,12 +7,19 @@ import Card from "../components/Card";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import HR from "../components/HR";
 import Page from "../components/Page";
+import Spinner from "../components/Spinner";
 import { dateToText, getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
 import { db } from "../helpers/db";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useTheme from "../hooks/useTheme";
 
-export default function Settings() {
+/**
+ * @param {{
+ *  deferredPrompt: event,
+ * }} args
+ * @returns {JSX.Element}
+ */
+export default function Settings({ deferredPrompt }) {
     const [theme, setTheme] = useTheme()
     const [dbData, setDbData] = useState(db.getAllData())
     const [lastExportDate, setLastExportDate] = useLocalStorage('lastExportDate', getCurrentDateTime(true))
@@ -24,6 +31,12 @@ export default function Settings() {
         { value: 'dark', label: 'Dark', icon: faMoon },
         { value: 'system', label: <>System <Badge className="ml-1">Default</Badge></>, icon: faDesktop },
     ]
+
+    const handleInstall = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt()
+        }
+    }
 
     const handleExport = () => {
         const dataStr = JSON.stringify(dbData, null, 2)
@@ -39,14 +52,14 @@ export default function Settings() {
     }
 
     const handleImport = () => {
-        // TODO: export data
+        // TODO: import data
         // TODO: confirmation modal (it will overwrite all data)
         console.log('Importing data...')
         setLastExportDate(getCurrentDateTime(true))
     }
 
     const handleDeleteAllData = () => {
-        // TODO: confirmation modal
+        // TODO: confirmation modal (Has to type something before able to confirm)
         console.log('Deleting all data...')
         db.deleteAllData()
         setLastExportDate(getCurrentDateTime(true))
@@ -54,7 +67,7 @@ export default function Settings() {
     }
 
     const handleSetTestData = () => {
-        // TODO: confirmation modal
+        // TODO: confirmation modal (Has to type something before able to confirm)
         console.log('Setting test data...')
         db.setTestData()
         setLastExportDate(getCurrentDateTime(true))
@@ -67,7 +80,13 @@ export default function Settings() {
                 <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} hideLabel />
             </Card>
 
+            <Card title="Download">
+                <p className="mb-2">Download the app to use it offline</p>
+                <button className={`${deferredPrompt ? 'btn-primary' : 'btn-secondary'} w-full`} disabled={!deferredPrompt} onClick={handleInstall}>Install{!deferredPrompt && <Spinner className="ml-2" />}</button>
+            </Card>
+
             <Card title="Data">
+                <p className="mb-2">Export your data to keep it safe</p>
                 <div className="flex gap-4">
                     <button className={`${promoteExport ? 'btn-primary' : 'btn-secondary'} w-full`} onClick={handleExport}>Export Data<FontAwesomeIcon icon={faUpload} className="ml-2" /></button>
                     <button className="btn-secondary w-full" onClick={handleImport}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
@@ -78,7 +97,6 @@ export default function Settings() {
                 <HR className="-my-2" />
 
                 <p className="mb-2 font-semibold text-danger">Danger zone</p>
-                {/* TODO: confirmation modal. Has to type something before able to confirm */}
                 <button className="btn-danger w-full mb-4" disabled={db.hasData() ? false : true} onClick={handleDeleteAllData}>Delete all data</button>
                 <button className="btn-danger w-full" onClick={handleSetTestData}>Replace data with testdata</button>
             </Card>
