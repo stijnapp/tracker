@@ -16,7 +16,7 @@ export default function useTheme() {
     const isDarkTheme = theme === 'dark' || (theme === 'system' && prefersDark)
 
     document.documentElement.classList.toggle('dark', isDarkTheme)
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', isDarkTheme ? '#1c1e22' : '#f3f4f6')
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', isDarkTheme ? '#16181b' : '#f3f4f6')
 
     const updateTheme = (value) => {
         if (!allowedThemes.includes(value)) {
