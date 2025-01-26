@@ -5,8 +5,8 @@ const dateFormat = { year: 'numeric', month: 'numeric', day: 'numeric' }
  * @param {boolean} [includeSeconds=false]
  * @returns {string}
  * @example
- * getCurrentDateTime() // '2022-02-22T14:00'
- * getCurrentDateTime(true) // '2022-02-22T14:00:00'
+ * getCurrentDateTime() // '2022-02-22T15:00'
+ * getCurrentDateTime(true) // '2022-02-22T15:00:00'
  */
 export function getCurrentDateTime(includeSeconds = false) {
     const currentDateTime = new Date()
@@ -19,7 +19,7 @@ export function getCurrentDateTime(includeSeconds = false) {
  * @returns {string}
  * @example
  * dateToText() // '2-22-2022'
- * dateToText('2022-02-22T14:00') // '2-22-2022'
+ * dateToText('2022-02-22T15:00') // '2-22-2022'
  */
 export function dateToText(date = null) {
     return new Date(date ?? getCurrentDateTime()).toLocaleDateString()
@@ -60,7 +60,7 @@ export function dateTimeToText(dateTime = null, includeSeconds = false) {
  * timeDifferenceToText('2022-02-24T15:00:00') // '2 days from now'
  */
 export function timeDifferenceToText(date) {
-    const now = getCurrentDateTime(true)
+    const now = new Date(getCurrentDateTime(true))
     const parsedDate = new Date(date)
     const seconds = Math.floor((now - parsedDate) / 1000)
 
