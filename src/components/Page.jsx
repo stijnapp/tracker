@@ -14,7 +14,7 @@ export default function Page({ title = "", className = "", children }) {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolling(window.scrollY > 0)
+            setIsScrolling(window.scrollY > 20)
         }
 
         window.addEventListener('scroll', handleScroll)
@@ -26,7 +26,7 @@ export default function Page({ title = "", className = "", children }) {
 
     return (
         <>
-            <div className={`${isScrolling ? 'bg-floating-light/90 dark:bg-floating-dark/90 border-b' : 'bg-body-light dark:bg-body-dark'} transition-[background-color,border] fixed top-0 left-0 z-10 w-full backdrop-blur-md bg-body-light dark:bg-body-dark border-gray-300 dark:border-white/20 theme-transition`}>
+            <div className={`${isScrolling ? 'border-b bg-floating-light/90 dark:bg-floating-dark/90 backdrop-blur-md' : 'bg-transparent backdrop-blur-none'} transition-[background-color,border] fixed top-0 left-0 z-10 w-full border-gray-300 dark:border-white/20 theme-transition`}>
                 <header className={`${isScrolling ? 'py-4 text-2xl' : 'py-8 text-4xl'} transition-[padding,font-size] max-w-[384px] mx-auto px-4 tracking-tight font-bold text-dark dark:text-light`}>
                     {title}
                 </header>
