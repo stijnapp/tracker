@@ -19,7 +19,7 @@ export default function useTheme() {
 
     const updateTheme = (value) => {
         if (!allowedThemes.includes(value)) {
-            console.error(`Invalid theme value: ${value}`)
+            console.error(`Invalid theme value: ${value}. Allowed values are: ${allowedThemes.join(', ')}`)
             return
         }
         setTheme(value)
