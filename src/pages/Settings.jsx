@@ -24,6 +24,7 @@ export default function Settings({ deferredPrompt }) {
     const [dbData, setDbData] = useState(db.getAllData())
     const [lastExportDate, setLastExportDate] = useLocalStorage('lastExportDate', getCurrentDateTime(true))
 
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches
     const promoteExport = (getCurrentDateTime(true) - new Date(lastExportDate)) / (1000 * 60 * 60 * 24) > 7
 
     const themeOptions = [
@@ -80,10 +81,12 @@ export default function Settings({ deferredPrompt }) {
                 <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} hideLabel />
             </Card>
 
-            <Card title="Download">
-                <p className="mb-2">Download the app to use it offline</p>
-                <button className={`${deferredPrompt ? 'btn-primary' : 'btn-secondary'} w-full`} disabled={!deferredPrompt} onClick={handleInstall}>Install{!deferredPrompt && <Spinner className="ml-2" />}</button>
-            </Card>
+            {!isPWA && (
+                <Card title="Download">
+                    <p className="mb-2">Download the app to use it offline</p>
+                    <button className={`${deferredPrompt ? 'btn-primary' : 'btn-secondary'} w-full`} disabled={!deferredPrompt} onClick={handleInstall}>Install{!deferredPrompt && <Spinner className="ml-2" />}</button>
+                </Card>
+            )}
 
             <Card title="Data">
                 <p className="mb-2">Export your data to keep it safe</p>
