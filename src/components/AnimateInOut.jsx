@@ -4,6 +4,7 @@ import { getMsFromDuration } from "../helpers/stringManipulation"
 export default function AnimateInOut({ className = "", restartAnimationOnChange = false, children }) {
     const [isHiding, setIsHiding] = useState(true)
     const [childrenCache, setChildrenCache] = useState(children)
+    // `duration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const duration = 'duration-[300ms]'
 
     useEffect(() => {
