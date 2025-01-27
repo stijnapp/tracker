@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react"
 import { getMsFromDuration } from "../helpers/stringManipulation"
 
+/**
+ * @param {{
+ *  className?: string,
+ *  restartAnimationOnChange?: boolean, // If true, will close and reopen the component when children change
+ *  children: JSX.Element | JSX.Element[]
+ * }} args
+ * @returns {JSX.Element | null}
+ */
 export default function AnimateInOut({ className = "", restartAnimationOnChange = false, children }) {
     const [isHiding, setIsHiding] = useState(true)
     const [childrenCache, setChildrenCache] = useState(children)

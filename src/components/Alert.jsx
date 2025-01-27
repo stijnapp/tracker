@@ -13,7 +13,7 @@ import AnimateInOut from "./AnimateInOut";
  *  autoClose?: boolean,
  *  className?: string
  * }} args
- * @returns {JSX.Element | null}
+ * @returns {AnimateInOut}
  */
 export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
     // TODO: implement type
