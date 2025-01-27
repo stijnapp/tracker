@@ -12,7 +12,7 @@
     "theme_color": "#16181b",
     "icons": [
         {
-            "src": "/tracker/maskable-192x192.png",
+            "src": "/tracker/maskable-1024x1024.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
