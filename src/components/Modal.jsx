@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import useEventListener from "../hooks/useEventListener"
 import HR from "./HR"
 
 /**
@@ -13,9 +14,10 @@ import HR from "./HR"
  */
 export default function Modal({ showModal, onClose, title = "", hasCloseBtn = true, children }) {
     const dialogRef = useRef(null)
+    const dialogElement = dialogRef.current
 
     useEffect(() => {
-        const dialogElement = dialogRef.current
+        if (!dialogElement) return
 
         if (showModal) {
             dialogElement.showModal()
@@ -24,33 +26,15 @@ export default function Modal({ showModal, onClose, title = "", hasCloseBtn = tr
             dialogElement.close()
             document.body.style.overflow = 'auto'
         }
-    }, [showModal])
+    }, [showModal, dialogElement])
 
-    // TODO: maybe use custom hook like useEventListener('type', callback, element)
-    useEffect(() => {
-        const dialogElement = dialogRef.current
+    useEventListener('keydown', (e) => {
+        if (e.key === 'Escape') onClose()
+    })
 
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') {
-                onClose()
-            }
-        }
-
-        const handleOutsideClick = (e) => {
-            if (e.target === dialogElement) {
-                onClose()
-            }
-        }
-
-        document.addEventListener('keydown', handleKeyDown)
-        dialogElement.addEventListener('click', handleOutsideClick)
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown)
-            dialogElement.removeEventListener('click', handleOutsideClick)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    useEventListener('click', (e) => {
+        if (e.target === dialogElement) onClose()
+    }, dialogElement)
 
     return (
         <dialog ref={dialogRef} className="z-50 w-full rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg backdrop:bg-black/50 backdrop:backdrop-blur-sm focus:outline-none">

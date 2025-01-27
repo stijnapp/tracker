@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import useEventListener from "../hooks/useEventListener"
 
 /**
  * @param {{title?: string, className?: string, children?: React.ReactNode}} args
@@ -12,18 +13,9 @@ export default function Page({ title = "", className = "", children }) {
         document.title = `Tracker - ${formatTitle}`
     }, [title])
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolling(window.scrollY > 20)
-        }
-
+    useEventListener('scroll', () => {
         setIsScrolling(window.scrollY > 20)
-        window.addEventListener('scroll', handleScroll)
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
+    })
 
     return (
         <>
