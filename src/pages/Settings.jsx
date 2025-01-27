@@ -18,7 +18,7 @@ import useTheme from "../hooks/useTheme";
 /**
  * @param {{
  *  deferredPrompt: event,
- * }} args
+ * }} props
  * @returns {JSX.Element}
  */
 export default function Settings({ deferredPrompt }) {

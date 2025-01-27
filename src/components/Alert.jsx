@@ -12,7 +12,7 @@ import AnimateInOut from "./AnimateInOut";
  *  isCloseable?: boolean,
  *  autoClose?: boolean,
  *  className?: string
- * }} args
+ * }} props
  * @returns {AnimateInOut}
  */
 export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {

@@ -9,7 +9,7 @@ import HR from "./HR"
  *  title?: string,
  *  hasCloseBtn?: boolean,
  *  children?: React.ReactNode
- * }} args
+ * }} props
  * @returns {JSX.Element}
  */
 export default function Modal({ showModal, onClose, title = "", hasCloseBtn = true, children }) {

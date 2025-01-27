@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /**
  * @param {{
  *  className?: string
- * }} args
+ * }} props
  * @returns {JSX.Element}
  */
 export default function Spinner({ className = "" }) {

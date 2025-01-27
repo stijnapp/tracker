@@ -2,7 +2,7 @@
  * @param {{
 *  text?: string,
 *  className?: string
-* }} args
+* }} props
 * @returns {JSX.Element}
 */
 export default function HR({ text = null, className = "" }) {

@@ -6,7 +6,7 @@ import { getMsFromDuration } from "../helpers/stringManipulation"
  *  className?: string,
  *  restartAnimationOnChange?: boolean, // If true, will close and reopen the component when children change
  *  children: JSX.Element | JSX.Element[]
- * }} args
+ * }} props
  * @returns {JSX.Element | null}
  */
 export default function AnimateInOut({ className = "", restartAnimationOnChange = false, children }) {

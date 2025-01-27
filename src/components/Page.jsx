@@ -2,7 +2,11 @@ import { useEffect, useState } from "react"
 import useEventListener from "../hooks/useEventListener"
 
 /**
- * @param {{title?: string, className?: string, children?: React.ReactNode}} args
+ * @param {{
+ *  title?: string,
+ *  className?: string,
+ *  children?: React.ReactNode
+ * }} props
  * @returns {JSX.Element}
  */
 export default function Page({ title = "", className = "", children }) {

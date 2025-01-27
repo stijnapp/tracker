@@ -2,7 +2,7 @@
  * @param {{
 *  className?: string
 *  children: JSX.Element | JSX.Element[]
-* }} args
+* }} props
 * @returns {JSX.Element}
 */
 export default function Badge({ className = "", children }) {

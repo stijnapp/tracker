@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  *  setValue: (value: string) => void,
  *  hideLabel?: boolean,
  *  className?: string
- * }} args
+ * }} props
  * @returns {JSX.Element}
  */
 export default function RadioButtonGroup({ label, options, value, setValue, hideLabel = false, className = "" }) {
