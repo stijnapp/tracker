@@ -8,8 +8,8 @@ import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import HR from "../components/HR";
 import Page from "../components/Page";
 import Spinner from "../components/Spinner";
-import { exportDatabaseToJsonFile, importJsonFileToDatabase, openDataFile } from "../helpers/data";
-import { getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
+import { downloadObjectAsJson, importJsonFileToDatabase, promptFileSelection } from "../helpers/data";
+import { dateToText, getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
 import { db } from "../helpers/db";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useTheme from "../hooks/useTheme";
@@ -22,12 +22,11 @@ import useTheme from "../hooks/useTheme";
  */
 export default function Settings({ deferredPrompt }) {
     const [theme, setTheme] = useTheme()
-    // TODO: dont give error for unused variable named 'ignored'
-    const [ignored, setDbData] = useState(db.getAllData())
+    const [, setDbData] = useState(db.getAllData())
     const [lastExportDate, setLastExportDate] = useLocalStorage('lastExportDate', getCurrentDateTime(true))
 
     const isPWA = window.matchMedia('(display-mode: standalone)').matches
-    const promoteExport = (getCurrentDateTime(true) - new Date(lastExportDate)) / (1000 * 60 * 60 * 24) > 7
+    const promoteExport = (new Date(getCurrentDateTime(true)) - new Date(lastExportDate)) / (1000 * 60 * 60 * 24) >= 7
 
     const themeOptions = [
         { value: 'light', label: 'Light', icon: faSun },
@@ -42,19 +41,19 @@ export default function Settings({ deferredPrompt }) {
     }
 
     const handleExport = () => {
-        exportDatabaseToJsonFile()
+        downloadObjectAsJson(db.getAllData(), `trackerExport_${dateToText()}.json`)
         setLastExportDate(getCurrentDateTime(true))
     }
 
     const handleImport = () => {
         // TODO: confirmation modal (it will overwrite all data)
 
-        openDataFile((file) => {
+        promptFileSelection((file) => {
             importJsonFileToDatabase(file, () => {
                 setDbData(db.getAllData())
                 setLastExportDate(getCurrentDateTime(true))
             })
-        })
+        }, { accept: '.json' })
     }
 
     const handleDeleteAllData = () => {
