@@ -52,8 +52,6 @@ export default function Settings({ deferredPrompt }) {
     }
 
     const handleImport = () => {
-        // TODO: confirmation modal (it will overwrite all data)
-
         promptFileSelection((file) => {
             importJsonFileToDatabase(file, () => {
                 setDbData(db.getAllData())
@@ -64,19 +62,17 @@ export default function Settings({ deferredPrompt }) {
     }
 
     const handleDeleteAllData = () => {
-        // TODO: confirmation modal (Has to type something before able to confirm)
-        console.log('Deleting all data...')
         db.deleteAllData()
         setLastExportDate(getCurrentDateTime(true))
         setDbData(db.getAllData())
+        setShowDeleteModal(false)
     }
 
     const handleSetTestData = () => {
-        // TODO: confirmation modal (Has to type something before able to confirm)
-        console.log('Setting test data...')
         db.setTestData()
         setLastExportDate(getCurrentDateTime(true))
         setDbData(db.getAllData())
+        setShowTestDataModal(false)
     }
 
     return (
