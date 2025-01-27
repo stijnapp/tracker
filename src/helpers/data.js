@@ -32,11 +32,14 @@ export function promptFileSelection(callback, options = {}) {
         htmlInput[key] = options[key]
     }
     htmlInput.click()
-    // TODO: what would async add?
-    htmlInput.onchange = /* async */ (e) => {
+    htmlInput.onchange = (e) => {
         const file = e.target.files[0]
-        if (!file) return // TODO: should the element be removed?
+        if (!file) {
+            htmlInput.remove()
+            return
+        }
         callback(file)
+        htmlInput.remove()
     }
 }
 
