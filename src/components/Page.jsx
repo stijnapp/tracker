@@ -17,6 +17,7 @@ export default function Page({ title = "", className = "", children }) {
             setIsScrolling(window.scrollY > 20)
         }
 
+        setIsScrolling(window.scrollY > 20)
         window.addEventListener('scroll', handleScroll)
 
         return () => {
