@@ -33,7 +33,7 @@ export default function Workout() {
     useEffect(() => {
         let saveTimeout
 
-        console.log('exercises changed')
+        // console.log('exercises changed')
 
         saveTimeout = setTimeout(() => {
             if (!activeWorkout) return

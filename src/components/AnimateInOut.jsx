@@ -19,6 +19,7 @@ export default function AnimateInOut({ className = "", restartAnimationOnChange 
         let clearCacheTimeout
         let newChildrenTimeout
 
+        // TODO: children !== childrenCache is not working as it compares the reference (which changes every render), not the content
         if (restartAnimationOnChange && children && childrenCache && children !== childrenCache) {
             setIsHiding(true)
 

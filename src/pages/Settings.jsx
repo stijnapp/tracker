@@ -101,7 +101,7 @@ export default function Settings({ deferredPrompt }) {
                     )}
                     <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
 
-                    <HR className="-my-2" />
+                    <HR className="-mt-1 -mb-3" />
 
                     <p className="mb-2 font-semibold text-danger">Danger zone</p>
                     <button className="btn-danger w-full mb-4" disabled={db.hasData() ? false : true} onClick={() => setShowDeleteModal(true)}>Delete all data</button>
