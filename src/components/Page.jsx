@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import useEventListener from "../hooks/useEventListener"
 
 /**
- * @param {{
- *  title?: string,
- *  className?: string,
- *  children?: React.ReactNode
- * }} props
- * @returns {JSX.Element}
+ * Component that wraps a page with a header and a main section
+ * @param   {Object} props
+ * @param   {string} props.title - The title of the page
+ * @param   {string} [props.className] - Optional styling for the main section
+ * @param   {React.ReactNode} props.children - The content of the page
+ * @returns {JSX.Element} The page component
  */
-export default function Page({ title = "", className = "", children }) {
+export default function Page({ title, className = "", children }) {
     const [isScrolling, setIsScrolling] = useState(false)
 
     useEffect(() => {

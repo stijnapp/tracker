@@ -2,11 +2,18 @@ import { faChartLine, faClockRotateLeft, faDumbbell, faGear, faPlus } from "@for
 import NavButton from "./NavButton";
 
 /**
+ * @typedef {Object} NavItem
+ * @property {string} to - The path to navigate to
+ * @property {IconProp} icon - The icon to display
+ * @property {string} text - The text to display
+ */
+
+/**
  * @returns {JSX.Element}
  */
 export default function Navbar() {
     /**
-     * @type {Array<{ to: string, icon: IconProp, text: string }>}
+     * @type {NavItem[]}
      */
     const navItems = [
         { to: '/', icon: faClockRotateLeft, text: 'History' },
