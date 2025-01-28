@@ -3,10 +3,10 @@ import useEventListener from "../hooks/useEventListener"
 
 /**
  * Component that wraps a page with a header and a main section
- * @param   {Object} props
- * @param   {string} props.title - The title of the page
- * @param   {string} [props.className] - Optional styling for the main section
- * @param   {React.ReactNode} props.children - The content of the page
+ * @param {Object} props
+ * @param {string} props.title - The title of the page
+ * @param {string} [props.className] - Optional styling for the main section
+ * @param {React.ReactNode} props.children - The content of the page
  * @returns {JSX.Element} The page component
  */
 export default function Page({ title, className = "", children }) {

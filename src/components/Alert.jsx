@@ -5,20 +5,20 @@ import { getMsFromDuration } from "../helpers/stringManipulation";
 import AnimateInOut from "./AnimateInOut";
 
 /**
- * @param {{
- *  message: string | '' | null,
- *  setMessage: (value: string) => void, // required if isCloseable is true
- *  type?: 'danger' | 'warning' | 'success' | 'info',
- *  isCloseable?: boolean,
- *  autoClose?: boolean,
- *  className?: string
- * }} props
- * @returns {AnimateInOut}
+ * An alert component that displays a message to the user
+ * @param {Object} props
+ * @param {string} props.message - The message to display inside the alert
+ * @param {Function} props.setMessage - The function to set the message state
+ * @param {'danger' | 'warning' | 'success' | 'info'} [props.type="danger"] - The type of alert (used for styling)
+ * @param {boolean} [props.isCloseable=true] - Whether the alert can be closed by the user
+ * @param {boolean} [props.autoClose=false] - Whether the alert should close automatically
+ * @param {string} [props.className=""] - Optional styling for the alert
+ * @returns {AnimateInOut} The alert component
  */
 export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
     // TODO: implement type
     const autoCloseAfterMs = 5000
-    // `stepDuration` needs to be tailwind duration, e.g. 'duration-[300ms]'
+    // ? `stepDuration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const stepDuration = 'duration-[100ms]'
     const progressBarRef = useRef()
 
