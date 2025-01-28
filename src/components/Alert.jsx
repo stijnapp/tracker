@@ -15,12 +15,21 @@ import AnimateInOut from "./AnimateInOut";
  * @param {string} [props.className=""] - Optional styling for the alert
  * @returns {AnimateInOut} The alert component
  */
-export default function Alert({ message, setMessage, /* type = "danger", */ isCloseable = true, autoClose = false, className = "" }) {
-    // TODO: implement type
+export default function Alert({ message, setMessage, type = "danger", isCloseable = true, autoClose = false, className = "" }) {
     const autoCloseAfterMs = 5000
     // ? `stepDuration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const stepDuration = 'duration-[100ms]'
     const progressBarRef = useRef()
+
+    const typeColors = {
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        danger: 'text-danger',
+        warning: 'text-warning',
+        success: 'text-success',
+        info: 'text-info',
+    }
+    const textColor = typeColors[type] || typeColors.danger
 
     if (isCloseable && setMessage === undefined) {
         console.error('Alert component requires setMessage prop')
@@ -56,22 +65,21 @@ export default function Alert({ message, setMessage, /* type = "danger", */ isCl
         return () => {
             clearInterval(interval)
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [message])
 
     return (
-        <AnimateInOut restartAnimationOnChange className="rounded-md border border-danger">
+        <AnimateInOut restartAnimationOnChange className={`rounded-md border ${textColor} bg-current border-current`}>
             {message && (
-                <div className={`${className} flex items-center justify-between w-full px-4 py-2 gap-2 overflow-hidden bg-danger/5 backdrop-blur-2xl dark:backdrop-blur-3xl text-danger brightness-110 dark:brightness-125`} role="alert">
+                <div className={`${className} flex items-center justify-between w-full px-4 py-4 gap-2 overflow-hidden bg-floating-light/95 dark:bg-floating-dark/95 brightness-110 dark:brightness-125`} role="alert">
                     <div className="font-medium break-words brightness-[0.75]">
                         {message}
                     </div>
                     {autoClose && (
-                        <div ref={progressBarRef} className={`absolute bottom-0 left-0 h-1 bg-danger transition-[width] ease-linear ${stepDuration}`} style={{ width: 0 }} />
+                        <div ref={progressBarRef} className={`absolute bottom-0 left-0 h-1 bg-current transition-[width] ease-linear ${stepDuration}`} style={{ width: 0 }} />
                     )}
                     {isCloseable &&
-                        <button onClick={handleHide} aria-label="Close" className="flex items-center justify-center h-10 w-10 aspect-square -mr-2 rounded-md focus:outline-none focus:ring-2 focus:ring-danger/80 hover:bg-danger/15 brightness-[0.75]">
+                        <button onClick={handleHide} aria-label="Close" className="flex items-center justify-center h-10 w-10 -my-2 aspect-square -mr-2 rounded-md transition-[--ring] focus:outline-none focus:ring-2 focus:ring-current brightness-[0.75]">
                             <span className="sr-only">Close</span>
                             <FontAwesomeIcon icon={faXmark} className="text-lg" />
                         </button>
