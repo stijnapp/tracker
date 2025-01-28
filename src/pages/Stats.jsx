@@ -11,6 +11,22 @@ export default function Stats() {
 
     const [error, setError] = useState(null)
 
+    const [absoluteAlerts, setAbsoluteAlerts] = useState(false)
+    const alertComponents = <>
+        <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2 p-2 bg-floating-light dark:bg-floating-dark rounded-md border border-gray-500/50">
+                <input type="checkbox" checked={absoluteAlerts} onChange={() => setAbsoluteAlerts(!absoluteAlerts)} />
+                <span>Absolute alerts</span>
+            </label>
+            <Alert message="Primary alert" isCloseable={false} type="primary" />
+            <Alert message="Secondary alert" isCloseable={false} type="secondary" />
+            <Alert message="Danger alert" isCloseable={false} type="danger" />
+            <Alert message="Warning alert" isCloseable={false} type="warning" />
+            <Alert message="Info alert" isCloseable={false} type="info" />
+            <Alert message="Success alert" isCloseable={false} type="success" />
+        </div>
+    </>
+
     return (
         <Page title="Stats">
             <Card title="AnimateInOut test" className="flex flex-col gap-4">
@@ -28,25 +44,21 @@ export default function Stats() {
                         </div>
                     )}
                 </AnimateInOut>
-                <button className="btn-secondary" disabled>.</button>
             </Card>
 
             <Card title="Alert test" className="flex flex-col gap-4">
                 {error !== null ? <p className="text-sm text-danger">There is an error</p> : <p className="text-sm text-success">No errors</p>}
                 <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
-                <button className="btn-secondary" onClick={() => setError('Change')}>Change alert text</button>
-                <button className="btn-warning" disabled={error === null} onClick={() => setError(null)}>Clear text</button>
+                <button className="btn-warning" onClick={() => setError('Change')}>Change alert text</button>
                 <Alert message={error} setMessage={setError} autoClose />
 
                 <HR className="h-8 -mb-2" />
                 <p className="font-semibold text-xl">Styles</p>
-
-                <Alert message="Primary alert" isCloseable={false} type="primary" />
-                <Alert message="Secondary alert" isCloseable={false} type="secondary" />
-                <Alert message="Danger alert" isCloseable={false} type="danger" />
-                <Alert message="Warning alert" isCloseable={false} type="warning" />
-                <Alert message="Info alert" isCloseable={false} type="info" />
-                <Alert message="Success alert" isCloseable={false} type="success" />
+                {absoluteAlerts ? (
+                    <div className="fixed bottom-16 right-0 w-full flex flex-col gap-4 p-4 z-20">
+                        {alertComponents}
+                    </div>
+                ) : alertComponents}
             </Card>
 
             <Card title="Button test">
