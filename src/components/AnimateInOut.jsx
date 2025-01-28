@@ -4,23 +4,27 @@ import { getMsFromDuration } from "../helpers/stringManipulation"
 /**
  * @param {{
  *  className?: string,
- *  restartAnimationOnChange?: boolean, // If true, will close and reopen the component when children change
+ *  restartOnChildKeyChange?: boolean, // If true, will close and reopen the component when the key of the children changes
+ *  key?: string | number, // A react key that is required for `restartOnChildKeyChange`
  *  children: JSX.Element | JSX.Element[]
  * }} props
  * @returns {JSX.Element | null}
  */
-export default function AnimateInOut({ className = "", restartAnimationOnChange = false, children }) {
+export default function AnimateInOut({ className = "", restartOnChildKeyChange = false, children }) {
     const [isHiding, setIsHiding] = useState(true)
     const [childrenCache, setChildrenCache] = useState(children)
     // ? `duration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const duration = 'duration-[300ms]'
 
+    if (restartOnChildKeyChange && children?.key === null) {
+        console.error('AnimateInOut component requires a unique key prop on children when using restartOnChildKeyChange', children)
+    }
+
     useEffect(() => {
         let clearCacheTimeout
         let newChildrenTimeout
 
-        // TODO: children !== childrenCache is not working as it compares the reference (which changes every render), not the content
-        if (restartAnimationOnChange && children && childrenCache && children !== childrenCache) {
+        if (restartOnChildKeyChange && children && childrenCache && children.key !== childrenCache.key) {
             setIsHiding(true)
 
             newChildrenTimeout = setTimeout(() => {

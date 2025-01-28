@@ -7,7 +7,7 @@ import Page from "../components/Page";
 
 export default function Stats() {
     const [text, setText] = useState(null)
-    const [restartAnimationOnChange, setRestartAnimationOnChange] = useState(false)
+    const [restartOnChildKeyChange, setRestartOnChildKeyChange] = useState(false)
 
     const [error, setError] = useState(null)
 
@@ -15,15 +15,15 @@ export default function Stats() {
         <Page title="Stats">
             <Card title="AnimateInOut test" className="flex flex-col gap-4">
                 <label className="flex items-center gap-2">
-                    <input type="checkbox" checked={restartAnimationOnChange} onChange={() => setRestartAnimationOnChange(!restartAnimationOnChange)} />
+                    <input type="checkbox" checked={restartOnChildKeyChange} onChange={() => setRestartOnChildKeyChange(!restartOnChildKeyChange)} />
                     <span>Restart animation on change</span>
                 </label>
                 <button className="btn-primary" onClick={() => setText('First')}>Show &apos;First text&apos;</button>
                 <button className="btn-success" onClick={() => setText('Second')}>Show &apos;Second text&apos;</button>
                 <button className="btn-secondary" onClick={() => setText(null)}>Remove text</button>
-                <AnimateInOut restartAnimationOnChange={restartAnimationOnChange}>
+                <AnimateInOut restartOnChildKeyChange={restartOnChildKeyChange}>
                     {text && (
-                        <div className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
+                        <div key={text} className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
                             {text}
                         </div>
                     )}
