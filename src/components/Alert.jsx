@@ -69,9 +69,12 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     }, [message])
 
     return (
-        <AnimateInOut restartOnChildKeyChange={isCloseable} className={`rounded-md border ${textColor} bg-current border-current`}>
+        <AnimateInOut restartOnChildKeyChange={isCloseable} className={`${className} rounded-md border ${textColor} bg-[currentColor]/5 border-current`}>
             {message && (
-                <div key={message} className={`${className} flex items-center justify-between w-full px-4 py-4 gap-2 overflow-hidden bg-floating-light/95 dark:bg-floating-dark/95 brightness-110 dark:brightness-125`} role="alert">
+                <div key={message} className={`flex items-center justify-between w-full px-4 py-4 gap-2 overflow-hidden backdrop-blur brightness-110 dark:brightness-125`} role="alert">
+                    <div className="absolute w-full h-full top-0 left-0 bg-floating-light/85 dark:bg-floating-dark/85" />
+                    <div className="absolute w-full h-full top-0 left-0 bg-[currentColor] opacity-20" />
+
                     <div className="font-medium break-words brightness-[0.75]">
                         {message}
                     </div>
