@@ -2,9 +2,9 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
- * @param {{
- *  className?: string
- * }} args
+ * A spinner icon to indicate loading
+ * @param {Object} props
+ * @param {string} [props.className] - Additional classes for the spinner
  * @returns {JSX.Element}
  */
 export default function Spinner({ className = "" }) {

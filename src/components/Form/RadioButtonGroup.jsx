@@ -1,15 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
- * @param {{
- *  label: string,
- *  options: {value: string, label: string, icon?: IconDefinition}[],
- *  value: string,
- *  setValue: (value: string) => void,
- *  hideLabel?: boolean,
- *  className?: string
- * }} args
- * @returns {JSX.Element}
+ * @typedef {Object} Option
+ * @property {string} value - The value of the option
+ * @property {string} label - The label of the option
+ * @property {IconDefinition} [icon] - The icon of the option (fontawesome icon)
+ */
+
+/**
+ * A radio button group component
+ * @param {Object} props
+ * @param {string} props.label - The label of the radio button group
+ * @param {Option[]} props.options - The options for the radio button group
+ * @param {string} props.value - The value of the selected radio button
+ * @param {Function} props.setValue - The function to set the value of the selected radio button
+ * @param {boolean} [props.hideLabel=false] - Whether to hide the label
+ * @param {string} [props.className=""] - Optional styling for the radio button group
+ * @returns {JSX.Element} The radio button group component
  */
 export default function RadioButtonGroup({ label, options, value, setValue, hideLabel = false, className = "" }) {
     return (

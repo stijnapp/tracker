@@ -16,11 +16,11 @@ export default {
         info: '#3b82f6',
         body: {
           light: '#f3f4f6',
-          dark: '#1c1e22',
+          dark: '#16181b',
         },
         floating: {
           light: '#ffffff',
-          dark: '#16181b',
+          dark: '#1c1e22',
         },
         light: '#f3f4f6',
         dark: '#2f323a',

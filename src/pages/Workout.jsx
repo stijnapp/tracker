@@ -24,6 +24,7 @@ export default function Workout() {
             console.log('Saving workout...')
         }, debounceTimeout)
 
+        // TODO: this will cancel the save if the user navigates away from the page
         return () => {
             clearTimeout(saveTimeout)
         }
@@ -35,14 +36,16 @@ export default function Workout() {
         console.log('exercises changed')
 
         saveTimeout = setTimeout(() => {
+            if (!activeWorkout) return
             db.updateAllExercises(exercises)
             console.log('Saving exercises...')
         }, debounceTimeout)
 
+        // TODO: this will cancel the save if the user navigates away from the page
         return () => {
             clearTimeout(saveTimeout)
         }
-    }, [exercises])
+    }, [activeWorkout, exercises])
 
     return (
         <Page title="Workout">

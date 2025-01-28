@@ -1,10 +1,14 @@
 import { useState } from "react";
 import Alert from "../components/Alert";
+import AnimateInOut from "../components/AnimateInOut";
 import Card from "../components/Card";
 import Page from "../components/Page";
 
 export default function Stats() {
     const [error, setError] = useState(null)
+
+    const [text, setText] = useState(null)
+    const [restartAnimationOnChange, setRestartAnimationOnChange] = useState(false)
 
     return (
         <Page title="Stats">
@@ -14,6 +18,24 @@ export default function Stats() {
                 <button className="btn-secondary" onClick={() => setError('Change')}>Change alert text</button>
                 <button className="btn-warning" disabled={error === null} onClick={() => setError(null)}>Clear text</button>
                 <Alert message={error} setMessage={setError} autoClose />
+            </Card>
+
+            <Card title="AnimateInOut test" className="flex flex-col gap-4">
+                <label className="flex items-center gap-2">
+                    <input type="checkbox" checked={restartAnimationOnChange} onChange={() => setRestartAnimationOnChange(!restartAnimationOnChange)} />
+                    <span>Restart animation on change</span>
+                </label>
+                <button className="btn-primary" onClick={() => setText('First')}>Show &apos;First text&apos;</button>
+                <button className="btn-success" onClick={() => setText('Second')}>Show &apos;Second text&apos;</button>
+                <button className="btn-secondary" onClick={() => setText(null)}>Remove text</button>
+                <AnimateInOut restartAnimationOnChange={restartAnimationOnChange}>
+                    {text && (
+                        <div className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
+                            {text}
+                        </div>
+                    )}
+                </AnimateInOut>
+                <button className="btn-secondary" disabled>.</button>
             </Card>
 
             <Card title="Button test">

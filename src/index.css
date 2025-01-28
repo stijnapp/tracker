@@ -10,6 +10,7 @@ body {
     @apply min-h-dvh bg-floating-light dark:bg-floating-dark theme-transition;
 }
 
+/* TODO: move this to tailwind.config? like an extention to transitions */
 .theme-transition {
     @apply transition-[background-color] duration-300;
 }
@@ -35,7 +36,7 @@ section {
 }
 
 .btn-danger {
-    @apply btn bg-danger text-white ring-danger;
+    @apply btn bg-danger text-white ring-danger dark:brightness-[0.9];
 }
 
 .btn-warning {
