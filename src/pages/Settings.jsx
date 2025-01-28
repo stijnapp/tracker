@@ -24,6 +24,7 @@ import useTheme from "../hooks/useTheme";
 export default function Settings({ deferredPrompt }) {
     const [theme, setTheme] = useTheme()
     const [, setDbData] = useState(db.getAllData())
+    const dbHasData = db.hasData()
 
     const [showImportModal, setShowImportModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -96,7 +97,7 @@ export default function Settings({ deferredPrompt }) {
                         <button className={`${promoteExport ? 'btn-primary' : 'btn-secondary'} w-full`} onClick={handleExport}>Export Data<FontAwesomeIcon icon={faUpload} className="ml-2" /></button>
                         <button className="btn-secondary w-full" onClick={() => setShowImportModal(true)}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                     </div>
-                    {db.hasData() && (
+                    {dbHasData && (
                         <p className="mt-2">Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                     )}
                     <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
@@ -104,14 +105,16 @@ export default function Settings({ deferredPrompt }) {
                     <HR className="-mt-1 -mb-3" />
 
                     <p className="mb-2 font-semibold text-danger">Danger zone</p>
-                    <button className="btn-danger w-full mb-4" disabled={db.hasData() ? false : true} onClick={() => setShowDeleteModal(true)}>Delete all data</button>
+                    <button className="btn-danger w-full mb-4" disabled={dbHasData ? false : true} onClick={() => setShowDeleteModal(true)}>Delete all data</button>
                     <button className="btn-danger w-full" onClick={() => setShowTestDataModal(true)}>Replace data with testdata</button>
                 </Card>
 
                 <Modal showModal={showImportModal} onClose={() => setShowImportModal(false)} title="Import data">
                     <p>Are you sure you want to import data? This will overwrite all your current data.</p>
-                    <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
-                    <p className="text-danger">This action cannot be undone</p>
+                    {dbHasData && (
+                        <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
+                    )}
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
                     <div className="flex gap-4">
                         <button className="btn-secondary w-full" onClick={() => setShowImportModal(false)}>Cancel</button>
                         <button className="btn-danger w-full" onClick={handleImport}>Import data</button>
@@ -120,18 +123,22 @@ export default function Settings({ deferredPrompt }) {
 
                 <Modal showModal={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete all data">
                     <p>Are you sure you want to delete all data?</p>
-                    <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
-                    <p className="text-danger">This action cannot be undone</p>
+                    {dbHasData && (
+                        <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
+                    )}
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
                     <div className="flex gap-4">
                         <button className="btn-secondary w-full" onClick={() => setShowDeleteModal(false)}>Cancel</button>
                         <button className="btn-danger w-full" onClick={handleDeleteAllData}>Delete data</button>
                     </div>
                 </Modal>
 
-                <Modal showModal={showTestDataModal} onClose={() => setShowTestDataModal(false)}>
+                <Modal showModal={showTestDataModal} onClose={() => setShowTestDataModal(false)} title="Replace data with test data">
                     <p>Are you sure you want to replace all data with test data? This will overwrite all your current data.</p>
-                    <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
-                    <p className="text-danger">This action cannot be undone</p>
+                    {dbHasData && (
+                        <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
+                    )}
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
                     <div className="flex gap-4">
                         <button className="btn-secondary w-full" onClick={() => setShowTestDataModal(false)}>Cancel</button>
                         <button className="btn-danger w-full" onClick={handleSetTestData}>Set test data</button>
