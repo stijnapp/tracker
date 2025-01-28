@@ -2,24 +2,17 @@ import { useState } from "react";
 import Alert from "../components/Alert";
 import AnimateInOut from "../components/AnimateInOut";
 import Card from "../components/Card";
+import HR from "../components/HR";
 import Page from "../components/Page";
 
 export default function Stats() {
-    const [error, setError] = useState(null)
-
     const [text, setText] = useState(null)
     const [restartAnimationOnChange, setRestartAnimationOnChange] = useState(false)
 
+    const [error, setError] = useState(null)
+
     return (
         <Page title="Stats">
-            <Card title="Alert test" className="flex flex-col gap-4">
-                {error !== null ? <p className="text-sm text-danger">There is an error</p> : <p className="text-sm text-success">No errors</p>}
-                <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
-                <button className="btn-secondary" onClick={() => setError('Change')}>Change alert text</button>
-                <button className="btn-warning" disabled={error === null} onClick={() => setError(null)}>Clear text</button>
-                <Alert message={error} setMessage={setError} autoClose />
-            </Card>
-
             <Card title="AnimateInOut test" className="flex flex-col gap-4">
                 <label className="flex items-center gap-2">
                     <input type="checkbox" checked={restartAnimationOnChange} onChange={() => setRestartAnimationOnChange(!restartAnimationOnChange)} />
@@ -36,6 +29,24 @@ export default function Stats() {
                     )}
                 </AnimateInOut>
                 <button className="btn-secondary" disabled>.</button>
+            </Card>
+
+            <Card title="Alert test" className="flex flex-col gap-4">
+                {error !== null ? <p className="text-sm text-danger">There is an error</p> : <p className="text-sm text-success">No errors</p>}
+                <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
+                <button className="btn-secondary" onClick={() => setError('Change')}>Change alert text</button>
+                <button className="btn-warning" disabled={error === null} onClick={() => setError(null)}>Clear text</button>
+                <Alert message={error} setMessage={setError} autoClose />
+
+                <HR className="h-8 -mb-2" />
+                <p className="font-semibold text-xl">Styles</p>
+
+                <Alert message="Primary alert" isCloseable={false} type="primary" />
+                <Alert message="Secondary alert" isCloseable={false} type="secondary" />
+                <Alert message="Danger alert" isCloseable={false} type="danger" />
+                <Alert message="Warning alert" isCloseable={false} type="warning" />
+                <Alert message="Info alert" isCloseable={false} type="info" />
+                <Alert message="Success alert" isCloseable={false} type="success" />
             </Card>
 
             <Card title="Button test">
