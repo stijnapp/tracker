@@ -2,7 +2,6 @@ import { faDesktop, faDownload, faMoon, faSun, faUpload } from "@fortawesome/fre
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Alert from "../components/Alert";
-import Badge from "../components/Badge";
 import Card from "../components/Card";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import HR from "../components/HR";
@@ -38,7 +37,7 @@ export default function Settings({ deferredPrompt }) {
     const themeOptions = [
         { value: 'light', label: 'Light', icon: faSun },
         { value: 'dark', label: 'Dark', icon: faMoon },
-        { value: 'system', label: <>System <Badge className="ml-1">Default</Badge></>, icon: faDesktop },
+        { value: 'system', label: 'System', icon: faDesktop },
     ]
 
     const handleInstall = () => {
@@ -80,7 +79,7 @@ export default function Settings({ deferredPrompt }) {
         <>
             <Page title="Settings">
                 <Card title="Appearance">
-                    <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} hideLabel />
+                    <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} defaultValue="system" hideLabel />
                 </Card>
 
                 {!isPWA && (
