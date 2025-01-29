@@ -6,7 +6,7 @@ import useEventListener from "../hooks/useEventListener"
  * @param {Object} props
  * @param {string} props.title - The title of the page
  * @param {string} [props.className] - Optional styling for the main section
- * @param {React.ReactNode} props.children - The content of the page
+ * @param {JSX.Element} props.children - The content of the page
  * @returns {JSX.Element} The page component
  */
 export default function Page({ title, className = "", children }) {
