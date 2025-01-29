@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import useEventListener from './hooks/useEventListener';
 import useTheme from './hooks/useTheme';
 import Exercises from './pages/Exercises';
