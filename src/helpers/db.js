@@ -449,7 +449,7 @@ const testData = {
                 {
                     id: 1,
                     exerciseId: 1,
-                    order: 1,
+                    order: 2,
                     sets: [
                         {
                             id: 1,
@@ -466,7 +466,7 @@ const testData = {
                 {
                     id: 2,
                     exerciseId: 2,
-                    order: 2,
+                    order: 1,
                     sets: [
                         {
                             id: 1,
@@ -475,6 +475,28 @@ const testData = {
                         },
                     ]
                 },
+                {
+                    id: 3,
+                    exerciseId: 3,
+                    order: 3,
+                    sets: [
+                        {
+                            id: 1,
+                            weight: 25,
+                            reps: 12,
+                        },
+                        {
+                            id: 2,
+                            weight: 20,
+                            reps: 11,
+                        },
+                        {
+                            id: 3,
+                            weight: 15,
+                            reps: 11,
+                        }
+                    ]
+                }
             ]
         },
     ],
@@ -483,17 +505,31 @@ const testData = {
         {
             id: 1,
             name: 'Lat pulldown',
-            nickname: null,
-            description: 'Keep back straight',
+            nickname: 'Dorito machine',
+            description: null,
             tagId: 2
         },
         {
             id: 2,
             name: 'Chest press',
             nickname: null,
-            description: 'Just like bench press',
+            description: null,
             tagId: 1
         },
+        {
+            id: 3,
+            name: 'Shoulder press',
+            nickname: null,
+            description: 'Chair on setting 5',
+            tagId: 1
+        },
+        {
+            id: 4,
+            name: 'Total abdominal',
+            nickname: 'Shrimp machine',
+            description: null,
+            tagId: 4
+        }
     ],
     tags: [
         {
@@ -504,5 +540,13 @@ const testData = {
             id: 2,
             name: 'Back'
         },
+        {
+            id: 3,
+            name: 'Legs'
+        },
+        {
+            id: 4,
+            name: 'Core'
+        }
     ],
 }
