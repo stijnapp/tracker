@@ -21,7 +21,6 @@ export default function Navbar() {
                 <ul className="flex flex-row justify-between">
                     {navItems.map((item) => (
                         <li key={item.to} className="basis-full">
-                            {/* <NavButton {...item} /> */}
                             <NavLink to={item.to} className={({ isActive }) => `${navButtonClasses} ${isActive ? 'text-primary -translate-y-1 font-bold drop-shadow-[0_0px_8px_#1d809866]' : 'text-gray-500 dark:text-gray-400 font-medium'}`}>
                                 <FontAwesomeIcon icon={item.icon} size="xl" />
                                 {item.text}
