@@ -22,7 +22,6 @@ export default function App() {
         <>
             <Navbar />
             <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 bg-body-light dark:bg-body-dark text-dark dark:text-light theme-transition">
-                {/* TODO: scroll to top on page change */}
                 <Routes>
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />

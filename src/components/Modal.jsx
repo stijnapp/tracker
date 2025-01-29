@@ -32,6 +32,8 @@ export default function Modal({ showModal, onClose, title = "", hasCloseBtn = tr
         if (e.key === 'Escape') onClose()
     })
 
+    // TODO: on mobile, going back will close the modal. intercept the back button press
+
     useEventListener('click', (e) => {
         if (e.target === dialogElement) onClose()
     }, dialogElement)
