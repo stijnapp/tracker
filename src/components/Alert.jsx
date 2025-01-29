@@ -82,7 +82,7 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
                         <div ref={progressBarRef} className={`absolute bottom-0 left-0 h-1 bg-current transition-[width] ease-linear ${stepDuration}`} style={{ width: 0 }} />
                     )}
                     {isCloseable &&
-                        <button onClick={handleHide} aria-label="Close" className="flex items-center justify-center h-10 w-10 -my-2 aspect-square -mr-2 rounded-md transition-[--ring] focus:outline-none focus:ring-2 focus:ring-current brightness-[0.75]">
+                        <button onClick={handleHide} aria-label="Close" className="flex items-center justify-center h-10 w-10 -my-2 aspect-square -mr-2 rounded-md transition-[box-shadow] focus:outline-none focus:ring-2 focus:ring-current brightness-[0.75]">
                             <span className="sr-only">Close</span>
                             <FontAwesomeIcon icon={faXmark} className="text-lg" />
                         </button>
