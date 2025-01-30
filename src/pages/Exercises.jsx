@@ -7,6 +7,7 @@ import FileInput from "../components/Form/FileInput";
 import Input from "../components/Form/Input";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
 import Select from "../components/Form/Select";
+import Switch from "../components/Form/Switch";
 import Textarea from "../components/Form/Textarea";
 import Page from "../components/Page";
 
@@ -48,7 +49,6 @@ export default function Exercises() {
     return (
         <Page title="Exercises">
             <Card title="Inputs" className="flex flex-col gap-4">
-                {/* input: text, email, password, tel, number, (date, time, datetime), url, color?*/}
                 <Input type="text" label="Text label" value={inputs.text} setValue={(value) => setInputs({ ...inputs, text: value })} required />
                 <Input type="email" label="Email label" value={inputs.email} setValue={(value) => setInputs({ ...inputs, email: value })} required />
                 <Input type="password" label="Password label" value={inputs.password} setValue={(value) => setInputs({ ...inputs, password: value })} required />
@@ -62,40 +62,29 @@ export default function Exercises() {
             </Card>
 
             <Card title="Textarea">
-                {/* textarea */}
                 <Textarea label="Textarea label" value={textArea} setValue={setTextArea} required />
             </Card>
 
             <Card title="File" className="flex flex-col gap-4">
-                {/* file */}
                 <FileInput label="File label" value={file} setValue={setFile} required />
                 <FileInput label="File with preview" value={filePreview} setValue={setFilePreview} showPreview required />
             </Card>
 
             <Card title="Radio Button Group" className="flex flex-col gap-4">
-                {/* TODO: default */}
                 <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} required />
-                <FancyRadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} defaultValue="1" required />
+                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} setValue={setRadio} defaultValue="1" required />
             </Card>
 
             <Card title="Select">
-                {/* select */}
                 <Select label="Select label" options={selectOptions} value={select} setValue={setSelect} required />
             </Card>
 
-            <Card title="Checkbox">
-                {/* checkbox */}
-                <Checkbox label="Checkbox label" value={boolean} setValue={() => setBoolean(!boolean)} required />
-            </Card>
-
-            <Card title="Switch">
-                {/* switch */}
-                {/* <Switch label="Theme" value={theme} setValue={setTheme} /> */}
-                {/* https://flowbite.com/docs/forms/toggle/ */}
+            <Card title="Checkbox" className="flex flex-col gap-4">
+                <Checkbox label="Checkbox label" checked={boolean} setChecked={setBoolean} required />
+                <Switch label="Switch label" checked={boolean} setChecked={setBoolean} required />
             </Card>
 
             <Card title="Range">
-                {/* range */}
                 <input type="range" />
             </Card>
         </Page>
