@@ -43,7 +43,6 @@ export default function Exercises() {
 
     return (
         <Page title="Exercises">
-
             <Card title="Inputs" className="flex flex-col gap-4">
                 {/* input: text, email, password, tel, number, (date, time, datetime), url, color?*/}
                 <Input type="text" label="Text label" value={inputs.text} setValue={(value) => setInputs({ ...inputs, text: value })} required />
