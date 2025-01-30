@@ -19,17 +19,17 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
     useEffect(() => {
         if (!dialogElement) return
 
-        if (showModal) {
+        if (showModal && !dialogElement.open) {
             dialogElement.showModal()
             document.body.style.overflow = 'hidden'
-        } else {
+        } else if (!showModal && dialogElement.open) {
             dialogElement.close()
             document.body.style.overflow = 'auto'
         }
     }, [showModal, dialogElement])
 
     useEventListener('close', () => {
-        onClose()
+        if (showModal) onClose()
     }, dialogElement)
 
     useEventListener('click', (e) => {
