@@ -118,7 +118,7 @@ export default function Settings({ deferredPrompt }) {
                         <button className="btn-secondary w-full" onClick={() => setShowImportModal(false)}>Cancel</button>
                         <button className="btn-danger w-full" onClick={handleImport}>Import data</button>
                     </div>
-                </Modal>
+                </Modal >
 
                 <Modal showModal={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete all data">
                     <p>Are you sure you want to delete all data?</p>
@@ -130,7 +130,7 @@ export default function Settings({ deferredPrompt }) {
                         <button className="btn-secondary w-full" onClick={() => setShowDeleteModal(false)}>Cancel</button>
                         <button className="btn-danger w-full" onClick={handleDeleteAllData}>Delete data</button>
                     </div>
-                </Modal>
+                </Modal >
 
                 <Modal showModal={showTestDataModal} onClose={() => setShowTestDataModal(false)} title="Replace data with test data">
                     <p>Are you sure you want to replace all data with test data? This will overwrite all your current data.</p>

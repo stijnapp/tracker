@@ -3,6 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 
 /**
+ * @typedef {Object} NavItem
+ * @property {string} to - The path to navigate to
+ * @property {IconProp} icon - The icon to display
+ * @property {string} text - The text to display
+ */
+
+/**
  * @returns {JSX.Element}
  */
 export default function Navbar() {
