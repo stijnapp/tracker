@@ -1,6 +1,7 @@
 import { fa1, fa2, fa3 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Card from "../components/Card";
+import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
 import FileInput from "../components/Form/FileInput";
 import Input from "../components/Form/Input";
 import RadioButtonGroup from "../components/Form/RadioButtonGroup";
@@ -68,9 +69,10 @@ export default function Exercises() {
                 <FileInput label="File with preview" value={filePreview} setValue={setFilePreview} showPreview required />
             </Card>
 
-            <Card title="Radio Button Group">
+            <Card title="Radio Button Group" className="flex flex-col gap-4">
                 {/* TODO: default */}
-                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} defaultValue="1" required />
+                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} required />
+                <FancyRadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} defaultValue="1" required />
             </Card>
 
             <Card title="Select">
