@@ -28,11 +28,9 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
         }
     }, [showModal, dialogElement])
 
-    useEventListener('keydown', (e) => {
-        if (e.key === 'Escape') onClose()
-    })
-
-    // TODO: on mobile, going back will close the modal. intercept the back button press
+    useEventListener('close', () => {
+        onClose()
+    }, dialogElement)
 
     useEventListener('click', (e) => {
         if (e.target === dialogElement) onClose()
