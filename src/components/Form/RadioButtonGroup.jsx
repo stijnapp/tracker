@@ -18,16 +18,14 @@ import Badge from "../../components/Badge";
  * @param {string} [props.defaultValue=""] - The default value of the radio button group (will have a badge)
  * @param {boolean} [props.hideLabel=false] - Whether to hide the label
  * @param {string} [props.className=""] - Optional styling for the radio button group
+ * @param {boolean} [props.required=false] - Whether the radio button group is required
  * @param {Object} props.props - Additional props for the individual radio buttons
  * @returns {JSX.Element} The radio button group component
  */
-export default function RadioButtonGroup({ label, options, value, setValue, defaultValue = "", hideLabel = false, className = "", ...props }) {
-    // TODO: required indicator
-    // peer-required:after:content-['_*'] peer-required:after:text-danger
-
+export default function RadioButtonGroup({ label, options, value, setValue, defaultValue = "", hideLabel = false, className = "", required = false, ...props }) {
     return (
         <fieldset className={className}>
-            <legend className={`mb-2 font-semibold ${hideLabel && 'sr-only'}`}>{label}</legend>
+            <legend className={`mb-2 font-semibold ${hideLabel && 'sr-only'} ${required && "after:content-['_*'] after:text-danger"}`}>{label}</legend>
             <ul className="flex flex-col gap-1">
                 {options.map(({ value: optionValue, label: optionLabel, icon }) => (
                     <li key={optionValue} >
