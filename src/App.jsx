@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import useEventListener from './hooks/useEventListener';
 import useTheme from './hooks/useTheme';
 import Exercises from './pages/Exercises';
@@ -21,7 +21,7 @@ export default function App() {
     return (
         <>
             <Navbar />
-            <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 pt-8 pb-40 bg-body-light dark:bg-body-dark text-dark dark:text-light theme-transition">
+            <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 bg-body-light dark:bg-body-dark text-dark dark:text-light theme-transition">
                 <Routes>
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />

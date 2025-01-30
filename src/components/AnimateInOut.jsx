@@ -2,24 +2,30 @@ import { useEffect, useState } from "react"
 import { getMsFromDuration } from "../helpers/stringManipulation"
 
 /**
- * @param {{
- *  className?: string,
- *  restartAnimationOnChange?: boolean, // If true, will close and reopen the component when children change
- *  children: JSX.Element | JSX.Element[]
- * }} props
- * @returns {JSX.Element | null}
+ * A component that animates children in and out with a height transition
+ * @param {Object} props
+ * @param {boolean} [props.restartOnChildKeyChange=false] - If true, will close and reopen the component when the key of the child changes
+ * @param {"vertical" | "horizontal" | "both"} [props.direction="vertical"] - The direction of the transition
+ * @param {string} [props.className=""] - Optional styling for the component
+ * @param {JSX.Element} props.children - The children to animate
+ * @returns {JSX.Element | null} The animated component
  */
-export default function AnimateInOut({ className = "", restartAnimationOnChange = false, children }) {
+export default function AnimateInOut({ restartOnChildKeyChange = false, /* direction = "vertical", */ className = "", children }) {
+    // TODO: Implement direction
     const [isHiding, setIsHiding] = useState(true)
     const [childrenCache, setChildrenCache] = useState(children)
-    // `duration` needs to be tailwind duration, e.g. 'duration-[300ms]'
+    // ? `duration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const duration = 'duration-[300ms]'
+
+    if (restartOnChildKeyChange && children?.key === null) {
+        console.error('AnimateInOut component requires a unique key prop on children when using restartOnChildKeyChange', children)
+    }
 
     useEffect(() => {
         let clearCacheTimeout
         let newChildrenTimeout
 
-        if (restartAnimationOnChange && children && childrenCache && children !== childrenCache) {
+        if (restartOnChildKeyChange && children && childrenCache && children.key !== childrenCache.key) {
             setIsHiding(true)
 
             newChildrenTimeout = setTimeout(() => {

@@ -3,16 +3,16 @@ import useEventListener from "../hooks/useEventListener"
 import HR from "./HR"
 
 /**
- * @param {{
- *  showModal: boolean,
- *  onClose: () => void,
- *  title?: string,
- *  hasCloseBtn?: boolean,
- *  children?: React.ReactNode
- * }} props
- * @returns {JSX.Element}
+ * A modal component using the html `<dialog />` element
+ * @param {Object} props
+ * @param {boolean} props.showModal - Whether to show the modal
+ * @param {() => void} props.onClose - Function to set parent state to close the modal
+ * @param {string} props.title - The title of the modal
+ * @param {boolean} [props.hasCloseBtn=true] - Whether to show the close button
+ * @param {JSX.Element} props.children - The content of the modal
+ * @returns {JSX.Element} The modal component
  */
-export default function Modal({ showModal, onClose, title = "", hasCloseBtn = true, children }) {
+export default function Modal({ showModal, onClose, title, hasCloseBtn = true, children }) {
     const dialogRef = useRef(null)
     const dialogElement = dialogRef.current
 
@@ -28,9 +28,9 @@ export default function Modal({ showModal, onClose, title = "", hasCloseBtn = tr
         }
     }, [showModal, dialogElement])
 
-    useEventListener('keydown', (e) => {
-        if (e.key === 'Escape') onClose()
-    })
+    useEventListener('close', () => {
+        onClose()
+    }, dialogElement)
 
     useEventListener('click', (e) => {
         if (e.target === dialogElement) onClose()

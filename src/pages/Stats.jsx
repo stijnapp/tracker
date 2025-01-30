@@ -2,40 +2,63 @@ import { useState } from "react";
 import Alert from "../components/Alert";
 import AnimateInOut from "../components/AnimateInOut";
 import Card from "../components/Card";
+import HR from "../components/HR";
 import Page from "../components/Page";
 
 export default function Stats() {
+    const [text, setText] = useState(null)
+    const [restartOnChildKeyChange, setRestartOnChildKeyChange] = useState(false)
+
     const [error, setError] = useState(null)
 
-    const [text, setText] = useState(null)
-    const [restartAnimationOnChange, setRestartAnimationOnChange] = useState(false)
+    const [absoluteAlerts, setAbsoluteAlerts] = useState(false)
+    const alertComponents = <>
+        <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2 p-2 bg-floating-light dark:bg-floating-dark rounded-md border border-gray-500/50">
+                <input type="checkbox" checked={absoluteAlerts} onChange={() => setAbsoluteAlerts(!absoluteAlerts)} />
+                <span>Absolute alerts</span>
+            </label>
+            <Alert message="Primary alert" isCloseable={false} type="primary" />
+            <Alert message="Secondary alert" isCloseable={false} type="secondary" />
+            <Alert message="Danger alert" isCloseable={false} type="danger" />
+            <Alert message="Warning alert" isCloseable={false} type="warning" />
+            <Alert message="Info alert" isCloseable={false} type="info" />
+            <Alert message="Success alert" isCloseable={false} type="success" />
+        </div>
+    </>
 
     return (
         <Page title="Stats">
-            <Card title="Alert test" className="flex flex-col gap-4">
-                {error !== null ? <p className="text-sm text-danger">There is an error</p> : <p className="text-sm text-success">No errors</p>}
-                <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
-                <button className="btn-secondary" onClick={() => setError('Change')}>Change alert text</button>
-                <button className="btn-warning" disabled={error === null} onClick={() => setError(null)}>Clear text</button>
-                <Alert message={error} setMessage={setError} autoClose />
-            </Card>
-
             <Card title="AnimateInOut test" className="flex flex-col gap-4">
                 <label className="flex items-center gap-2">
-                    <input type="checkbox" checked={restartAnimationOnChange} onChange={() => setRestartAnimationOnChange(!restartAnimationOnChange)} />
+                    <input type="checkbox" checked={restartOnChildKeyChange} onChange={() => setRestartOnChildKeyChange(!restartOnChildKeyChange)} />
                     <span>Restart animation on change</span>
                 </label>
                 <button className="btn-primary" onClick={() => setText('First')}>Show &apos;First text&apos;</button>
                 <button className="btn-success" onClick={() => setText('Second')}>Show &apos;Second text&apos;</button>
                 <button className="btn-secondary" onClick={() => setText(null)}>Remove text</button>
-                <AnimateInOut restartAnimationOnChange={restartAnimationOnChange}>
+                <AnimateInOut restartOnChildKeyChange={restartOnChildKeyChange}>
                     {text && (
-                        <div className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
+                        <div key={text} className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
                             {text}
                         </div>
                     )}
                 </AnimateInOut>
-                <button className="btn-secondary" disabled>.</button>
+            </Card>
+
+            <Card title="Alert test" className="flex flex-col gap-4">
+                {error !== null ? <p className="text-sm text-danger">There is an error</p> : <p className="text-sm text-success">No errors</p>}
+                <button className="btn-danger" onClick={() => setError('Lorem ipsum dolor sit amet conse tetur, adipisicing elit. Laboriosam, eaque.')}>Show alert</button>
+                <button className="btn-warning" onClick={() => setError('Change')}>Change alert text</button>
+                <Alert message={error} setMessage={setError} autoClose />
+
+                <HR className="h-8 -mb-2" />
+                <p className="font-semibold text-xl">Styles</p>
+                {absoluteAlerts ? (
+                    <div className="fixed bottom-16 right-0 w-full flex flex-col gap-4 p-4 z-20">
+                        {alertComponents}
+                    </div>
+                ) : alertComponents}
             </Card>
 
             <Card title="Button test">

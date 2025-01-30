@@ -1,5 +1,6 @@
 import { faChartLine, faClockRotateLeft, faDumbbell, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
-import NavButton from "./NavButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NavLink } from "react-router-dom";
 
 /**
  * @typedef {Object} NavItem
@@ -12,9 +13,7 @@ import NavButton from "./NavButton";
  * @returns {JSX.Element}
  */
 export default function Navbar() {
-    /**
-     * @type {NavItem[]}
-     */
+    const navButtonClasses = 'flex flex-col gap-1 text-center justify-center text-sm pb-1 pt-3 transition-[transform,font-weight,filter] duration-200';
     const navItems = [
         { to: '/', icon: faClockRotateLeft, text: 'History' },
         { to: '/stats', icon: faChartLine, text: 'Stats' },
@@ -24,12 +23,15 @@ export default function Navbar() {
     ];
 
     return (
-        <div className="fixed z-10 bottom-0 w-full bg-floating-light/90 dark:bg-floating-dark/90 backdrop-blur border-t border-gray-300 dark:border-white/20 theme-transition">
+        <div className="fixed z-10 bottom-0 w-full bg-floating-light/85 dark:bg-floating-dark/85 backdrop-blur border-t border-gray-300 dark:border-white/20 theme-transition">
             <nav className="max-w-[384px] mx-auto px-4">
                 <ul className="flex flex-row justify-between">
                     {navItems.map((item) => (
                         <li key={item.to} className="basis-full">
-                            <NavButton {...item} />
+                            <NavLink to={item.to} className={({ isActive }) => `${navButtonClasses} ${isActive ? 'text-primary -translate-y-1 font-bold drop-shadow-[0_0px_8px_#1d809866]' : 'text-gray-500 dark:text-gray-400 font-medium'}`}>
+                                <FontAwesomeIcon icon={item.icon} size="xl" />
+                                {item.text}
+                            </NavLink>
                         </li>
                     ))}
                 </ul>

@@ -1,10 +1,10 @@
 /**
- * @param {{
-*  text?: string,
-*  className?: string
-* }} props
-* @returns {JSX.Element}
-*/
+ * A dividing line with optional text in the middle
+ * @param {Object} props
+ * @param {string | null} [props.text=null] - Optional text in the middle of the line
+ * @param {string} [props.className=""] - Optional styling for the line
+ * @returns {JSX.Element} The dividing line component
+ */
 export default function HR({ text = null, className = "" }) {
     return (
         <div className={`relative flex gap-4 h-16 items-center ${className}`} role="separator">
