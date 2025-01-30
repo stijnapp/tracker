@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Alert from "../components/Alert";
 import Card from "../components/Card";
-import RadioButtonGroup from "../components/Form/RadioButtonGroup";
+import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
 import HR from "../components/HR";
 import Modal from "../components/Modal";
 import Page from "../components/Page";
@@ -79,7 +79,7 @@ export default function Settings({ deferredPrompt }) {
         <>
             <Page title="Settings">
                 <Card title="Appearance">
-                    <RadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} defaultValue="system" hideLabel />
+                    <FancyRadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} defaultValue="system" hideLabel />
                 </Card>
 
                 {!isPWA && (
