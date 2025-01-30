@@ -1,6 +1,7 @@
 import { fa1, fa2, fa3 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Card from "../components/Card";
+import Checkbox from "../components/Form/Checkbox";
 import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
 import FileInput from "../components/Form/FileInput";
 import Input from "../components/Form/Input";
@@ -42,6 +43,8 @@ export default function Exercises() {
         { value: '3', label: 'Option 3' },
     ]
 
+    const [boolean, setBoolean] = useState(false)
+
     return (
         <Page title="Exercises">
             <Card title="Inputs" className="flex flex-col gap-4">
@@ -82,15 +85,13 @@ export default function Exercises() {
 
             <Card title="Checkbox">
                 {/* checkbox */}
-                <label>
-                    <input type="checkbox" />
-                    checkbox
-                </label>
+                <Checkbox label="Checkbox label" value={boolean} setValue={() => setBoolean(!boolean)} required />
             </Card>
 
             <Card title="Switch">
                 {/* switch */}
                 {/* <Switch label="Theme" value={theme} setValue={setTheme} /> */}
+                {/* https://flowbite.com/docs/forms/toggle/ */}
             </Card>
 
             <Card title="Range">

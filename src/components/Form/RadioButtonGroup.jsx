@@ -15,7 +15,7 @@ export default function RadioButtonGroup({ label, options, value, setValue, hide
                                 required={required}
                                 className="box-content h-1.5 w-1.5 appearance-none rounded-full border-4 border-floating-light dark:border-floating-dark bg-floating-light dark:bg-floating-dark bg-clip-padding outline-none ring-1 ring-black/20 dark:ring-white/10 checked:border-primary checked:ring-primary"
                             />
-                            <span>{optionLabel}</span>
+                            {optionLabel}
                         </label>
                     </li>
                 ))}
