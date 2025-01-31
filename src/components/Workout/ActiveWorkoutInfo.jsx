@@ -18,7 +18,8 @@ export default function ActiveWorkoutInfo({ activeWorkoutId }) {
 
     return (
         <Card>
-            <Input type="datetime-local" label="Start of workout" value={activeWorkoutInfo.date} onChange={handleStartChange} />
+            {/* TODO: "{time of day} workout" */}
+            <Input type="datetime-local" label="Start of workout" value={activeWorkoutInfo.date} onChange={handleStartChange} className="mt-1" />
         </Card>
     )
 }
