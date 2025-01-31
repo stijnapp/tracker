@@ -1,109 +1,61 @@
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import Card from "../components/Card";
+import { useState } from "react";
+import AnimateInOut from "../components/AnimateInOut";
+import Modal from "../components/Modal";
 import Page from "../components/Page";
+import ActiveWorkoutInfo from "../components/Workout/ActiveWorkoutInfo";
+import WorkoutExercise from "../components/Workout/WorkoutExercise";
 import { db } from "../helpers/db";
 
 export default function Workout() {
-    const [activeWorkout, setActiveWorkout] = useState(db.getActiveWorkout())
-    const [exercises, setExercises] = useState(db.getAllExercises())
-    const debounceTimeout = 1000
+    const [activeWorkoutId, setActiveWorkoutId] = useState(db.getActiveWorkoutId())
+    const [workoutExerciseIds, setWorkoutExerciseIds] = useState(db.getWorkoutExerciseIds(activeWorkoutId))
+    const [isEndingModalOpen, setIsEndingModalOpen] = useState(false)
 
-    const handleChangeExercise = (newExercise) => {
-        setExercises((prev) => prev.map((exercise) => exercise.id === newExercise.id ? newExercise : exercise))
+    const startNewWorkout = () => {
+        const newWorkoutId = db.addWorkout().id
+        setActiveWorkoutId(newWorkoutId)
+        setWorkoutExerciseIds(db.getWorkoutExerciseIds(newWorkoutId))
     }
 
-    useEffect(() => {
-        let saveTimeout
-
-        saveTimeout = setTimeout(() => {
-            if (!activeWorkout) return
-            db.updateWorkout(activeWorkout.id, activeWorkout)
-            // TODO: Show saving indicator (with context?)
-            console.log('Saving workout...')
-        }, debounceTimeout)
-
-        // TODO: this will cancel the save if the user navigates away from the page
-        return () => {
-            clearTimeout(saveTimeout)
-        }
-    }, [activeWorkout])
-
-    useEffect(() => {
-        let saveTimeout
-
-        // console.log('exercises changed')
-
-        saveTimeout = setTimeout(() => {
-            if (!activeWorkout) return
-            db.updateAllExercises(exercises)
-            console.log('Saving exercises...')
-        }, debounceTimeout)
-
-        // TODO: this will cancel the save if the user navigates away from the page
-        return () => {
-            clearTimeout(saveTimeout)
-        }
-    }, [activeWorkout, exercises])
+    const endworkout = () => {
+        // TODO: does something else need saving?
+        db.setActiveWorkoutId(null)
+        setActiveWorkoutId(null)
+        setWorkoutExerciseIds([])
+        setIsEndingModalOpen(false)
+        // TODO: global success alert "Workout saved successfully" or "Workout ended"
+    }
 
     return (
-        <Page title="Workout">
-            {!activeWorkout ? <>
-                <button className="btn-primary" onClick={() => setActiveWorkout(db.addWorkout())}>Start workout</button>
-            </> : <>
-                <Card>
-                    <label htmlFor="workoutDateTime">Start of workout</label>
-                    <input type="datetime-local" name="workoutDateTime" id="workoutDateTime" value={activeWorkout.date} onChange={(e) => setActiveWorkout((prev) => ({ ...prev, date: e.target.value }))} className="w-full border border-gray-500" />
-                </Card>
+        <Page title="Workout" className="gap-0 -m-2">
+            <AnimateInOut className="w-full flex flex-col gap-4 p-2">
+                {!activeWorkoutId && <button className="btn-primary" onClick={startNewWorkout}>Start workout</button>}
+            </AnimateInOut>
 
-                {activeWorkout.exercises.sort((a, b) => a.order - b.order).map((exercise) => {
-                    const currentExercise = exercises.find((e) => e.id === exercise.id)
+            <AnimateInOut className="w-full flex flex-col gap-4 p-2">
+                {activeWorkoutId && (
+                    <>
+                        <ActiveWorkoutInfo activeWorkoutId={activeWorkoutId} />
 
-                    return (
-                        <Card key={exercise.id} title={<div className="flex justify-between">{currentExercise.name}<FontAwesomeIcon icon={faAngleDown} className="w-6 h-6" /></div>} collapsible>
-                            {currentExercise.nickname && <p className="mb-4 -mt-4 text-gray-500 dark:text-gray-400">{currentExercise.nickname}</p>}
-                            <textarea className="w-full border p-1 border-gray-400 rounded-md" value={currentExercise.description ?? ''} onChange={(e) => handleChangeExercise({ ...currentExercise, description: e.target.value })}></textarea>
+                        {workoutExerciseIds.map((exerciseId) => (
+                            <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} newestExercise={exerciseId === workoutExerciseIds[workoutExerciseIds.length - 1]} />
+                        ))}
 
-                            <table className="w-full">
-                                <thead>
-                                    <tr>
-                                        <th className="p-2">Set</th>
-                                        <th className="p-2">Weight</th>
-                                        <th className="p-2">Reps</th>
-                                    </tr>
-                                </thead>
-                                {/* TODO: where to add previous results to compare? */}
-                                <tbody>
-                                    {exercise.sets.map((set) => (
-                                        <tr key={set.id} className="border-b border-gray-500/50">
-                                            <td className="p-2">{set.id}</td>
-                                            <td className="p-2">
-                                                {/* <label>Weight (prev: 25)</label> */}
-                                                <input type="number" name="" id="" value={set.weight} onChange={() => { }} className="w-full border p-1 border-gray-400 rounded-md" /></td>
-                                            <td className="p-2">
-                                                {/* <label>Reps (prev: 12)</label> */}
-                                                <input type="number" name="" id="" value={set.reps} onChange={() => { }} className="w-full border p-1 border-gray-400 rounded-md" /></td>
-                                        </tr>
-                                    ))}
-                                    <tr className="opacity-50">
-                                        <td className="p-2">3</td>
-                                        <td className="p-2">
-                                            {/* <label>Weight (prev: 20)</label> */}
-                                            <input type="number" name="" id="" value={''} onChange={() => { }} className="w-full border p-1 border-gray-400 rounded-md" /></td>
-                                        <td className="p-2">
-                                            {/* <label>Reps (prev: 12)</label> */}
-                                            <input type="number" name="" id="" value={''} onChange={() => { }} className="w-full border p-1 border-gray-400 rounded-md" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </Card>
-                    )
-                })}
+                        <button className="btn-primary">Add exercise</button>
+                        <button className="btn-danger" onClick={() => setIsEndingModalOpen(true)}>End workout</button>
+                    </>
+                )}
+            </AnimateInOut>
 
-                <button className="btn-primary">Add exercise</button>
-                <button className="btn-danger">End workout</button>
-            </>}
+            {/* modal for ending workout */}
+            <Modal showModal={isEndingModalOpen} onClose={() => setIsEndingModalOpen(false)} title="End workout">
+                <p>Are you sure you want to end this workout?</p>
+                <p className="mb-2">You can always edit the workout later via the history page.</p>
+                <div className="flex gap-4">
+                    <button className="btn-secondary w-full" onClick={() => setIsEndingModalOpen(false)}>Keep going</button>
+                    <button className="btn-danger w-full" onClick={endworkout}>End workout</button>
+                </div>
+            </Modal>
         </Page>
     )
 }
