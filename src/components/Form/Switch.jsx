@@ -1,3 +1,10 @@
+/**
+ * Switch component
+ * @param {Object} props
+ * @param {string} props.label - The label of the switch
+ * @param {string} [props.className=""] - Optional styling for the switch
+ * @returns {JSX.Element} The switch component
+ */
 export default function Switch({ label, className = "", ...props }) {
     return (
         <label className={`${className} flex items-center gap-2`}>

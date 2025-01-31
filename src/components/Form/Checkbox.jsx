@@ -1,6 +1,13 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+/**
+ * A checkbox component
+ * @param {Object} props
+ * @param {string} props.label - The label of the checkbox
+ * @param {string} [props.className=""] - Optional styling for the checkbox
+ * @returns {JSX.Element} The checkbox component
+ */
 export default function Checkbox({ label, className = "", ...props }) {
     return (
         <label className={`${className} relative flex items-center gap-2`}>

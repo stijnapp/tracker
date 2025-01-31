@@ -1,3 +1,20 @@
+/**
+ * @typedef {Object} Option
+ * @property {string} value - The value of the option
+ * @property {string} label - The label of the option
+ */
+
+/**
+ * A radio button group component
+ * @param {Object} props
+ * @param {string} props.label - The label of the radio button group
+ * @param {Option[]} props.options - The options for the radio button group
+ * @param {string} props.value - The value of the currently selected radio button
+ * @param {boolean} [props.hideLabel=false] - Whether to hide the label
+ * @param {string} [props.className=""] - Optional styling for the radio button group
+ * @param {boolean} [props.required=false] - Whether the radio button group is required
+ * @returns {JSX.Element} The radio button group component
+ */
 export default function RadioButtonGroup({ label, options, value, hideLabel = false, className = "", required = false, ...props }) {
     return (
         <fieldset className={`relative ${className}`}>

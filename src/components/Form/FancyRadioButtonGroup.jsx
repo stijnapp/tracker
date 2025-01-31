@@ -9,7 +9,7 @@ import Badge from "../Badge";
  */
 
 /**
- * A radio button group component
+ * A fancy radio button group component with icons, badges, and custom styling
  * @param {Object} props
  * @param {string} props.label - The label of the radio button group
  * @param {Option[]} props.options - The options for the radio button group
