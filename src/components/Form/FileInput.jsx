@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import AnimateInOut from "../AnimateInOut"
 
-export default function FileInput({ label, value, setValue, showPreview = false, className = "", ...props }) {
+export default function FileInput({ label, value, onChange, showPreview = false, className = "", ...props }) {
     const [isPreviewVisisible, setIsPreviewVisisible] = useState(false)
 
     const filePreview = useMemo(() => {
@@ -11,7 +11,7 @@ export default function FileInput({ label, value, setValue, showPreview = false,
 
     const handleFileChange = (e) => {
         if (!e.target.files) return
-        setValue(e.target.files[0])
+        onChange(e.target.files[0])
     }
 
     // TODO: add "remove file" button

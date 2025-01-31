@@ -66,8 +66,8 @@ export default function Exercises() {
             </Card>
 
             <Card title="File" className="flex flex-col gap-4">
-                <FileInput label="File label" value={file} setValue={setFile} required />
-                <FileInput label="File with preview" value={filePreview} setValue={setFilePreview} showPreview required />
+                <FileInput label="File label" value={file} onChange={setFile} required />
+                <FileInput label="File with preview" value={filePreview} onChange={setFilePreview} showPreview required />
             </Card>
 
             <Card title="Radio Button Group" className="flex flex-col gap-4">
