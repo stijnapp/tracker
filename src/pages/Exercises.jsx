@@ -62,7 +62,7 @@ export default function Exercises() {
             </Card>
 
             <Card title="Textarea">
-                <Textarea label="Textarea label" value={textArea} setValue={setTextArea} required />
+                <Textarea label="Textarea label" value={textArea} onChange={(e) => setTextArea(e.target.value)} required />
             </Card>
 
             <Card title="File" className="flex flex-col gap-4">
