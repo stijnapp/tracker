@@ -71,8 +71,8 @@ export default function Exercises() {
             </Card>
 
             <Card title="Radio Button Group" className="flex flex-col gap-4">
-                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} required />
-                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} setValue={setRadio} defaultValue="1" required />
+                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
+                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
             </Card>
 
             <Card title="Select">
