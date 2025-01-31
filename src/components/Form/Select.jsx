@@ -1,11 +1,9 @@
-export default function Select({ label, value, setValue, options, className = "", ...props }) {
+export default function Select({ label, options, className = "", ...props }) {
     // TODO: darkmode dropdown menu color
     return (
         <div className={`relative ${className}`}>
             <label>
                 <select
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
                     {...props}
                     className="floating-label-input peer"
                 >

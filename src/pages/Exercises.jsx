@@ -76,7 +76,7 @@ export default function Exercises() {
             </Card>
 
             <Card title="Select">
-                <Select label="Select label" options={selectOptions} value={select} setValue={setSelect} required />
+                <Select label="Select label" options={selectOptions} value={select} onChange={(e) => setSelect(e.target.value)} required />
             </Card>
 
             <Card title="Checkbox" className="flex flex-col gap-4">
