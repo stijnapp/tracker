@@ -32,7 +32,7 @@ export default function Workout() {
                 {!activeWorkoutId && <button className="btn-primary" onClick={startNewWorkout}>Start workout</button>}
             </AnimateInOut>
 
-            <AnimateInOut className="w-full flex flex-col gap-4 px-2 py-2">
+            <AnimateInOut className="w-full flex flex-col gap-4 px-2 py-2 mb-40">
                 {activeWorkoutId && (
                     <>
                         <ActiveWorkoutInfo activeWorkoutId={activeWorkoutId} />
