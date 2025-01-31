@@ -17,7 +17,7 @@ export default function Collapse({ title = "", openByDefault = false, className 
 
     return (
         <article className="flex flex-col rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">
-            <button onClick={() => setIsOpened(!isOpened)} aria-label={isOpened ? 'Close' : 'Expand'} className={`flex justify-between items-center p-4 text-start outline-none focus:text-primary`} >
+            <button onClick={() => setIsOpened(!isOpened)} aria-label={isOpened ? 'Close' : 'Expand'} className="flex justify-between items-center p-4 text-start outline-none transition-[color] focus:text-primary" >
                 <h1 className="font-semibold text-xl">{title}</h1>
                 <FontAwesomeIcon icon={faAngleDown} className={`${isOpened ? 'rotate-0' : 'rotate-90'} transition-[box-shadow,transform] mr-1 text-lg`} />
             </button>
