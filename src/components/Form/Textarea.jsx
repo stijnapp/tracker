@@ -7,7 +7,7 @@ export default function Textarea({ label, value, setValue, className = "", ...pr
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     {...props}
-                    className="floating-label-input peer"
+                    className="floating-label-input peer -mb-1.5"
                 />
                 <span className="floating-label">
                     {label}
