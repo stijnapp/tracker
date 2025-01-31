@@ -16,6 +16,12 @@ import { getCurrentDateTime } from "./dateTime"
  */
 
 /**
+ * @typedef {Object} WorkoutInfo
+ * @property {number} id
+ * @property {string} date
+ */
+
+/**
  * @typedef {Object} WorkoutExercise
  * @property {number} id
  * @property {number} exerciseId
@@ -93,6 +99,35 @@ export const db = {
      */
     getWorkoutById(id) {
         return this.getAllWorkouts().find(workout => workout.id === id) ?? null
+    },
+    /**
+     * @param {number} workoutId
+     * @returns {WorkoutInfo|null} - Returns the workout without the exercises
+     */
+    getWorkoutInfo(workoutId) {
+        const workout = this.getWorkoutById(workoutId)
+        if (!workout) return null
+        delete workout.exercises
+        return workout
+    },
+    /**
+     * @param {number} workoutId
+     * @param {WorkoutInfo} updatedWorkoutInfo
+     * @returns {boolean}
+     */
+    updateWorkoutInfo(workoutId, updatedWorkoutInfo) {
+        const workout = this.getWorkoutById(workoutId)
+        if (!workout) return false
+        return this.updateWorkout(workoutId, { ...workout, ...updatedWorkoutInfo })
+    },
+    /**
+     * @param {number} workoutId
+     * @returns {Array<number>}
+     */
+    getWorkoutExerciseIds(workoutId) {
+        const workout = this.getWorkoutById(workoutId)
+        // also sort on exercise.order
+        return workout?.exercises.sort((a, b) => a.order - b.order).map(exercise => exercise.id) ?? []
     },
     /**
      * @returns {Workout}
@@ -448,7 +483,7 @@ const testData = {
             exercises: [
                 {
                     id: 1,
-                    exerciseId: 1,
+                    exerciseId: 2,
                     order: 2,
                     sets: [
                         {
@@ -465,7 +500,7 @@ const testData = {
                 },
                 {
                     id: 2,
-                    exerciseId: 2,
+                    exerciseId: 1,
                     order: 1,
                     sets: [
                         {
@@ -504,17 +539,17 @@ const testData = {
     exercises: [
         {
             id: 1,
-            name: 'Lat pulldown',
-            nickname: 'Dorito machine',
-            description: null,
-            tagId: 2
-        },
-        {
-            id: 2,
             name: 'Chest press',
             nickname: null,
             description: null,
             tagId: 1
+        },
+        {
+            id: 2,
+            name: 'Lat pulldown',
+            nickname: 'Dorito machine',
+            description: null,
+            tagId: 2
         },
         {
             id: 3,
