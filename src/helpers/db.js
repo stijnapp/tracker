@@ -327,7 +327,6 @@ export const db = {
         let deletedAtLeastOne = false
         for (let i = workoutExercise.sets.length - 1; i >= 0; i--) {
             const set = workoutExercise.sets[i]
-            console.log(set)
             if (!set.weight && !set.reps) {
                 workoutExercise.sets.pop()
                 deletedAtLeastOne = true

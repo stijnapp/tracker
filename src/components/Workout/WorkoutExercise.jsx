@@ -33,13 +33,11 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
     }
 
     const handleDeleteSet = () => {
-        console.log('delete success', db.removeLastEmptySets(workoutId, workoutExerciseId))
+        db.removeLastEmptySets(workoutId, workoutExerciseId)
         setSetIds(db.getSetIds(workoutId, workoutExerciseId))
         // TODO: focus on the opacity-50 input
         return true
     }
-
-    // TODO: if last set has neither weight nor reps, remove it
 
     const cardHeader = (
         <div>
