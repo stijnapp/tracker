@@ -80,8 +80,8 @@ export default function Exercises() {
             </Card>
 
             <Card title="Checkbox" className="flex flex-col gap-4">
-                <Checkbox label="Checkbox label" checked={boolean} setChecked={setBoolean} required />
-                <Switch label="Switch label" checked={boolean} setChecked={setBoolean} required />
+                <Checkbox label="Checkbox label" checked={boolean} onChange={() => setBoolean(!boolean)} required />
+                <Switch label="Switch label" checked={boolean} onChange={() => setBoolean(!boolean)} required />
             </Card>
 
             <Card title="Range">
