@@ -23,7 +23,7 @@ export default function Collapse({ title = "", openByDefault = false, className 
             </button>
             <AnimateInOut className={`${className} w-full flex flex-col gap-4 p-4 pt-0`}>
                 {isOpened && <>
-                    <HR className="h-auto mb-2" />
+                    <HR className="h-auto mb-1.5" />
                     {children}
                 </>}
             </AnimateInOut>
