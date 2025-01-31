@@ -1,11 +1,10 @@
-export default function Switch({ label, checked, setChecked, className = "", required = false, ...props }) {
+export default function Switch({ label, className = "", ...props }) {
     return (
         <label className={`${className} flex items-center gap-2`}>
-            <input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} {...props} className="sr-only" />
-            <div className={`${checked ? 'bg-primary' : 'bg-gray-500/50'} transition-[background-color] relative w-11 h-6 rounded-full`}>
-                <div className={`${checked ? 'translate-x-full' : ''} transition-[transform] absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white`}></div>
-            </div>
-            <span>{label}{required && <span className="text-danger"> *</span>}</span>
+            <input type="checkbox" {...props} className="sr-only peer" />
+            <div className="bg-gray-500/50 peer-checked:bg-primary transition-[background-color] relative w-11 h-6 rounded-full
+                peer-checked:before:translate-x-full before:transition-[transform] before:absolute before:top-0.5 before:left-0.5 before:w-5 before:h-5 before:rounded-full before:bg-white"></div>
+            <span className="peer-required:after:content-['_*'] peer-required:after:text-danger">{label}</span>
         </label>
     )
 }
