@@ -50,15 +50,8 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
         if (newSet) setNewSet(null)
     }, [newSet])
 
-    const cardHeader = (
-        <div>
-            {exercise.name}
-            {exercise.nickname && <p className="text-base font-normal -mt-0.5 text-gray-500 dark:text-gray-400">- {exercise.nickname}</p>}
-        </div>
-    )
-
     return (
-        <Collapse title={cardHeader} openByDefault={newestExercise}>
+        <Collapse title={exercise.name} subtitle={exercise.nickname} openByDefault={newestExercise} className="flex flex-col gap-4 mt-1.5">
             <div className="flex gap-2">
                 <div className="w-0 border-2 rounded-full border-primary"></div>
                 <Textarea label="Description" value={exercise.description ?? ''} onChange={handleDescriptionChange} className="flex-grow" />
