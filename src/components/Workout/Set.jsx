@@ -7,9 +7,11 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
     const weightInputRef = useRef(null)
     const repsInputRef = useRef(null)
 
-    // TODO: dot after number registers as '' in input
     const handleWeightChange = (e) => {
-        const newWeight = e.target.value
+        let newWeight = e.target.valueAsNumber
+        if (Number.isNaN(newWeight)) {
+            newWeight = set.weight
+        }
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, weight: newWeight })
         if (!newWeight && !set.reps && potentialDelete !== null) {
             potentialDelete('weight')
@@ -19,7 +21,10 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
     }
 
     const handleRepsChange = (e) => {
-        const newReps = e.target.value
+        let newReps = e.target.valueAsNumber
+        if (Number.isNaN(newReps)) {
+            newReps = set.reps
+        }
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, reps: newReps })
         if (!set.weight && !newReps && potentialDelete !== null) {
             potentialDelete('reps')
