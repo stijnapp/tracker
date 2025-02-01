@@ -7,7 +7,6 @@ import { db } from "../helpers/db";
 
 export default function History() {
     const [workoutIds] = useState(db.getAllWorkoutIdsExcludingActive())
-    console.log(db.getAllWorkoutIdsExcludingActive())
 
     // TODO: sort by date, amount of exercises, etc.
     return (
