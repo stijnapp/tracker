@@ -53,7 +53,7 @@ export default function AnimateInOut({ restartOnChildKeyChange = false, /* direc
 
     return (
         <div className={`${className} ${isHiding ? 'h-0 py-0 opacity-0 ease-in' : 'h-auto opacity-100 ease-out'} transition-[height,padding,opacity] ${duration} overflow-hidden`}>
-            {childrenCache}
+            {!isHiding && children ? children : childrenCache}
         </div>
     )
 }
