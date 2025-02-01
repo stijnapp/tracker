@@ -35,7 +35,7 @@ export default function Exercises() {
     return (
         <Page title="Exercises">
             <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>} className="flex flex-col gap-4">
-                <Input type="text" value={search} onChange={handleSearchChange} label="Search by (nick)name" className="flex-grow mt-1" />
+                <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Search by (nick)name" className="flex-grow mt-1" />
             </Card>
 
             {exercises.map((exercise) => (
