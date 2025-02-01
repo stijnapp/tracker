@@ -87,6 +87,7 @@ export default function Settings({ deferredPrompt }) {
                     <Card title="Download">
                         <p className="mb-2">Download the app to use it offline</p>
                         <button className={`${deferredPrompt ? 'btn-primary' : 'btn-secondary'} w-full`} disabled={!deferredPrompt} onClick={handleInstall}>Install{!deferredPrompt && <Spinner className="ml-2" />}</button>
+                        {!deferredPrompt && <p className="mt-1 text-sm text-gray-500">You may have already downloaded the app</p>}
                     </Card>
                 )}
 
@@ -101,7 +102,7 @@ export default function Settings({ deferredPrompt }) {
                     )}
                     <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
 
-                    <HR className="-mt-1 -mb-3" />
+                    <HR className="-my-1" />
 
                     <p className="mb-2 font-semibold text-danger">Danger zone</p>
                     <button className="btn-danger w-full mb-4" disabled={dbHasData ? false : true} onClick={() => setShowDeleteModal(true)}>Delete all data</button>
