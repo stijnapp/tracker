@@ -15,7 +15,7 @@ export default function Input({ type, label, className = "", inputRef, ...props 
                     placeholder={label}
                     ref={inputRef}
                     {...props}
-                    className={`${type === 'color' && 'h-12'} floating-label-input peer`}
+                    className={`${type === 'color' ? 'h-12' : ''} floating-label-input peer`}
                 />
                 <span className="floating-label">
                     {label}
