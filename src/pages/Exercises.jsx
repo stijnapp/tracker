@@ -1,4 +1,4 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import AnimateInOut from "../components/AnimateInOut";
@@ -34,12 +34,18 @@ export default function Exercises() {
 
     return (
         <Page title="Exercises">
-            <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>} className="flex flex-col gap-4">
-                <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Search by (nick)name" className="flex-grow mt-1" />
+            <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
+                <div className="flex gap-2 mt-1">
+                    <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Search by (nick)name" className="flex-grow" />
+                    <AnimateInOut direction="horizontal" className="flex" hiddenClassName="-ml-2">
+                        {search && <button onClick={() => setSearch('')} className="btn-secondary" aria-label="Clear search"><FontAwesomeIcon icon={faXmark} /></button>}
+                    </AnimateInOut>
+                </div>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Showing {filteredExercises.length} of {exercises.length} exercises</p>
             </Card>
 
             {exercises.map((exercise) => (
-                <AnimateInOut key={exercise.id}>
+                <AnimateInOut key={exercise.id} hiddenClassName="-mt-4">
                     {filteredExercises.some((filteredExercise) => filteredExercise.id === exercise.id) && (
                         <Exercise exercise={exercises.find((filteredExercise) => filteredExercise.id === exercise.id)} onUpdate={handleExerciseUpdate} />
                     )}
