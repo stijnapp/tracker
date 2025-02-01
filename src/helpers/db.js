@@ -95,6 +95,13 @@ export const db = {
         return JSON.parse(localStorage.getItem("db"))?.workouts ?? []
     },
     /**
+     * @returns {Array<number>}
+     */
+    getAllWorkoutIdsExcludingActive() {
+        const activeId = this.getActiveWorkoutId()
+        return this.getAllWorkouts().filter(workout => workout.id !== activeId).map(workout => workout.id) ?? []
+    },
+    /**
      * @param {number} id
      * @returns {Workout|null}
      */
@@ -375,6 +382,16 @@ export const db = {
         const allData = this.getAllData()
         if (!allData.workouts.some(workout => workout.id === id)) return false
         allData.activeWorkoutId = id
+        this.setAllData(allData)
+        return true
+    },
+    /**
+     * @returns {boolean}
+     */
+    endActiveWorkout() {
+        const allData = this.getAllData()
+        if (!allData.activeWorkoutId) return false
+        allData.activeWorkoutId = null
         this.setAllData(allData)
         return true
     },

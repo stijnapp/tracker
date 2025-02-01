@@ -19,7 +19,7 @@ export default function Workout() {
 
     const endworkout = () => {
         // TODO: does something else need saving?
-        db.setActiveWorkoutId(null)
+        db.endActiveWorkout()
         setActiveWorkoutId(null)
         setWorkoutExerciseIds([])
         setIsEndingModalOpen(false)
