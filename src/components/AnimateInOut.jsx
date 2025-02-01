@@ -66,7 +66,7 @@ export default function AnimateInOut({ restartOnChildKeyChange = false, directio
 
     return (
         <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} transition-[height,width,padding,margin,opacity] ${duration} overflow-hidden -m-2 p-2`}>
-            {!isHiding && children ? children : childrenCache}
+            {!isHiding && children ? (restartOnChildKeyChange ? childrenCache : children) : childrenCache}
         </div>
     )
 }
