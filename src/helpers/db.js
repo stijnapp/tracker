@@ -286,6 +286,7 @@ export const db = {
         return true
     },
 
+    // ! Sets
     /**
      * @param {number} workoutId
      * @param {number} workoutExerciseId
@@ -441,6 +442,12 @@ export const db = {
      */
     getExerciseById(id) {
         return this.getAllExercises().find(exercise => exercise.id === id) ?? null
+    },
+    /**
+     * @returns {Array<number>}
+     */
+    getAllExerciseIds() {
+        return this.getAllExercises().map(exercise => exercise.id)
     },
     /**
      * @param {string} name
