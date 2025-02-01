@@ -70,23 +70,40 @@ export function timeDifferenceToText(date) {
     }
 
     const intervals = [
-        { label: 'year', timeLimit: 60 * 60 * 24 * 365 },
-        { label: 'month', timeLimit: 60 * 60 * 24 * 30 },
-        { label: 'week', timeLimit: 60 * 60 * 24 * 7 },
-        { label: 'day', timeLimit: 60 * 60 * 24 },
-        { label: 'hour', timeLimit: 60 * 60 },
-        { label: 'minute', timeLimit: 60 },
+        { label: 'year', limitInSeconds: 60 * 60 * 24 * 365 },
+        { label: 'month', limitInSeconds: 60 * 60 * 24 * 30 },
+        { label: 'week', limitInSeconds: 60 * 60 * 24 * 7 },
+        { label: 'day', limitInSeconds: 60 * 60 * 24 },
+        { label: 'hour', limitInSeconds: 60 * 60 },
+        { label: 'minute', limitInSeconds: 60 },
     ]
 
     const isInPast = seconds > 0
     const positiveSeconds = Math.abs(seconds)
 
-    for (const { label, timeLimit } of intervals) {
-        if (positiveSeconds >= timeLimit) {
-            const value = Math.floor(positiveSeconds / timeLimit)
+    for (const { label, limitInSeconds } of intervals) {
+        if (positiveSeconds >= limitInSeconds) {
+            const value = Math.floor(positiveSeconds / limitInSeconds)
             return `${value} ${label}${value > 1 ? 's' : ''} ${isInPast ? 'ago' : 'from now'}`
         }
     }
 
     return 'just now'
+}
+
+/**
+ * @param {string} [time=null]
+ * @returns {string}
+ * @example
+ * timeOfDayToText() // 'morning'
+ * timeOfDayToText('2022-02-22T15:00') // 'afternoon'
+ */
+export function timeOfDayToText(time = null) {
+    const now = new Date(time ?? getCurrentDateTime(true))
+    const hour = now.getHours()
+
+    if (hour < 6) return 'night'
+    if (hour < 12) return 'morning'
+    if (hour < 18) return 'afternoon'
+    return 'evening'
 }

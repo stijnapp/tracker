@@ -79,7 +79,7 @@ export default function Settings({ deferredPrompt }) {
         <>
             <Page title="Settings">
                 <Card title="Appearance">
-                    <FancyRadioButtonGroup label="Theme" options={themeOptions} value={theme} setValue={setTheme} defaultValue="system" hideLabel />
+                    <FancyRadioButtonGroup label="Theme" options={themeOptions} value={theme} onChange={(e) => setTheme(e.target.value)} defaultValue="system" hideLabel />
                 </Card>
 
                 {!isPWA && (

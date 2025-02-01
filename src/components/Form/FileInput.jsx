@@ -1,7 +1,17 @@
 import { useMemo, useState } from "react"
 import AnimateInOut from "../AnimateInOut"
 
-export default function FileInput({ label, value, setValue, showPreview = false, className = "", ...props }) {
+/**
+ * File input component with optional preview
+ * @param {Object} props
+ * @param {string} props.label - The label of the file input
+ * @param {File} props.value - The selected file (not used for controlled input)
+ * @param {Function} props.onChange - The change handler for the file input (only returns the first valid file)
+ * @param {boolean} [props.showPreview=false] - Whether to show a preview of the selected file
+ * @param {string} [props.className=""] - Optional styling for the file input
+ * @returns {JSX.Element} The file input component
+ */
+export default function FileInput({ label, value, onChange, showPreview = false, className = "", ...props }) {
     const [isPreviewVisisible, setIsPreviewVisisible] = useState(false)
 
     const filePreview = useMemo(() => {
@@ -11,7 +21,7 @@ export default function FileInput({ label, value, setValue, showPreview = false,
 
     const handleFileChange = (e) => {
         if (!e.target.files) return
-        setValue(e.target.files[0])
+        onChange(e.target.files[0])
     }
 
     // TODO: add "remove file" button

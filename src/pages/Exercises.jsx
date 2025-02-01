@@ -49,39 +49,39 @@ export default function Exercises() {
     return (
         <Page title="Exercises">
             <Card title="Inputs" className="flex flex-col gap-4">
-                <Input type="text" label="Text label" value={inputs.text} setValue={(value) => setInputs({ ...inputs, text: value })} required />
-                <Input type="email" label="Email label" value={inputs.email} setValue={(value) => setInputs({ ...inputs, email: value })} required />
-                <Input type="password" label="Password label" value={inputs.password} setValue={(value) => setInputs({ ...inputs, password: value })} required />
-                <Input type="tel" label="tel label" value={inputs.tel} setValue={(value) => setInputs({ ...inputs, tel: value })} required />
-                <Input type="number" label="Number label" value={inputs.number} setValue={(value) => setInputs({ ...inputs, number: value })} required />
-                <Input type="date" label="Date label" value={inputs.date} setValue={(value) => setInputs({ ...inputs, date: value })} required />
-                <Input type="time" label="Time label" value={inputs.time} setValue={(value) => setInputs({ ...inputs, time: value })} required />
-                <Input type="datetime-local" label="Datetime label" value={inputs.datetime} setValue={(value) => setInputs({ ...inputs, datetime: value })} required />
-                <Input type="url" label="Url label" value={inputs.url} setValue={(value) => setInputs({ ...inputs, url: value })} required />
-                <Input type="color" label="Color label" value={inputs.color} setValue={(value) => setInputs({ ...inputs, color: value })} required />
+                <Input type="text" label="Text label" value={inputs.text} onChange={(e) => setInputs({ ...inputs, text: e.target.value })} required />
+                <Input type="email" label="Email label" value={inputs.email} onChange={(e) => setInputs({ ...inputs, email: e.target.value })} required />
+                <Input type="password" label="Password label" value={inputs.password} onChange={(e) => setInputs({ ...inputs, password: e.target.value })} required />
+                <Input type="tel" label="tel label" value={inputs.tel} onChange={(e) => setInputs({ ...inputs, tel: e.target.value })} required />
+                <Input type="number" label="Number label" value={inputs.number} onChange={(e) => setInputs({ ...inputs, number: e.target.value })} required />
+                <Input type="date" label="Date label" value={inputs.date} onChange={(e) => setInputs({ ...inputs, date: e.target.value })} required />
+                <Input type="time" label="Time label" value={inputs.time} onChange={(e) => setInputs({ ...inputs, time: e.target.value })} required />
+                <Input type="datetime-local" label="Datetime label" value={inputs.datetime} onChange={(e) => setInputs({ ...inputs, datetime: e.target.value })} required />
+                <Input type="url" label="Url label" value={inputs.url} onChange={(e) => setInputs({ ...inputs, url: e.target.value })} required />
+                <Input type="color" label="Color label" value={inputs.color} onChange={(e) => setInputs({ ...inputs, color: e.target.value })} required />
             </Card>
 
             <Card title="Textarea">
-                <Textarea label="Textarea label" value={textArea} setValue={setTextArea} required />
+                <Textarea label="Textarea label" value={textArea} onChange={(e) => setTextArea(e.target.value)} required />
             </Card>
 
             <Card title="File" className="flex flex-col gap-4">
-                <FileInput label="File label" value={file} setValue={setFile} required />
-                <FileInput label="File with preview" value={filePreview} setValue={setFilePreview} showPreview required />
+                <FileInput label="File label" value={file} onChange={setFile} required />
+                <FileInput label="File with preview" value={filePreview} onChange={setFilePreview} showPreview required />
             </Card>
 
             <Card title="Radio Button Group" className="flex flex-col gap-4">
-                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} setValue={setRadio} required />
-                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} setValue={setRadio} defaultValue="1" required />
+                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
+                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
             </Card>
 
             <Card title="Select">
-                <Select label="Select label" options={selectOptions} value={select} setValue={setSelect} required />
+                <Select label="Select label" options={selectOptions} value={select} onChange={(e) => setSelect(e.target.value)} required />
             </Card>
 
             <Card title="Checkbox" className="flex flex-col gap-4">
-                <Checkbox label="Checkbox label" checked={boolean} setChecked={setBoolean} required />
-                <Switch label="Switch label" checked={boolean} setChecked={setBoolean} required />
+                <Checkbox label="Checkbox label" checked={boolean} onChange={() => setBoolean(!boolean)} required />
+                <Switch label="Switch label" checked={boolean} onChange={() => setBoolean(!boolean)} required />
             </Card>
 
             <Card title="Range">

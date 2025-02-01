@@ -60,7 +60,6 @@ export function importJsonFileToDatabase(file, callback) {
             console.error('Invalid data')
             return
         }
-        console.log('Imported data:', data)
         db.setAllData(data)
         callback()
     }

@@ -95,6 +95,13 @@ export const db = {
         return JSON.parse(localStorage.getItem("db"))?.workouts ?? []
     },
     /**
+     * @returns {Array<number>}
+     */
+    getAllWorkoutIdsExcludingActive() {
+        const activeId = this.getActiveWorkoutId()
+        return this.getAllWorkouts().filter(workout => workout.id !== activeId).map(workout => workout.id) ?? []
+    },
+    /**
      * @param {number} id
      * @returns {Workout|null}
      */
@@ -279,7 +286,80 @@ export const db = {
         return true
     },
 
-    // TODO: add/update/delete set within exercise
+    /**
+     * @param {number} workoutId
+     * @param {number} workoutExerciseId
+     * @returns {Array<number>}
+     */
+    getSetIds(workoutId, workoutExerciseId) {
+        const workoutExercise = this.getWorkoutExerciseById(workoutId, workoutExerciseId)
+        return workoutExercise?.sets.map(set => set.id) ?? []
+    },
+    /**
+     * @param {number} workoutId
+     * @param {number} workoutExerciseId
+     * @param {number} setId
+     * @returns {Set|null}
+     */
+    getSetById(workoutId, workoutExerciseId, setId) {
+        const workoutExercise = this.getWorkoutExerciseById(workoutId, workoutExerciseId)
+        return workoutExercise?.sets.find(set => set.id === setId) ?? null
+    },
+    /**
+     * @param {number} workoutId
+     * @param {number} workoutExerciseId
+     * @returns {Set|null}
+     */
+    addSet(workoutId, workoutExerciseId) {
+        const workoutExercise = this.getWorkoutExerciseById(workoutId, workoutExerciseId)
+        if (!workoutExercise) return null
+        const newSet = {
+            id: workoutExercise.sets.reduce((highestId, set) => Math.max(highestId, set.id), 0) + 1,
+            weight: null,
+            reps: null,
+        }
+        workoutExercise.sets.push(newSet)
+        this.updateWorkoutExercise(workoutId, workoutExerciseId, workoutExercise)
+        return newSet
+    },
+    /**
+     * @param {number} workoutId
+     * @param {number} workoutExerciseId
+     * @returns {boolean}
+     */
+    removeLastEmptySets(workoutId, workoutExerciseId) {
+        const workoutExercise = this.getWorkoutExerciseById(workoutId, workoutExerciseId)
+        if (!workoutExercise) return false
+        if (workoutExercise.sets.length === 0) return false
+        let deletedAtLeastOne = false
+        for (let i = workoutExercise.sets.length - 1; i >= 0; i--) {
+            const set = workoutExercise.sets[i]
+            if (!set.weight && !set.reps) {
+                workoutExercise.sets.pop()
+                deletedAtLeastOne = true
+            } else {
+                break
+            }
+        }
+        if (!deletedAtLeastOne) return false
+        return this.updateWorkoutExercise(workoutId, workoutExerciseId, workoutExercise)
+    },
+    /**
+     * @param {number} workoutId
+     * @param {number} workoutExerciseId
+     * @param {number} setId
+     * @param {Set} updatedSet
+     * @returns {boolean}
+     */
+    updateSet(workoutId, workoutExerciseId, setId, updatedSet) {
+        const workoutExercise = this.getWorkoutExerciseById(workoutId, workoutExerciseId)
+        if (!workoutExercise) return false
+        const index = workoutExercise.sets.findIndex(set => set.id === setId)
+        if (index === -1) return false
+        updatedSet.id = setId
+        workoutExercise.sets[index] = updatedSet
+        return this.updateWorkoutExercise(workoutId, workoutExerciseId, workoutExercise)
+    },
 
     // ! Active workout
     /**
@@ -302,6 +382,16 @@ export const db = {
         const allData = this.getAllData()
         if (!allData.workouts.some(workout => workout.id === id)) return false
         allData.activeWorkoutId = id
+        this.setAllData(allData)
+        return true
+    },
+    /**
+     * @returns {boolean}
+     */
+    endActiveWorkout() {
+        const allData = this.getAllData()
+        if (!allData.activeWorkoutId) return false
+        allData.activeWorkoutId = null
         this.setAllData(allData)
         return true
     },
