@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { db } from "../../helpers/db"
 import Input from "../Form/Input"
 
-export default function Set({ workoutId, workoutExerciseId, setId, potentialDelete = null }) {
+export default function Set({ workoutId, workoutExerciseId, setId, newSet = null, potentialDelete = null }) {
     const [set, setSet] = useState(db.getSetById(workoutId, workoutExerciseId, setId))
+    const weightInputRef = useRef(null)
+    const repsInputRef = useRef(null)
 
+    // TODO: dot after number registers as '' in input
     const handleWeightChange = (e) => {
         const newWeight = e.target.value
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, weight: newWeight })
@@ -25,11 +28,21 @@ export default function Set({ workoutId, workoutExerciseId, setId, potentialDele
         setSet(db.getSetById(workoutId, workoutExerciseId, setId))
     }
 
+    useEffect(() => {
+        if (newSet?.setId === setId) {
+            if (newSet.type === 'weight') {
+                weightInputRef.current.focus()
+            } else if (newSet.type === 'reps') {
+                repsInputRef.current.focus()
+            }
+        }
+    }, [newSet, setId])
+
     return (
         <>
             <p className="col-span-1 text-sm text-gray-500 dark:text-gray-400 text-nowrap">Set {set.id}</p>
-            <Input type="number" label="Weight" value={set.weight ?? ''} onChange={handleWeightChange} className="col-span-3" />
-            <Input type="number" label="Reps" value={set.reps ?? ''} onChange={handleRepsChange} className="col-span-3" />
+            <Input inputRef={weightInputRef} type="number" label="Weight" value={set.weight ?? ''} onChange={handleWeightChange} className="col-span-3" />
+            <Input inputRef={repsInputRef} type="number" label="Reps" value={set.reps ?? ''} onChange={handleRepsChange} className="col-span-3" />
         </>
     )
 }
