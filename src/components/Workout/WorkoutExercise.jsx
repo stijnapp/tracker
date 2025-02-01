@@ -66,7 +66,6 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
 
             <div className="grid grid-cols-7 gap-4 items-center">
                 {setIds.map((setId) => {
-                    console.log(setId, newSet)
                     return (
                         <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} newSet={newSet} potentialDelete={setId === maxSetId ? handleDeleteSet : null} />
                     )
