@@ -16,18 +16,18 @@ export default function Collapse({ title = "", subtitle = "", openByDefault = fa
     const [isOpened, setIsOpened] = useState(openByDefault)
 
     return (
-        <article className="flex flex-col rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">
-            <button onClick={() => setIsOpened(!isOpened)} aria-label={isOpened ? 'Close' : 'Expand'} className="flex justify-between items-center p-4 text-start outline-none transition-[color] focus:text-primary" >
+        <article className="rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">
+            <button onClick={() => setIsOpened(!isOpened)} aria-label={isOpened ? 'Close' : 'Expand'} className="flex justify-between items-center p-4 w-full text-start outline-none transition-[color] focus:text-primary" >
                 <div>
                     <h1 className="font-semibold text-xl capitalize">{title}</h1>
                     {subtitle && <p className="-mt-0.5 text-base font-normal capitalize text-gray-500 dark:text-gray-400">- {subtitle}</p>}
                 </div>
                 <FontAwesomeIcon icon={faAngleDown} className={`${isOpened ? 'rotate-0' : 'rotate-90'} transition-[box-shadow,transform] mr-1 text-lg`} />
             </button>
-            <AnimateInOut className="w-full p-4 pt-0">
+            <AnimateInOut>
                 {isOpened && <>
-                    <HR className="h-auto pb-4" />
-                    <div className={className}>
+                    <HR className="px-4 pb-1.5 h-auto" />
+                    <div className={`${className} p-4`}>
                         {children}
                     </div>
                 </>}

@@ -51,7 +51,7 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
     }, [newSet])
 
     return (
-        <Collapse title={exercise.name} subtitle={exercise.nickname} openByDefault={newestExercise} className="flex flex-col gap-4 mt-1.5">
+        <Collapse title={exercise.name} subtitle={exercise.nickname} openByDefault={newestExercise} className="flex flex-col gap-4">
             <div className="flex gap-2">
                 <div className="w-0 border-2 rounded-full border-primary"></div>
                 <Textarea label="Description" value={exercise.description ?? ''} onChange={handleDescriptionChange} className="flex-grow" />

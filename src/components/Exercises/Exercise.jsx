@@ -26,7 +26,7 @@ export default function Exercise({ exercise, onUpdate }) {
     }
 
     return (
-        <Collapse title={exercise.name} subtitle={exercise.nickname} className="flex flex-col gap-4 mt-1.5">
+        <Collapse title={exercise.name} subtitle={exercise.nickname} className="flex flex-col gap-4">
             <Input label="Name" value={exercise.name ?? ''} onChange={handleNameChange} />
             <Input label="Nickname" value={exercise.nickname ?? ''} onChange={handleNicknameChange} />
             <Textarea label="Description" value={exercise.description ?? ''} onChange={handleDescriptionChange} />
