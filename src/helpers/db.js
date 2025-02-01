@@ -503,6 +503,9 @@ export const db = {
     deleteExercise(id) {
         const allData = this.getAllData()
         if (!allData.exercises.some(exercise => exercise.id === id)) return false
+        allData.workouts.forEach(workout => {
+            workout.exercises = workout.exercises.filter(exercise => exercise.exerciseId !== id)
+        })
         allData.exercises = allData.exercises.filter(exercise => exercise.id !== id)
         this.setAllData(allData)
         return true
