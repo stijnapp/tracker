@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { db } from "../../helpers/db";
 import Collapse from "../Collapse";
 import Input from "../Form/Input";
@@ -10,6 +10,8 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
     const [exercise, setExercise] = useState(db.getExerciseById(exerciseId))
     const [setIds, setSetIds] = useState(db.getSetIds(workoutId, workoutExerciseId))
     const maxSetId = setIds.length > 0 ? Math.max(...setIds) : 0
+    const weightInputRef = useRef(null)
+    const repsInputRef = useRef(null)
 
     const handleDescriptionChange = (e) => {
         const newDescription = e.target.value
@@ -32,11 +34,15 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
         // TODO: focus on the last set, same type input
     }
 
-    const handleDeleteSet = () => {
+    const handleDeleteSet = (type) => {
         db.removeLastEmptySets(workoutId, workoutExerciseId)
         setSetIds(db.getSetIds(workoutId, workoutExerciseId))
-        // TODO: focus on the opacity-50 input
-        return true
+
+        if (type === 'weight') {
+            weightInputRef.current.focus()
+        } else if (type === 'reps') {
+            repsInputRef.current.focus()
+        }
     }
 
     const cardHeader = (
@@ -57,9 +63,10 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
                 {setIds.map((setId) => (
                     <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} potentialDelete={setId === maxSetId ? handleDeleteSet : null} />
                 ))}
+                {/* TODO: focus when set is deleted, same type input */}
                 <p className="opacity-50 col-span-1 text-sm text-gray-500 dark:text-gray-400 text-nowrap">Set {maxSetId + 1}</p>
-                <Input type="number" label="Weight" value={''} onChange={handleAddSet} data-type="weight" className="opacity-50 col-span-3" />
-                <Input type="number" label="Reps" value={''} onChange={handleAddSet} data-type="reps" className="opacity-50 col-span-3" />
+                <Input inputRef={weightInputRef} type="number" label="Weight" value={''} onChange={handleAddSet} data-type="weight" className="opacity-50 col-span-3" />
+                <Input inputRef={repsInputRef} type="number" label="Reps" value={''} onChange={handleAddSet} data-type="reps" className="opacity-50 col-span-3" />
             </div>
         </Collapse>
     )

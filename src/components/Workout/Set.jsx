@@ -9,7 +9,7 @@ export default function Set({ workoutId, workoutExerciseId, setId, potentialDele
         const newWeight = e.target.value
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, weight: newWeight })
         if (!newWeight && !set.reps && potentialDelete !== null) {
-            potentialDelete()
+            potentialDelete('weight')
             return
         }
         setSet(db.getSetById(workoutId, workoutExerciseId, setId))
@@ -19,7 +19,7 @@ export default function Set({ workoutId, workoutExerciseId, setId, potentialDele
         const newReps = e.target.value
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, reps: newReps })
         if (!set.weight && !newReps && potentialDelete !== null) {
-            potentialDelete()
+            potentialDelete('reps')
             return
         }
         setSet(db.getSetById(workoutId, workoutExerciseId, setId))

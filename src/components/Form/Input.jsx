@@ -6,13 +6,14 @@
  * @param {string} [props.className=""] - Optional styling for the input
  * @returns {JSX.Element} The input component
  */
-export default function Input({ type, label, className = "", ...props }) {
+export default function Input({ type, label, className = "", inputRef, ...props }) {
     return (
         <div className={`relative ${className}`}>
             <label>
                 <input
                     type={type}
                     placeholder={label}
+                    ref={inputRef}
                     {...props}
                     className={`${type === 'color' && 'h-12'} floating-label-input peer`}
                 />
