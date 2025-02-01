@@ -15,7 +15,7 @@ import AnimateInOut from "./AnimateInOut";
  * @param {string} [props.className=""] - Optional styling for the alert
  * @returns {AnimateInOut} The alert component
  */
-export default function Alert({ message, setMessage, type = "danger", isCloseable = true, autoClose = false, className = "" }) {
+export default function Alert({ message, setMessage, type = "danger", isCloseable = true, autoClose = false, className = "", ...props }) {
     const autoCloseAfterMs = 5000
     // ? `stepDuration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const stepDuration = 'duration-[100ms]'
@@ -69,9 +69,9 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     }, [message])
 
     return (
-        <AnimateInOut restartOnChildKeyChange={isCloseable} className={`${className} rounded-md border ${textColor} bg-[currentColor]/5 border-current`}>
+        <AnimateInOut restartOnChildKeyChange={isCloseable} className={className} {...props}>
             {message && (
-                <div key={message} className={`flex items-center justify-between w-full px-4 py-4 gap-2 overflow-hidden backdrop-blur brightness-110 dark:brightness-125`} role="alert">
+                <div key={message} className={`flex items-center justify-between w-full px-4 py-4 gap-2 rounded-md ${textColor} bg-[currentColor]/5 border border-current overflow-hidden backdrop-blur brightness-110 dark:brightness-125`} role="alert">
                     <div className="absolute w-full h-full top-0 left-0 bg-floating-light/85 dark:bg-floating-dark/85" />
                     <div className="absolute w-full h-full top-0 left-0 bg-[currentColor] opacity-20" />
 

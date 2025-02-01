@@ -9,7 +9,7 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
 
     const handleWeightChange = (e) => {
         let newWeight = e.target.valueAsNumber
-        if (Number.isNaN(newWeight)) {
+        if (!e.target.checkValidity()) {
             newWeight = set.weight
         }
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, weight: newWeight })
@@ -22,7 +22,7 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
 
     const handleRepsChange = (e) => {
         let newReps = e.target.valueAsNumber
-        if (Number.isNaN(newReps)) {
+        if (!e.target.checkValidity()) {
             newReps = set.reps
         }
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, reps: newReps })
@@ -46,8 +46,8 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
     return (
         <>
             <p className="col-span-1 text-sm text-gray-500 dark:text-gray-400 text-nowrap">Set {set.id}</p>
-            <Input inputRef={weightInputRef} type="number" label="Weight" value={set.weight ?? ''} onChange={handleWeightChange} className="col-span-3" />
-            <Input inputRef={repsInputRef} type="number" label="Reps" value={set.reps ?? ''} onChange={handleRepsChange} className="col-span-3" />
+            <Input inputRef={weightInputRef} type="number" step="0.01" min="0" label="Weight" value={set.weight ?? ''} onChange={handleWeightChange} className="col-span-3" />
+            <Input inputRef={repsInputRef} type="number" step="0.1" min="0" label="Reps" value={set.reps ?? ''} onChange={handleRepsChange} className="col-span-3" />
         </>
     )
 }

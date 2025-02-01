@@ -27,12 +27,12 @@ export default function Workout() {
     }
 
     return (
-        <Page title="Workout" className="gap-0 -mx-2 pt-[5.5rem]">
-            <AnimateInOut className="w-full flex flex-col gap-4 px-2 py-2">
+        <Page title="Workout">
+            <AnimateInOut className="flex flex-col gap-4">
                 {!activeWorkoutId && <button className="btn-primary" onClick={startNewWorkout}>Start workout</button>}
             </AnimateInOut>
 
-            <AnimateInOut className="w-full flex flex-col gap-4 px-2 py-2 mb-40">
+            <AnimateInOut className="flex flex-col gap-4 mb-40">
                 {activeWorkoutId && (
                     <>
                         <ActiveWorkoutInfo activeWorkoutId={activeWorkoutId} />

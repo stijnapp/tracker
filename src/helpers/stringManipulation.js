@@ -23,3 +23,9 @@ export function getMsFromDuration(durationString) {
             return 0
     }
 }
+
+export function sanitizeString(string, toLowerCase = false) {
+    if (!string) return ''
+    const sanitized = string.trim().replace(/\s{2,}/g, ' ')
+    return toLowerCase ? sanitized.toLowerCase() : sanitized
+}

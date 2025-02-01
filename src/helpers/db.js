@@ -286,6 +286,7 @@ export const db = {
         return true
     },
 
+    // ! Sets
     /**
      * @param {number} workoutId
      * @param {number} workoutExerciseId
@@ -443,6 +444,12 @@ export const db = {
         return this.getAllExercises().find(exercise => exercise.id === id) ?? null
     },
     /**
+     * @returns {Array<number>}
+     */
+    getAllExerciseIds() {
+        return this.getAllExercises().map(exercise => exercise.id)
+    },
+    /**
      * @param {string} name
      * @returns {Exercise|null}
      */
@@ -496,6 +503,9 @@ export const db = {
     deleteExercise(id) {
         const allData = this.getAllData()
         if (!allData.exercises.some(exercise => exercise.id === id)) return false
+        allData.workouts.forEach(workout => {
+            workout.exercises = workout.exercises.filter(exercise => exercise.exerciseId !== id)
+        })
         allData.exercises = allData.exercises.filter(exercise => exercise.id !== id)
         this.setAllData(allData)
         return true

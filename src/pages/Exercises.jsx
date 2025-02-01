@@ -1,92 +1,64 @@
-import { fa1, fa2, fa3 } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import AnimateInOut from "../components/AnimateInOut";
 import Card from "../components/Card";
-import Checkbox from "../components/Form/Checkbox";
-import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
-import FileInput from "../components/Form/FileInput";
+import Exercise from "../components/Exercises/Exercise";
 import Input from "../components/Form/Input";
-import RadioButtonGroup from "../components/Form/RadioButtonGroup";
-import Select from "../components/Form/Select";
-import Switch from "../components/Form/Switch";
-import Textarea from "../components/Form/Textarea";
 import Page from "../components/Page";
+import { db } from "../helpers/db";
+import { sanitizeString } from "../helpers/stringManipulation";
 
 export default function Exercises() {
-    const [inputs, setInputs] = useState({
-        text: '',
-        email: '',
-        password: '',
-        tel: '',
-        number: '',
-        date: '',
-        time: '',
-        datetime: '',
-        url: '',
-        color: '#1d8098',
-    })
+    const [exercises, setExercises] = useState(db.getAllExercises())
+    const [search, setSearch] = useState('')
 
-    const [textArea, setTextArea] = useState('')
+    const filteredExercises = exercises.filter((exercise) =>
+        sanitizeString(exercise.name, true).includes(sanitizeString(search, true)) ||
+        sanitizeString(exercise.nickname, true).includes(sanitizeString(search, true)
+        ))
 
-    const [file, setFile] = useState(null)
-    const [filePreview, setFilePreview] = useState(null)
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value)
+    }
 
-    const [radio, setRadio] = useState('1')
-    const radioOptions = [
-        { value: '1', label: 'Option 1', icon: fa1 },
-        { value: '2', label: 'Option 2', icon: fa2 },
-        { value: '3', label: 'Option 3', icon: fa3 },
-    ]
+    const handleExerciseUpdate = (newExercise) => {
+        db.updateExercise(newExercise.id, newExercise)
+        setExercises(db.getAllExercises())
+    }
 
-    const [select, setSelect] = useState('1')
-    const selectOptions = [
-        { value: '1', label: 'Option 1' },
-        { value: '2', label: 'Option 2' },
-        { value: '3', label: 'Option 3' },
-    ]
-
-    const [boolean, setBoolean] = useState(false)
+    const handleExerciseAdd = () => {
+        db.addExercise(sanitizeString(search))
+        setExercises(db.getAllExercises())
+    }
 
     return (
         <Page title="Exercises">
-            <Card title="Inputs" className="flex flex-col gap-4">
-                <Input type="text" label="Text label" value={inputs.text} onChange={(e) => setInputs({ ...inputs, text: e.target.value })} required />
-                <Input type="email" label="Email label" value={inputs.email} onChange={(e) => setInputs({ ...inputs, email: e.target.value })} required />
-                <Input type="password" label="Password label" value={inputs.password} onChange={(e) => setInputs({ ...inputs, password: e.target.value })} required />
-                <Input type="tel" label="tel label" value={inputs.tel} onChange={(e) => setInputs({ ...inputs, tel: e.target.value })} required />
-                <Input type="number" label="Number label" value={inputs.number} onChange={(e) => setInputs({ ...inputs, number: e.target.value })} required />
-                <Input type="date" label="Date label" value={inputs.date} onChange={(e) => setInputs({ ...inputs, date: e.target.value })} required />
-                <Input type="time" label="Time label" value={inputs.time} onChange={(e) => setInputs({ ...inputs, time: e.target.value })} required />
-                <Input type="datetime-local" label="Datetime label" value={inputs.datetime} onChange={(e) => setInputs({ ...inputs, datetime: e.target.value })} required />
-                <Input type="url" label="Url label" value={inputs.url} onChange={(e) => setInputs({ ...inputs, url: e.target.value })} required />
-                <Input type="color" label="Color label" value={inputs.color} onChange={(e) => setInputs({ ...inputs, color: e.target.value })} required />
+            <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
+                <div className="flex gap-2 mt-1">
+                    <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Search by (nick)name" className="flex-grow" />
+                    <AnimateInOut direction="horizontal" className="flex" hiddenClassName="-ml-2">
+                        {search && <button onClick={() => setSearch('')} className="btn-secondary" aria-label="Clear search"><FontAwesomeIcon icon={faXmark} /></button>}
+                    </AnimateInOut>
+                </div>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Showing {filteredExercises.length} of {exercises.length} exercises</p>
             </Card>
 
-            <Card title="Textarea">
-                <Textarea label="Textarea label" value={textArea} onChange={(e) => setTextArea(e.target.value)} required />
-            </Card>
+            {exercises.map((exercise) => (
+                <AnimateInOut key={exercise.id} hiddenClassName="-mt-4">
+                    {filteredExercises.some((filteredExercise) => filteredExercise.id === exercise.id) && (
+                        <Exercise exercise={exercises.find((filteredExercise) => filteredExercise.id === exercise.id)} onUpdate={handleExerciseUpdate} />
+                    )}
+                </AnimateInOut>
+            ))}
 
-            <Card title="File" className="flex flex-col gap-4">
-                <FileInput label="File label" value={file} onChange={setFile} required />
-                <FileInput label="File with preview" value={filePreview} onChange={setFilePreview} showPreview required />
-            </Card>
-
-            <Card title="Radio Button Group" className="flex flex-col gap-4">
-                <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
-                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
-            </Card>
-
-            <Card title="Select">
-                <Select label="Select label" options={selectOptions} value={select} onChange={(e) => setSelect(e.target.value)} required />
-            </Card>
-
-            <Card title="Checkbox" className="flex flex-col gap-4">
-                <Checkbox label="Checkbox label" checked={boolean} onChange={() => setBoolean(!boolean)} required />
-                <Switch label="Switch label" checked={boolean} onChange={() => setBoolean(!boolean)} required />
-            </Card>
-
-            <Card title="Range">
-                <input type="range" />
-            </Card>
+            <AnimateInOut>
+                {filteredExercises.length <= 0 && (
+                    <Card title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
+                        <button className="btn-primary" onClick={handleExerciseAdd}>Add &quot;{search}&quot; as new exercise</button>
+                    </Card>
+                )}
+            </AnimateInOut>
         </Page>
     )
 }
