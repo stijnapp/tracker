@@ -36,7 +36,7 @@ export default function Exercises() {
         <Page title="Exercises">
             <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
                 <div className="flex gap-2 mt-1">
-                    <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Search by (nick)name" className="flex-grow" />
+                    <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Exercise name" className="flex-grow" />
                     <AnimateInOut direction="horizontal" className="flex" hiddenClassName="-ml-2">
                         {search && <button onClick={() => setSearch('')} className="btn-secondary" aria-label="Clear search"><FontAwesomeIcon icon={faXmark} /></button>}
                     </AnimateInOut>
@@ -53,8 +53,17 @@ export default function Exercises() {
             ))}
 
             <AnimateInOut>
-                {filteredExercises.length <= 0 && (
-                    <Card title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
+                {exercises.length <= 0 && search.length <= 0 && (
+                    <Card key={'empty'} title="No exercises found">
+                        <p className="mb-2">You have not created any exercises yet.</p>
+                        <p>Add one by typing in the search bar above.</p>
+                    </Card>
+                )}
+            </AnimateInOut>
+
+            <AnimateInOut restartOnChildKeyChange>
+                {(exercises.length > 0 || search.length > 0) && filteredExercises.length <= 0 && (
+                    <Card key={'not found'} title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
                         <button className="btn-primary" onClick={handleExerciseAdd}>Add &quot;{search}&quot; as new exercise</button>
                     </Card>
                 )}

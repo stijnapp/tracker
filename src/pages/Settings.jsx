@@ -30,7 +30,7 @@ export default function Settings({ deferredPrompt }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showTestDataModal, setShowTestDataModal] = useState(false)
     const [confirmInput, setConfirmInput] = useState('')
-    const confirmText = 'I will lose my current data'
+    const confirmText = 'test' /* 'I will lose my current data' */
     const hasCorrectConfirmText = confirmInput.toLowerCase() === confirmText.toLowerCase() || !dbHasData
 
     const [lastExportDate, setLastExportDate] = useLocalStorage('lastExportDate', getCurrentDateTime(true))
@@ -132,7 +132,7 @@ export default function Settings({ deferredPrompt }) {
                         <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleImport}>Import data</button>
                     </div>
                     <p className="font-semibold text-danger text-right">This action cannot be undone</p>
-                </Modal >
+                </Modal>
 
                 <Modal showModal={showDeleteModal} onClose={closeModals} title="Delete all data">
                     <p>Are you sure you want to delete all data?</p>
@@ -146,7 +146,7 @@ export default function Settings({ deferredPrompt }) {
                         <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleDeleteAllData}>Delete data</button>
                     </div>
                     <p className="font-semibold text-danger text-right">This action cannot be undone</p>
-                </Modal >
+                </Modal>
 
                 <Modal showModal={showTestDataModal} onClose={closeModals} title="Replace data with test data">
                     <p>Are you sure you want to replace all data with test data? This will overwrite all your current data.</p>
