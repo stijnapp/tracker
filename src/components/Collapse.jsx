@@ -26,7 +26,7 @@ export default function Collapse({ title = "", subtitle = "", openByDefault = fa
             </button>
             <AnimateInOut>
                 {isOpened && <>
-                    <HR className="px-4 pb-1.5 h-auto" />
+                    <HR className="px-4 h-auto" />
                     <div className={`${className} p-4`}>
                         {children}
                     </div>

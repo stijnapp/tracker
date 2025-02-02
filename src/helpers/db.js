@@ -510,6 +510,13 @@ export const db = {
         this.setAllData(allData)
         return true
     },
+    /**
+     * @param {number} id
+     * @returns {number}
+     */
+    getExerciseUsageAmount(id) {
+        return this.getAllWorkouts().reduce((total, workout) => total + workout.exercises.filter(exercise => exercise.exerciseId === id).length, 0)
+    },
 
     // ! Tags
     /**

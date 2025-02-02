@@ -5,6 +5,7 @@ import AnimateInOut from "../components/AnimateInOut";
 import Card from "../components/Card";
 import Exercise from "../components/Exercises/Exercise";
 import Input from "../components/Form/Input";
+import Modal from "../components/Modal";
 import Page from "../components/Page";
 import { db } from "../helpers/db";
 import { sanitizeString } from "../helpers/stringManipulation";
@@ -12,6 +13,8 @@ import { sanitizeString } from "../helpers/stringManipulation";
 export default function Exercises() {
     const [exercises, setExercises] = useState(db.getAllExercises())
     const [search, setSearch] = useState('')
+    const [deleteId, setDeleteId] = useState(null)
+    const usageAmount = db.getExerciseUsageAmount(deleteId)
 
     const filteredExercises = exercises.filter((exercise) =>
         sanitizeString(exercise.name, true).includes(sanitizeString(search, true)) ||
@@ -22,14 +25,20 @@ export default function Exercises() {
         setSearch(e.target.value)
     }
 
+    const handleExerciseAdd = () => {
+        db.addExercise(sanitizeString(search))
+        setExercises(db.getAllExercises())
+    }
+
     const handleExerciseUpdate = (newExercise) => {
         db.updateExercise(newExercise.id, newExercise)
         setExercises(db.getAllExercises())
     }
 
-    const handleExerciseAdd = () => {
-        db.addExercise(sanitizeString(search))
+    const handleExerciseDelete = () => {
+        db.deleteExercise(deleteId)
         setExercises(db.getAllExercises())
+        setDeleteId(null)
     }
 
     return (
@@ -47,7 +56,7 @@ export default function Exercises() {
             {exercises.map((exercise) => (
                 <AnimateInOut key={exercise.id} hiddenClassName="-mt-4">
                     {filteredExercises.some((filteredExercise) => filteredExercise.id === exercise.id) && (
-                        <Exercise exercise={exercises.find((filteredExercise) => filteredExercise.id === exercise.id)} onUpdate={handleExerciseUpdate} />
+                        <Exercise exercise={exercises.find((filteredExercise) => filteredExercise.id === exercise.id)} onUpdate={handleExerciseUpdate} onDelete={setDeleteId} />
                     )}
                 </AnimateInOut>
             ))}
@@ -68,6 +77,16 @@ export default function Exercises() {
                     </Card>
                 )}
             </AnimateInOut>
+
+            <Modal showModal={deleteId !== null} onClose={() => setDeleteId(null)} title="Delete exercise">
+                <p>Are you sure you want to delete this exercise?</p>
+                {usageAmount > 0 && <p>This will also remove all <strong className="text-danger">{usageAmount}</strong> usages of this exercise.</p>}
+                <div className="flex gap-4">
+                    <button className="btn-secondary w-full" onClick={() => setDeleteId(null)}>Cancel</button>
+                    <button className="btn-danger w-full" onClick={handleExerciseDelete}>Delete exercise</button>
+                </div>
+                <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+            </Modal>
         </Page>
     )
 }
