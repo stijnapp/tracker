@@ -1,3 +1,5 @@
+import { faFlagCheckered, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import AnimateInOut from "../components/AnimateInOut";
 import Modal from "../components/Modal";
@@ -41,8 +43,8 @@ export default function Workout() {
                             <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} newestExercise={exerciseId === workoutExerciseIds[workoutExerciseIds.length - 1]} />
                         ))}
 
-                        <button className="btn-primary">Add exercise</button>
-                        <button className="btn-danger" onClick={() => setIsEndingModalOpen(true)}>End workout</button>
+                        <button className="btn-primary"><FontAwesomeIcon icon={faPlus} className="mr-2" />Add exercise</button>
+                        <button className="btn-danger" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
                     </>
                 )}
             </AnimateInOut>

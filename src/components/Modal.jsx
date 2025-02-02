@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { getMsFromDuration } from "../helpers/stringManipulation"
 import useEventListener from "../hooks/useEventListener"
 import HR from "./HR"
 
@@ -15,6 +16,8 @@ import HR from "./HR"
 export default function Modal({ showModal, onClose, title, hasCloseBtn = true, children }) {
     const dialogRef = useRef(null)
     const dialogElement = dialogRef.current
+    const [isVisible, setIsVisible] = useState(false)
+    const duration = 'duration-[300ms]'
 
     useEffect(() => {
         if (!dialogElement) return
@@ -22,22 +25,39 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
         if (showModal && !dialogElement.open) {
             dialogElement.showModal()
             document.body.style.overflow = 'hidden'
+            setIsVisible(true)
         } else if (!showModal && dialogElement.open) {
-            dialogElement.close()
-            document.body.style.overflow = 'auto'
+            setIsVisible(false)
+            setTimeout(() => {
+                dialogElement.close()
+                document.body.style.overflow = 'auto'
+            }, getMsFromDuration(duration))
         }
     }, [showModal, dialogElement])
 
     useEventListener('close', () => {
         if (showModal) onClose()
+        setIsVisible(false)
     }, dialogElement)
+
+    useEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && showModal) {
+            e.preventDefault()
+            onClose()
+        }
+    })
 
     useEventListener('click', (e) => {
         if (e.target === dialogElement) onClose()
     }, dialogElement)
 
     return (
-        <dialog ref={dialogRef} className="z-50 w-full rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg backdrop:bg-black/50 backdrop:backdrop-blur-sm focus:outline-none">
+        <dialog ref={dialogRef} className={`
+            ${isVisible ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm' : 'opacity-0 -translate-y-2 backdrop:bg-transparent backdrop:backdrop-blur-none'}
+            ${duration} transition-[opacity,transform]
+            backdrop:transition-[background-color,backdrop-filter] backdrop:duration-[inherit]
+            w-full rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none
+            `}>
             <div className="flex items-center justify-between p-4 rounded-t">
                 <h3 className="text-xl font-semibold ">
                     {title}

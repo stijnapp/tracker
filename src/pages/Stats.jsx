@@ -1,4 +1,5 @@
-import { fa1, fa2, fa3 } from "@fortawesome/free-solid-svg-icons";
+import { fa1, fa2, fa3, faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Alert from "../components/Alert";
 import AnimateInOut from "../components/AnimateInOut";
@@ -13,7 +14,6 @@ import Switch from "../components/Form/Switch";
 import Textarea from "../components/Form/Textarea";
 import HR from "../components/HR";
 import Page from "../components/Page";
-import UnderConstruction from "../components/Temp/UnderConstruction";
 
 export default function Stats() {
     const [text, setText] = useState(null)
@@ -58,7 +58,9 @@ export default function Stats() {
 
     return (
         <Page title="Stats">
-            <UnderConstruction />
+            <Card title={<span className="block text-center"><FontAwesomeIcon icon={faHelmetSafety} className="text-warning" /> Under construction <FontAwesomeIcon icon={faHelmetSafety} className="text-warning" /></span>}>
+                <p className="text-center">This page is under construction. Check back later for updates.</p>
+            </Card>
 
             <Card title="AnimateInOut test" className="flex flex-col gap-4">
                 <Switch label="Restart animation on change" checked={restartOnChildKeyChange} onChange={() => setRestartOnChildKeyChange(!restartOnChildKeyChange)} />
