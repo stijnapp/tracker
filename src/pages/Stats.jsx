@@ -156,8 +156,8 @@ export default function Stats() {
             <Card title="Radio Button Group" className="flex flex-col gap-4">
                 <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
                 <RadioButtonGroup label="disabled" disabled options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
-                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
-                <FancyRadioButtonGroup label="disabled" disabled options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
+                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} valueWithDefaultBadge="1" required />
+                <FancyRadioButtonGroup label="disabled" disabled options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} valueWithDefaultBadge="1" required />
             </Card>
 
             <Card title="Select" className="flex flex-col gap-4">

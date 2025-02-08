@@ -14,7 +14,7 @@ import Badge from "../Badge";
  * @param {string} props.label - The label of the radio button group
  * @param {Option[]} props.options - The options for the radio button group
  * @param {string} props.value - The value of the selected radio button
- * @param {string} [props.defaultValue=""] - The default value of the radio button group (will have a badge)
+ * @param {string} [props.valueWithDefaultBadge=""] - The default value of the radio button group (will have a badge)
  * @param {boolean} [props.hideLabel=false] - Whether to hide the label
  * @param {boolean} [props.disabled=false] - Whether the radio button group is disabled
  * @param {boolean} [props.required=false] - Whether the radio button group is required
@@ -22,7 +22,7 @@ import Badge from "../Badge";
  * @param {Object} props.props - Additional props for the individual radio buttons
  * @returns {JSX.Element} The radio button group component
  */
-export default function FancyRadioButtonGroup({ label, options, value, defaultValue = "", hideLabel = false, disabled = false, required = false, className = "", ...props }) {
+export default function FancyRadioButtonGroup({ label, options, value, valueWithDefaultBadge = "", hideLabel = false, disabled = false, required = false, className = "", ...props }) {
     return (
         <fieldset className={`${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
             <legend className={`mb-2 ${hideLabel ? 'sr-only' : ''}`}>{label}{required && <span className="text-danger"> *</span>}</legend>
@@ -31,7 +31,7 @@ export default function FancyRadioButtonGroup({ label, options, value, defaultVa
                     <li key={optionValue} >
                         <label className={`${disabled ? 'cursor-not-allowed' : ''} flex justify-between gap-4 items-center p-2 rounded-lg ring-1 ring-transparent has-[:checked]:ring-primary has-[:checked]:text-primary has-[:checked]:bg-primary/10`}>
                             {icon && <FontAwesomeIcon icon={icon} className="aspect-square" />}
-                            <p className="flex-auto">{optionLabel}{optionValue === defaultValue && <Badge className="ml-2">Default</Badge>}</p>
+                            <p className="flex-auto">{optionLabel}{optionValue === valueWithDefaultBadge && <Badge className="ml-2">Default</Badge>}</p>
                             <input
                                 type="radio"
                                 name={label}
