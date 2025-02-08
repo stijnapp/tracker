@@ -205,9 +205,9 @@ export const db = {
             exerciseId: exerciseReferenceId,
             order: workout.exercises.reduce((highestOrder, exercise) => Math.max(highestOrder, exercise.order), 0) + 1,
             sets: [
-                { id: 1, weight: null, reps: null },
-                { id: 2, weight: null, reps: null },
-                { id: 3, weight: null, reps: null },
+                // { id: 1, weight: null, reps: null },
+                // { id: 2, weight: null, reps: null },
+                // { id: 3, weight: null, reps: null },
             ],
         }
         workout.exercises.push(newExercise)
