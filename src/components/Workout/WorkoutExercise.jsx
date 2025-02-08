@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { db } from "../../helpers/db";
+import AnimateInOut from "../AnimateInOut";
 import Collapse from "../Collapse";
 import Input from "../Form/Input";
 import Textarea from "../Form/Textarea";
 import Set from "./Set";
 
-export default function WorkoutExercise({ workoutId, workoutExerciseId, newestExercise = false }) {
+export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete, newestExercise = false }) {
     const [exerciseId] = useState(db.getWorkoutExerciseById(workoutId, workoutExerciseId).exerciseId)
     const [exercise, setExercise] = useState(db.getExerciseById(exerciseId))
     const [setIds, setSetIds] = useState(db.getSetIds(workoutId, workoutExerciseId))
@@ -46,6 +47,11 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
         }
     }
 
+    const handleDeleteExercise = () => {
+        db.deleteWorkoutExercise(workoutId, workoutExerciseId)
+        onDelete()
+    }
+
     useEffect(() => {
         if (newSet) setNewSet(null)
     }, [newSet])
@@ -67,6 +73,12 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, newestEx
                 <Input inputRef={weightInputRef} type="number" label="Weight" value={''} onChange={handleAddSet} data-type="weight" className="opacity-50 col-span-3" />
                 <Input inputRef={repsInputRef} type="number" label="Reps" value={''} onChange={handleAddSet} data-type="reps" className="opacity-50 col-span-3" />
             </div>
+
+            <AnimateInOut hiddenClassName="-mt-4">
+                {setIds.length <= 0 && (
+                    <button className="btn-danger w-full" onClick={handleDeleteExercise}>Delete empty exercise</button>
+                )}
+            </AnimateInOut>
         </Collapse>
     )
 }
