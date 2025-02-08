@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import useEventListener from './hooks/useEventListener';
 import useTheme from './hooks/useTheme';
-import Exercises from './pages/Exercises';
 import History from './pages/History';
+import Manage from './pages/Manage';
 import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
 import Stats from './pages/Stats';
@@ -26,7 +26,7 @@ export default function App() {
                     <Route path="/" element={<History />} />
                     <Route path="/stats" element={<Stats />} />
                     <Route path="/workout" element={<Workout />} />
-                    <Route path="/exercises" element={<Exercises />} />
+                    <Route path="/manage" element={<Manage />} />
                     <Route path="/settings" element={<Settings deferredPrompt={deferredPrompt} />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>

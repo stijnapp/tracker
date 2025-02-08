@@ -10,7 +10,7 @@ import Page from "../components/Page";
 import { db } from "../helpers/db";
 import { sanitizeString } from "../helpers/stringManipulation";
 
-export default function Exercises() {
+export default function Manage() {
     const [exercises, setExercises] = useState(db.getAllExercises())
     const [search, setSearch] = useState('')
     const [deleteId, setDeleteId] = useState(null)
@@ -42,7 +42,7 @@ export default function Exercises() {
     }
 
     return (
-        <Page title="Exercises">
+        <Page title="Manage">
             <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
                 <div className="flex gap-2 mt-1">
                     <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Exercise name" className="flex-grow" />
