@@ -125,13 +125,11 @@ export default function Settings({ deferredPrompt }) {
                     {dbHasData && <>
                         <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                         <p>Type &quot;<strong>{confirmText}</strong>&quot; to confirm</p>
-                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} className="mb-2" />
+                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} />
                     </>}
-                    <div className="flex gap-4">
-                        <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
-                        <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleImport}>Import data</button>
-                    </div>
-                    <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
+                    <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleImport}>Import data</button>
+                    <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
                 </Modal>
 
                 <Modal showModal={showDeleteModal} onClose={closeModals} title="Delete all data">
@@ -139,13 +137,11 @@ export default function Settings({ deferredPrompt }) {
                     {dbHasData && <>
                         <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                         <p>Type &quot;<strong>{confirmText}</strong>&quot; to confirm</p>
-                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} className="mb-2" />
+                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} />
                     </>}
-                    <div className="flex gap-4">
-                        <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
-                        <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleDeleteAllData}>Delete data</button>
-                    </div>
-                    <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
+                    <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleDeleteAllData}>Delete data</button>
+                    <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
                 </Modal>
 
                 <Modal showModal={showTestDataModal} onClose={closeModals} title="Replace data with test data">
@@ -153,13 +149,11 @@ export default function Settings({ deferredPrompt }) {
                     {dbHasData && <>
                         <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                         <p>Type &quot;<strong>{confirmText}</strong>&quot; to confirm</p>
-                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} className="mb-2" />
+                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} />
                     </>}
-                    <div className="flex gap-4">
-                        <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
-                        <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleSetTestData}>Set test data</button>
-                    </div>
-                    <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
+                    <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleSetTestData}>Set test data</button>
+                    <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
                 </Modal>
             </Page>
         </>

@@ -81,11 +81,9 @@ export default function Exercises() {
             <Modal showModal={deleteId !== null} onClose={() => setDeleteId(null)} title="Delete exercise">
                 <p>Are you sure you want to delete this exercise?</p>
                 {usageAmount > 0 && <p>This will also remove all <strong className="text-danger">{usageAmount}</strong> usages of this exercise.</p>}
-                <div className="flex gap-4">
-                    <button className="btn-secondary w-full" onClick={() => setDeleteId(null)}>Cancel</button>
-                    <button className="btn-danger w-full" onClick={handleExerciseDelete}>Delete exercise</button>
-                </div>
-                <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                <p className="font-semibold text-danger">This action cannot be undone</p>
+                <button className="btn-danger w-full" onClick={handleExerciseDelete}>Delete exercise</button>
+                <button className="btn-secondary w-full" onClick={() => setDeleteId(null)}>Cancel</button>
             </Modal>
         </Page>
     )
