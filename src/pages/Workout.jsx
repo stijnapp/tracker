@@ -45,7 +45,7 @@ export default function Workout() {
 
     return (
         <Page title="Workout">
-            <AnimateInOut className="flex flex-col gap-4">
+            <AnimateInOut className="flex flex-col gap-4" hiddenClassName="-mt-4">
                 {!activeWorkoutId && <button className="btn-primary" onClick={startNewWorkout}>Start workout</button>}
             </AnimateInOut>
 
