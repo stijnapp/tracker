@@ -12,7 +12,8 @@ export default function Textarea({ label, className = "", ...props }) {
                 <textarea
                     placeholder={label}
                     {...props}
-                    className="floating-label-input peer -mb-1.5"
+                    rows="2"
+                    className="floating-label-input peer field-sizing-content min-h-[4.1rem] max-h-[50svh] -mb-1.5"
                 />
                 <span className="floating-label">
                     {label}

@@ -58,3 +58,7 @@ section {
 .floating-label {
     @apply absolute left-1.5 -top-2.5 peer-focus:-top-2.5 peer-placeholder-shown:top-2 text-sm peer-focus:text-sm peer-placeholder-shown:text-base px-0.5 text-inherit peer-placeholder-shown:text-gray-400 bg-floating-light dark:bg-floating-dark transition-[color,top,font-size] duration-200 peer-focus:text-primary peer-required:after:content-['_*'] peer-required:after:text-danger peer-disabled:opacity-50;
 }
+
+.field-sizing-content {
+    field-sizing: content;
+}
