@@ -1,7 +1,6 @@
 import { faDesktop, faDownload, faMoon, faSun, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import Alert from "../components/Alert";
 import Card from "../components/Card";
 import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
 import Input from "../components/Form/Input";
@@ -93,7 +92,7 @@ export default function Settings({ deferredPrompt }) {
         <>
             <Page title="Settings">
                 <Card title="Appearance">
-                    <FancyRadioButtonGroup label="Theme" options={themeOptions} value={theme} onChange={(e) => setTheme(e.target.value)} defaultValue="system" hideLabel />
+                    <FancyRadioButtonGroup label="Theme" options={themeOptions} value={theme} onChange={(e) => setTheme(e.target.value)} valueWithDefaultBadge="system" hideLabel />
                 </Card>
 
                 {!isPWA && (
@@ -111,7 +110,6 @@ export default function Settings({ deferredPrompt }) {
                         <button className="btn-secondary w-full" onClick={() => setShowImportModal(true)}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                     </div>
                     {dbHasData && <p className="mt-2">Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>}
-                    <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
 
                     <HR className="-my-1" />
 
@@ -125,13 +123,11 @@ export default function Settings({ deferredPrompt }) {
                     {dbHasData && <>
                         <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                         <p>Type &quot;<strong>{confirmText}</strong>&quot; to confirm</p>
-                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} className="mb-2" />
+                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} />
                     </>}
-                    <div className="flex gap-4">
-                        <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
-                        <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleImport}>Import data</button>
-                    </div>
-                    <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
+                    <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleImport}>Import data</button>
+                    <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
                 </Modal>
 
                 <Modal showModal={showDeleteModal} onClose={closeModals} title="Delete all data">
@@ -139,13 +135,11 @@ export default function Settings({ deferredPrompt }) {
                     {dbHasData && <>
                         <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                         <p>Type &quot;<strong>{confirmText}</strong>&quot; to confirm</p>
-                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} className="mb-2" />
+                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} />
                     </>}
-                    <div className="flex gap-4">
-                        <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
-                        <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleDeleteAllData}>Delete data</button>
-                    </div>
-                    <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
+                    <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleDeleteAllData}>Delete data</button>
+                    <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
                 </Modal>
 
                 <Modal showModal={showTestDataModal} onClose={closeModals} title="Replace data with test data">
@@ -153,13 +147,11 @@ export default function Settings({ deferredPrompt }) {
                     {dbHasData && <>
                         <p>Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>
                         <p>Type &quot;<strong>{confirmText}</strong>&quot; to confirm</p>
-                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} className="mb-2" />
+                        <Input label="Confirm" type="text" value={confirmInput} onChange={(e) => setConfirmInput(e.target.value)} />
                     </>}
-                    <div className="flex gap-4">
-                        <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
-                        <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleSetTestData}>Set test data</button>
-                    </div>
-                    <p className="font-semibold text-danger text-right">This action cannot be undone</p>
+                    <p className="font-semibold text-danger">This action cannot be undone</p>
+                    <button className="btn-danger w-full" disabled={!hasCorrectConfirmText} onClick={handleSetTestData}>Set test data</button>
+                    <button className="btn-secondary w-full" onClick={closeModals}>Cancel</button>
                 </Modal>
             </Page>
         </>

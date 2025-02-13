@@ -14,14 +14,13 @@
  * @returns {JSX.Element} The select component
  */
 export default function Select({ label, options, value, className = "", ...props }) {
-    // TODO: darkmode dropdown menu color
     // TODO: search (https://preline.co/docs/advanced-select.html#search-inside-dropdown)
     return (
         <div className={`relative ${className}`}>
             <label>
                 <select
-                    className="floating-label-input peer"
-                    defaultValue={value}
+                    className="floating-label-input peer bg-floating-light dark:bg-floating-dark border"
+                    value={value}
                     {...props}
                 >
                     {options.map(({ value: optionValue, label: optionLabel }) => (

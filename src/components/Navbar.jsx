@@ -1,4 +1,4 @@
-import { faChartLine, faClockRotateLeft, faDumbbell, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faChartLine, faClockRotateLeft, faGear, faList, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 
@@ -16,9 +16,9 @@ export default function Navbar() {
     const navButtonClasses = 'flex flex-col gap-1 text-center justify-center text-sm pb-1 pt-3 transition-[transform,font-weight,filter] duration-200';
     const navItems = [
         { to: '/', icon: faClockRotateLeft, text: 'History' },
-        { to: '/stats', icon: faChartLine, text: 'Stats' },
+        { to: '/progress', icon: faChartLine, text: 'Progress' },
         { to: '/workout', icon: faPlus, text: 'Workout' },
-        { to: '/exercises', icon: faDumbbell, text: 'Exercises' },
+        { to: '/Manage', icon: faList, text: 'Manage' },
         { to: '/settings', icon: faGear, text: 'Settings' },
     ];
 

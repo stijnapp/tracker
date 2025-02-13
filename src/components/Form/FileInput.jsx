@@ -42,8 +42,8 @@ export default function FileInput({ label, value, onChange, showPreview = false,
 
             {value && showPreview && value.type.startsWith('image') && (
                 <div>
-                    <button className="w-full mt-2 text-left text-primary" onClick={() => setIsPreviewVisisible(!isPreviewVisisible)}>{isPreviewVisisible ? 'Hide preview' : 'Show preview'}</button>
-                    <AnimateInOut className="mt-2 rounded-md drop-shadow-md">
+                    <button className="w-full mt-2 mb-1 text-left text-primary" onClick={() => setIsPreviewVisisible(!isPreviewVisisible)}>{isPreviewVisisible ? 'Hide preview' : 'Show preview'}</button>
+                    <AnimateInOut className="rounded-md drop-shadow-md">
                         {isPreviewVisisible && <img src={filePreview} alt={value.name} className="w-full" />}
                     </AnimateInOut>
                     <p className="mt-1 text-sm text-gray-500">Loading large files may take a while</p>

@@ -13,7 +13,7 @@ import { getMsFromDuration } from "../helpers/stringManipulation"
  */
 export default function AnimateInOut({ restartOnChildKeyChange = false, direction = "vertical", hiddenClassName = '', className = "", children }) {
     // TODO: Implement direction
-    const [isHiding, setIsHiding] = useState(true)
+    const [isHiding, setIsHiding] = useState(false)
     const [childrenCache, setChildrenCache] = useState(children)
     // ? `duration` needs to be tailwind duration, e.g. 'duration-[300ms]'
     const duration = 'duration-[300ms]'

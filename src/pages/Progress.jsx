@@ -15,7 +15,7 @@ import Textarea from "../components/Form/Textarea";
 import HR from "../components/HR";
 import Page from "../components/Page";
 
-export default function Stats() {
+export default function Progress() {
     const [text, setText] = useState(null)
     const [restartOnChildKeyChange, setRestartOnChildKeyChange] = useState(false)
 
@@ -57,7 +57,7 @@ export default function Stats() {
     const [boolean, setBoolean] = useState(false)
 
     return (
-        <Page title="Stats">
+        <Page title="Progress">
             <Card title={<span className="block text-center"><FontAwesomeIcon icon={faHelmetSafety} className="text-warning" /> Under construction <FontAwesomeIcon icon={faHelmetSafety} className="text-warning" /></span>}>
                 <p className="text-center">This page is under construction. Check back later for updates.</p>
             </Card>
@@ -156,8 +156,8 @@ export default function Stats() {
             <Card title="Radio Button Group" className="flex flex-col gap-4">
                 <RadioButtonGroup label="Radio label" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
                 <RadioButtonGroup label="disabled" disabled options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} required />
-                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
-                <FancyRadioButtonGroup label="disabled" disabled options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} defaultValue="1" required />
+                <FancyRadioButtonGroup label="Fancy radio" options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} valueWithDefaultBadge="1" required />
+                <FancyRadioButtonGroup label="disabled" disabled options={radioOptions} value={radio} onChange={(e) => setRadio(e.target.value)} valueWithDefaultBadge="1" required />
             </Card>
 
             <Card title="Select" className="flex flex-col gap-4">

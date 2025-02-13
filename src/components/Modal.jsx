@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { getMsFromDuration } from "../helpers/stringManipulation"
 import useEventListener from "../hooks/useEventListener"
-import HR from "./HR"
 
 /**
  * A modal component using the html `<dialog />` element
@@ -53,12 +52,13 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
 
     return (
         <dialog ref={dialogRef} className={`
-            ${isVisible ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm' : 'opacity-0 -translate-y-2 backdrop:bg-transparent backdrop:backdrop-blur-none'}
+            ${isVisible ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-[2px]' : 'opacity-0 translate-y-6 scale-[.99] backdrop:bg-transparent backdrop:backdrop-blur-none'}
             ${duration} transition-[opacity,transform]
+            w-dvw mx-auto mb-4
             backdrop:transition-[background-color,backdrop-filter] backdrop:duration-[inherit]
-            w-full rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none
+            rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none
             `}>
-            <div className="flex items-center justify-between p-4 rounded-t">
+            <div className="flex items-center justify-between p-4 pb-0 rounded-t">
                 <h3 className="text-xl font-semibold ">
                     {title}
                 </h3>
@@ -71,8 +71,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
                     </button>
                 }
             </div>
-            <HR className="h-[0px] px-4" />
-            <div className="flex flex-col gap-2 max-h-[calc(100dvh-12rem)] overflow-y-auto p-4">
+            <div className="flex flex-col gap-2 max-h-[calc(100dvh-10rem)] overflow-y-auto p-4">
                 {children}
             </div>
         </dialog>
