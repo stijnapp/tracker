@@ -1,7 +1,6 @@
 import { faDesktop, faDownload, faMoon, faSun, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import Alert from "../components/Alert";
 import Card from "../components/Card";
 import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
 import Input from "../components/Form/Input";
@@ -111,7 +110,6 @@ export default function Settings({ deferredPrompt }) {
                         <button className="btn-secondary w-full" onClick={() => setShowImportModal(true)}>Import Data<FontAwesomeIcon icon={faDownload} className="ml-2" /></button>
                     </div>
                     {dbHasData && <p className="mt-2">Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>}
-                    <Alert message={promoteExport ? 'It is adviced to export your data every 7 days' : null} isCloseable={false} className="mt-2" />
 
                     <HR className="-my-1" />
 
