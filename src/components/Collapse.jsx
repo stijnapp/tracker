@@ -8,16 +8,16 @@ import HR from "./HR"
  * A collapsible component with a title and children
  * @param {Object} props
  * @param {string} [props.title=""] - The title of the collapse
- * @param {boolean} [props.openByDefault=false] - Whether the collapse is open by default
+ * @param {boolean} [props.forceOpenState=false] - Whether the collapse is open by default
  * @param {string} [props.className=""] - Optional styling for the collapse
  * @param {JSX.Element} props.children - The children of the collapse
  */
-export default function Collapse({ title = "", subtitle = "", openByDefault = false, className = "", children }) {
-    const [isOpened, setIsOpened] = useState(openByDefault)
+export default function Collapse({ title = "", subtitle = "", forceOpenState = false, className = "", children }) {
+    const [isOpened, setIsOpened] = useState(forceOpenState)
 
     useEffect(() => {
-        setIsOpened(openByDefault)
-    }, [openByDefault])
+        setIsOpened(forceOpenState)
+    }, [forceOpenState])
 
     return (
         <article className="rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">

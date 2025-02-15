@@ -6,7 +6,7 @@ import Input from "../Form/Input";
 import Textarea from "../Form/Textarea";
 import Set from "./Set";
 
-export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete, openByDefault = false }) {
+export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete, forceOpenState = false }) {
     const [exerciseId] = useState(db.getWorkoutExerciseById(workoutId, workoutExerciseId).exerciseId)
     const [exercise, setExercise] = useState(db.getExerciseById(exerciseId))
     const [setIds, setSetIds] = useState(db.getSetIds(workoutId, workoutExerciseId))
@@ -57,7 +57,7 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
     }, [newSet])
 
     return (
-        <Collapse title={exercise.name} subtitle={exercise.nickname} openByDefault={openByDefault} className="flex flex-col gap-4 mt-1.5">
+        <Collapse title={exercise.name} subtitle={exercise.nickname} forceOpenState={forceOpenState} className="flex flex-col gap-4 mt-1.5">
             <div className="flex gap-2">
                 <div className="w-0 border-2 rounded-full border-primary"></div>
                 <Textarea label="Description" value={exercise.description ?? ''} onChange={handleDescriptionChange} className="flex-grow" />
