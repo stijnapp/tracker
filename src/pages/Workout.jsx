@@ -11,8 +11,8 @@ import { db } from "../helpers/db";
 
 export default function Workout() {
     const [activeWorkoutId, setActiveWorkoutId] = useState(db.getActiveWorkoutId())
-
     const [workoutExerciseIds, setWorkoutExerciseIds] = useState(db.getWorkoutExerciseIds(activeWorkoutId))
+
     const [isEndingModalOpen, setIsEndingModalOpen] = useState(false)
     const [isAddingExerciseModalOpen, setIsAddingExerciseModalOpen] = useState(false)
 
@@ -26,19 +26,28 @@ export default function Workout() {
         setWorkoutExerciseIds(db.getWorkoutExerciseIds(newWorkoutId))
     }
 
+    const endworkout = () => {
+        // TODO: does something else need saving?
+        // TODO: remove empty sets
+        db.endActiveWorkout()
+        setActiveWorkoutId(null)
+        setWorkoutExerciseIds([])
+        setIsEndingModalOpen(false)
+        // TODO: global success alert "Workout saved successfully" or "Workout ended"
+    }
+
+    const discardWorkout = () => {
+        db.deleteWorkout(activeWorkoutId)
+        setActiveWorkoutId(null)
+        setWorkoutExerciseIds([])
+        setIsEndingModalOpen(false)
+        // TODO: global alert "Workout discarded"
+    }
+
     const addExercise = (exerciseId) => {
         db.addWorkoutExercise(activeWorkoutId, exerciseId)
         refreshWorkoutExercises()
         setIsAddingExerciseModalOpen(false)
-    }
-
-    const endworkout = () => {
-        // TODO: does something else need saving?
-        db.endActiveWorkout()
-        setActiveWorkoutId(null)
-        refreshWorkoutExercises()
-        setIsEndingModalOpen(false)
-        // TODO: global success alert "Workout saved successfully" or "Workout ended"
     }
 
     const refreshWorkoutExercises = () => {
@@ -56,15 +65,15 @@ export default function Workout() {
                     <ActiveWorkoutInfo activeWorkoutId={activeWorkoutId} />
 
                     {workoutExerciseIds.map((exerciseId) => {
-                        const shouldOpenLastExercise = exerciseId === workoutExerciseIds[workoutExerciseIds.length - 1]
+                        const isLastWorkoutExercise = exerciseId === workoutExerciseIds[workoutExerciseIds.length - 1]
 
                         return (
-                            <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} onDelete={refreshWorkoutExercises} forceOpenState={shouldOpenLastExercise} />
+                            <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} onDelete={refreshWorkoutExercises} forceOpenState={isLastWorkoutExercise} />
                         )
                     })}
 
                     <button className="btn-primary" onClick={() => setIsAddingExerciseModalOpen(true)}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add exercise</button>
-                    <button className="btn-danger" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
+                    <button className="btn-secondary" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
                 </>}
             </AnimateInOut>
 
@@ -85,9 +94,17 @@ export default function Workout() {
             </Modal>
 
             <Modal showModal={isEndingModalOpen} onClose={() => setIsEndingModalOpen(false)} title="End workout">
-                <p>Are you sure you want to end this workout?</p>
-                <p className="mb-2">You can always edit the workout later via the history page.</p>
-                <button className="btn-danger w-full" onClick={endworkout}>End workout</button>
+                {workoutExerciseIds.length <= 0
+                    ? <p>You haven&apos;t added any exercises yet. Ending the workout will save it as an empty workout.</p>
+                    : <p>Are you sure you want to end this workout?</p>
+                }
+                {/* <p className="mb-2">You can always edit the workout later via the history page.</p> */}
+                {workoutExerciseIds.length <= 0 ? <>
+                    <button className="btn-primary w-full" onClick={discardWorkout}>Discard workout</button>
+                    <button className="btn-danger w-full" onClick={endworkout}>Save anyway</button>
+                </> : (
+                    <button className="btn-primary w-full" onClick={endworkout}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
+                )}
                 <button className="btn-secondary w-full" onClick={() => setIsEndingModalOpen(false)}>Keep going</button>
             </Modal>
         </Page>

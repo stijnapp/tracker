@@ -361,6 +361,19 @@ export const db = {
         workoutExercise.sets[index] = updatedSet
         return this.updateWorkoutExercise(workoutId, workoutExerciseId, workoutExercise)
     },
+    /**
+     * @param {number} workoutId
+     * @param {number} workoutExerciseId
+     * @param {number} setId
+     * @returns {boolean}
+     */
+    deleteSet(workoutId, workoutExerciseId, setId) {
+        const workoutExercise = this.getWorkoutExerciseById(workoutId, workoutExerciseId)
+        if (!workoutExercise) return false
+        if (!workoutExercise.sets.some(set => set.id === setId)) return false
+        workoutExercise.sets = workoutExercise.sets.filter(set => set.id !== setId)
+        return this.updateWorkoutExercise(workoutId, workoutExerciseId, workoutExercise)
+    },
 
     // ! Active workout
     /**

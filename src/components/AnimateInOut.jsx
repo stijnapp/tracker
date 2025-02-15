@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { getMsFromDuration } from "../helpers/stringManipulation"
 
 /**
  * A component that animates children in and out with a height transition
@@ -8,15 +7,13 @@ import { getMsFromDuration } from "../helpers/stringManipulation"
  * @param {"vertical" | "horizontal" | "both"} [props.direction="vertical"] - The direction of the transition
  * @param {string} [props.hiddenClassName=""] - Optional styling for the hidden state of the component (e.g. '-mt-4')
  * @param {string} [props.className=""] - Optional styling for the component
+ * @param {boolean} [props.animateOnMount=false] - If true, will animate in on mount
  * @param {JSX.Element} props.children - The children to animate
  * @returns {JSX.Element | null} The animated component
  */
-export default function AnimateInOut({ restartOnChildKeyChange = false, direction = "vertical", hiddenClassName = '', className = "", children }) {
-    // TODO: Implement direction
-    const [isHiding, setIsHiding] = useState(false)
+export default function AnimateInOut({ restartOnChildKeyChange = false, direction = "vertical", hiddenClassName = '', className = "", animateOnMount = false, children }) {
+    const [isHiding, setIsHiding] = useState(animateOnMount)
     const [childrenCache, setChildrenCache] = useState(children)
-    // ? `duration` needs to be tailwind duration, e.g. 'duration-[300ms]'
-    const duration = 'duration-[300ms]'
 
     if (restartOnChildKeyChange && children?.key === null) {
         console.error('AnimateInOut component requires a unique key prop on children when using restartOnChildKeyChange', children)
@@ -31,7 +28,7 @@ export default function AnimateInOut({ restartOnChildKeyChange = false, directio
 
             newChildrenTimeout = setTimeout(() => {
                 setChildrenCache(children)
-            }, getMsFromDuration(duration))
+            }, 300)
         } else if (children) {
             setIsHiding(false)
             setChildrenCache(children)
@@ -41,7 +38,7 @@ export default function AnimateInOut({ restartOnChildKeyChange = false, directio
 
         clearCacheTimeout = setTimeout(() => {
             setChildrenCache(children)
-        }, getMsFromDuration(duration))
+        }, 300)
 
         return () => {
             clearTimeout(clearCacheTimeout)
@@ -65,7 +62,7 @@ export default function AnimateInOut({ restartOnChildKeyChange = false, directio
     }
 
     return (
-        <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} transition-[height,width,padding,margin,opacity] ${duration} overflow-hidden -m-2 p-2`}>
+        <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} transition-[height,width,padding,margin,opacity] duration-[300ms] overflow-hidden -m-2 p-2`}>
             {!isHiding && children ? (restartOnChildKeyChange ? childrenCache : children) : childrenCache}
         </div>
     )
