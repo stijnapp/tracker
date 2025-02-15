@@ -4,7 +4,9 @@ import Navbar from './components/Navbar';
 import useEventListener from './hooks/useEventListener';
 import useTheme from './hooks/useTheme';
 import History from './pages/History';
-import Manage from './pages/Manage';
+import Exercises from './pages/Manage/Exercises';
+import Manage from './pages/Manage/Manage';
+import Tags from './pages/Manage/Tags';
 import NotFound from './pages/NotFound';
 import Progress from './pages/Progress';
 import Settings from './pages/Settings';
@@ -26,7 +28,10 @@ export default function App() {
                     <Route path="/" element={<History />} />
                     <Route path="/progress" element={<Progress />} />
                     <Route path="/workout" element={<Workout />} />
-                    <Route path="/manage" element={<Manage />} />
+                    <Route path="/manage" element={<Manage />}>
+                        <Route index element={<Exercises />} />
+                        <Route path="tags" element={<Tags />} />
+                    </Route>
                     <Route path="/settings" element={<Settings deferredPrompt={deferredPrompt} />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
