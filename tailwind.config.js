@@ -20,7 +20,8 @@ export default {
         },
         floating: {
           light: '#ffffff',
-          dark: '#1c1e22',
+          // dark: '#1c1e22',
+          dark: '#1e2025',
         },
         light: '#f3f4f6',
         dark: '#2f323a',
