@@ -68,7 +68,7 @@ export default function Workout() {
                         const isLastWorkoutExercise = exerciseId === workoutExerciseIds[workoutExerciseIds.length - 1]
 
                         return (
-                            <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} onDelete={refreshWorkoutExercises} forceOpenState={isLastWorkoutExercise} />
+                            <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} onDelete={refreshWorkoutExercises} openByDefault={isLastWorkoutExercise} />
                         )
                     })}
 

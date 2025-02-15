@@ -1,6 +1,6 @@
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import AnimateInOut from "./AnimateInOut"
 import HR from "./HR"
 
@@ -8,16 +8,12 @@ import HR from "./HR"
  * A collapsible component with a title and children
  * @param {Object} props
  * @param {string} [props.title=""] - The title of the collapse
- * @param {boolean} [props.forceOpenState=false] - Whether the collapse is open by default
+ * @param {boolean} [props.openByDefault=false] - Whether the collapse is open by default
  * @param {string} [props.className=""] - Optional styling for the collapse
  * @param {JSX.Element} props.children - The children of the collapse
  */
-export default function Collapse({ title = "", subtitle = "", forceOpenState = false, className = "", children }) {
-    const [isOpened, setIsOpened] = useState(forceOpenState)
-
-    useEffect(() => {
-        setIsOpened(forceOpenState)
-    }, [forceOpenState])
+export default function Collapse({ title = "", subtitle = "", openByDefault = false, className = "", children }) {
+    const [isOpened, setIsOpened] = useState(openByDefault)
 
     return (
         <article className="rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">
