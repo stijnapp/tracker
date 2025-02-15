@@ -35,6 +35,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
     }, [showModal, dialogElement])
 
     useEventListener('close', () => {
+        // When dialog gets closed but parent is unaware (e.g. back button on mobile)
         if (showModal) onClose()
         setIsVisible(false)
     }, dialogElement)
@@ -50,16 +51,24 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
         if (e.target === dialogElement) onClose()
     }, dialogElement)
 
+    useEffect(() => {
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    }, [])
+
     return (
         <dialog ref={dialogRef} className={`
-            ${isVisible ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-[2px]' : 'opacity-0 translate-y-6 scale-[.99] backdrop:bg-transparent backdrop:backdrop-blur-none'}
+            ${isVisible
+                ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-[2px]'
+                : 'opacity-0 translate-y-[calc(1.5rem+5%)] scale-[.99] backdrop:bg-transparent backdrop:backdrop-blur-none'}
             ${duration} transition-[opacity,transform]
             w-dvw mx-auto mb-4
             backdrop:transition-[background-color,backdrop-filter] backdrop:duration-[inherit]
             rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none
             `}>
-            <div className="flex items-center justify-between p-4 pb-0 rounded-t">
-                <h3 className="text-xl font-semibold ">
+            <div className="flex items-center justify-between p-4 pb-2 rounded-t">
+                <h3 className="text-xl font-semibold">
                     {title}
                 </h3>
                 {hasCloseBtn &&
@@ -71,7 +80,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
                     </button>
                 }
             </div>
-            <div className="flex flex-col gap-2 max-h-[calc(100dvh-10rem)] overflow-y-auto p-4">
+            <div className="flex flex-col gap-2 max-h-[calc(100dvh-12rem)] overflow-y-auto p-4 pt-2">
                 {children}
             </div>
         </dialog>

@@ -1,6 +1,6 @@
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import AnimateInOut from "./AnimateInOut"
 import HR from "./HR"
 
@@ -14,10 +14,6 @@ import HR from "./HR"
  */
 export default function Collapse({ title = "", subtitle = "", openByDefault = false, className = "", children }) {
     const [isOpened, setIsOpened] = useState(openByDefault)
-
-    useEffect(() => {
-        setIsOpened(openByDefault)
-    }, [openByDefault])
 
     return (
         <article className="rounded-lg shadow dark:shadow-md bg-floating-light dark:bg-floating-dark theme-transition">

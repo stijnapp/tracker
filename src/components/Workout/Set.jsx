@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react"
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from "react"
 import { db } from "../../helpers/db"
+import AnimateInOut from '../AnimateInOut'
 import Input from "../Form/Input"
 
-export default function Set({ workoutId, workoutExerciseId, setId, newSet = null, potentialDelete = null }) {
+export default function Set({ workoutId, workoutExerciseId, setId, setNr, onDelete }) {
     const [set, setSet] = useState(db.getSetById(workoutId, workoutExerciseId, setId))
-    const weightInputRef = useRef(null)
-    const repsInputRef = useRef(null)
+    const [isDeleted, setIsDeleted] = useState(false)
 
     const handleWeightChange = (e) => {
         let newWeight = e.target.valueAsNumber
@@ -13,10 +15,6 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
             newWeight = set.weight
         }
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, weight: newWeight })
-        if (!newWeight && !set.reps && potentialDelete !== null) {
-            potentialDelete('weight')
-            return
-        }
         setSet(db.getSetById(workoutId, workoutExerciseId, setId))
     }
 
@@ -26,28 +24,30 @@ export default function Set({ workoutId, workoutExerciseId, setId, newSet = null
             newReps = set.reps
         }
         db.updateSet(workoutId, workoutExerciseId, setId, { ...set, reps: newReps })
-        if (!set.weight && !newReps && potentialDelete !== null) {
-            potentialDelete('reps')
-            return
-        }
         setSet(db.getSetById(workoutId, workoutExerciseId, setId))
     }
 
-    useEffect(() => {
-        if (newSet?.setId === setId) {
-            if (newSet.type === 'weight') {
-                weightInputRef.current.focus()
-            } else if (newSet.type === 'reps') {
-                repsInputRef.current.focus()
-            }
-        }
-    }, [newSet, setId])
+    const handleDelete = () => {
+        setIsDeleted(true)
+        setTimeout(() => {
+            onDelete(set.id)
+        }, 300)
+    }
 
     return (
-        <>
-            <p className="col-span-1 text-sm text-gray-500 dark:text-gray-400 text-nowrap">Set {set.id}</p>
-            <Input inputRef={weightInputRef} type="number" step="0.01" min="0" label="Weight" value={set.weight ?? ''} onChange={handleWeightChange} className="col-span-3" />
-            <Input inputRef={repsInputRef} type="number" step="0.1" min="0" label="Reps" value={set.reps ?? ''} onChange={handleRepsChange} className="col-span-3" />
-        </>
+        <AnimateInOut className='flex gap-2' hiddenClassName='-mt-4' animateOnMount>
+            {!isDeleted && <>
+                <div className='flex gap-2 items-center w-full'>
+                    <p className="min-w-10 text-sm text-gray-500 dark:text-gray-400 text-nowrap">Set {setNr}</p>
+                    <Input type="number" step="0.01" min="0" label="Weight" value={set.weight ?? ''} onChange={handleWeightChange} />
+                    <Input type="number" step="0.1" min="0" label="Reps" value={set.reps ?? ''} onChange={handleRepsChange} />
+                </div>
+                <AnimateInOut direction='horizontal' className='flex -mr-2 pr-4' hiddenClassName='-ml-4'>
+                    {!set.weight && !set.reps && (
+                        <button className="btn-danger" onClick={handleDelete} aria-label="Delete set"><FontAwesomeIcon icon={faTrash} /></button>
+                    )}
+                </AnimateInOut>
+            </>}
+        </AnimateInOut>
     )
 }
