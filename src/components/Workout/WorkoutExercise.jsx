@@ -35,8 +35,6 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
         }, 300)
     }
 
-    console.log(setIds.length <= 0)
-
     return (
         <AnimateInOut className='rounded-lg' hiddenClassName="-mt-4" disableOverflowSpace>
             {!isDeleted && (

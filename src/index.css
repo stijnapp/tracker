@@ -10,7 +10,6 @@ body {
     @apply min-h-dvh bg-floating-light dark:bg-floating-dark theme-transition;
 }
 
-/* TODO: move this to tailwind.config? like an extention to transitions */
 .theme-transition {
     @apply transition-[background-color] duration-300;
 }
