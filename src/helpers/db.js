@@ -553,6 +553,13 @@ export const db = {
         return this.getAllTags().find(tag => tag.name.trim().toLowerCase() === name.trim().toLowerCase()) ?? null
     },
     /**
+     * @param {number} id
+     * @returns {number}
+     */
+    getTagUsageAmount(id) {
+        return this.getAllExercises().filter(exercise => exercise.tagId === id).length
+    },
+    /**
      * @param {string} newTagName
      * @returns {Tag}
      */
