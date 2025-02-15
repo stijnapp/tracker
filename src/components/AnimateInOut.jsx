@@ -6,12 +6,13 @@ import { useEffect, useState } from "react"
  * @param {boolean} [props.restartOnChildKeyChange=false] - If true, will close and reopen the component when the key of the child changes
  * @param {"vertical" | "horizontal" | "both"} [props.direction="vertical"] - The direction of the transition
  * @param {string} [props.hiddenClassName=""] - Optional styling for the hidden state of the component (e.g. '-mt-4')
- * @param {string} [props.className=""] - Optional styling for the component
+ * @param {boolean} [props.disableOverflowSpace=false] - If true, will not add margin and padding to the component
  * @param {boolean} [props.animateOnMount=false] - If true, will animate in on mount
+ * @param {string} [props.className=""] - Optional styling for the component
  * @param {JSX.Element} props.children - The children to animate
  * @returns {JSX.Element | null} The animated component
  */
-export default function AnimateInOut({ restartOnChildKeyChange = false, direction = "vertical", hiddenClassName = '', className = "", animateOnMount = false, children }) {
+export default function AnimateInOut({ restartOnChildKeyChange = false, direction = "vertical", hiddenClassName = '', disableOverflowSpace = false, animateOnMount = false, className = "", children }) {
     const [isHiding, setIsHiding] = useState(animateOnMount)
     const [childrenCache, setChildrenCache] = useState(children)
 
@@ -62,7 +63,7 @@ export default function AnimateInOut({ restartOnChildKeyChange = false, directio
     }
 
     return (
-        <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} transition-[height,width,padding,margin,opacity] duration-[300ms] overflow-hidden -m-2 p-2`}>
+        <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} transition-[height,width,padding,margin,opacity] duration-[300ms] overflow-hidden ${disableOverflowSpace ? '' : '-m-2 p-2'}`}>
             {!isHiding && children ? (restartOnChildKeyChange ? childrenCache : children) : childrenCache}
         </div>
     )

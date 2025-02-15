@@ -38,9 +38,9 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
     console.log(setIds.length <= 0)
 
     return (
-        <AnimateInOut className='mb-0' hiddenClassName="-mt-4">
+        <AnimateInOut className='rounded-lg' hiddenClassName="-mt-4" disableOverflowSpace>
             {!isDeleted && (
-                <Collapse title={exercise.name} subtitle={exercise.nickname} forceOpenState={forceOpenState} className="flex flex-col gap-4 mt-1.5 pb-2">
+                <Collapse title={exercise.name} subtitle={exercise.nickname} forceOpenState={forceOpenState} className="flex flex-col gap-4 mt-1.5">
                     <div className="flex gap-2">
                         <div className="w-0 border-2 rounded-full border-primary"></div>
                         <Textarea label="Description" value={exercise.description ?? ''} onChange={handleDescriptionChange} className="flex-grow" />

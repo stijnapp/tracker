@@ -57,7 +57,7 @@ export default function Manage() {
             </Card>
 
             {exercises.map((exercise) => (
-                <AnimateInOut key={exercise.id} hiddenClassName="-mt-4">
+                <AnimateInOut key={exercise.id} className='rounded-lg' hiddenClassName="-mt-4" disableOverflowSpace>
                     {filteredExercises.some((filteredExercise) => filteredExercise.id === exercise.id) && (
                         <Exercise exercise={exercises.find((filteredExercise) => filteredExercise.id === exercise.id)} onUpdate={handleExerciseUpdate} onDelete={setDeleteId} />
                     )}
