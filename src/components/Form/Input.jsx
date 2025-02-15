@@ -4,6 +4,7 @@
  * @param {string} props.type - The type of input
  * @param {string} props.label - The label of the input
  * @param {string} [props.className=""] - Optional styling for the input
+ * @param {React.Ref} props.inputRef - The ref of the input element
  * @returns {JSX.Element} The input component
  */
 export default function Input({ type, label, className = "", inputRef, ...props }) {

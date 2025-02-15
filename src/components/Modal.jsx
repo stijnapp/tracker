@@ -67,7 +67,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
             backdrop:transition-[background-color,backdrop-filter] backdrop:duration-[inherit]
             rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none
             `}>
-            <div className="flex items-center justify-between p-4 rounded-t">
+            <div className="flex items-center justify-between p-4 pb-2 rounded-t">
                 <h3 className="text-xl font-semibold">
                     {title}
                 </h3>
