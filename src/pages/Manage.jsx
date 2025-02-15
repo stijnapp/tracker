@@ -1,10 +1,10 @@
-import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import AnimateInOut from "../components/AnimateInOut";
 import Card from "../components/Card";
 import Exercise from "../components/Exercises/Exercise";
-import Input from "../components/Form/Input";
+import Search from '../components/Form/Search';
 import Modal from "../components/Modal";
 import Page from "../components/Page";
 import { db } from "../helpers/db";
@@ -20,10 +20,6 @@ export default function Manage() {
         sanitizeString(exercise.name, true).includes(sanitizeString(search, true)) ||
         sanitizeString(exercise.nickname, true).includes(sanitizeString(search, true)
         ))
-
-    const handleSearchChange = (e) => {
-        setSearch(e.target.value)
-    }
 
     const handleExerciseAdd = () => {
         db.addExercise(sanitizeString(search))
@@ -56,12 +52,7 @@ export default function Manage() {
             </div> */}
 
             <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
-                <div className="flex gap-2 mt-1">
-                    <Input type="text" inputMode="search" value={search} onChange={handleSearchChange} label="Exercise name" className="flex-grow" />
-                    <AnimateInOut direction="horizontal" className="flex" hiddenClassName="-ml-2">
-                        {search && <button onClick={() => setSearch('')} className="btn-secondary" aria-label="Clear search"><FontAwesomeIcon icon={faXmark} /></button>}
-                    </AnimateInOut>
-                </div>
+                <Search label="Exercise name" search={search} setSearch={setSearch} />
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Showing {filteredExercises.length} of {exercises.length} exercises</p>
             </Card>
 
