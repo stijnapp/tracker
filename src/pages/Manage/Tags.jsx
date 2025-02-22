@@ -53,10 +53,10 @@ export default function Tags() {
                 )}
             </AnimateInOut>
 
-            <AnimateInOut restartOnChildKeyChange>
+            <AnimateInOut>
                 {(tags.length > 0 || search.length > 0) && filteredTags.length <= 0 && (
-                    <Card key={'not found'} title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
-                        <button className="btn-primary" onClick={handleTagAdd}>Add &quot;{search}&quot; as new tag</button>
+                    <Card title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
+                        <button className="btn-primary" onClick={handleTagAdd}>Add a new tag called &quot;{search}&quot;</button>
                     </Card>
                 )}
             </AnimateInOut>

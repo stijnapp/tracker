@@ -60,10 +60,10 @@ export default function Exercises() {
                 )}
             </AnimateInOut>
 
-            <AnimateInOut restartOnChildKeyChange>
+            <AnimateInOut>
                 {(exercises.length > 0 || search.length > 0) && filteredExercises.length <= 0 && (
-                    <Card key={'not found'} title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
-                        <button className="btn-primary" onClick={handleExerciseAdd}>Add &quot;{search}&quot; as new exercise</button>
+                    <Card title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
+                        <button className="btn-primary" onClick={handleExerciseAdd}>Add a new exercise called &quot;{search}&quot;</button>
                     </Card>
                 )}
             </AnimateInOut>
