@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { db } from '../helpers/db'
-import Collapse from './Collapse'
-import Input from './Form/Input'
-import Modal from './Modal'
+import { db } from '../../helpers/db'
+import Collapse from '../Collapse'
+import Input from '../Form/Input'
+import Modal from '../Modal'
 
 export default function Tag({ tag, onUpdate, onDelete }) {
     const usageAmount = db.getTagUsageAmount(tag.id)

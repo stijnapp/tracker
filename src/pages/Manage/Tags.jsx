@@ -4,7 +4,7 @@ import { useState } from 'react'
 import AnimateInOut from '../../components/AnimateInOut'
 import Card from '../../components/Card'
 import Search from '../../components/Form/Search'
-import Tag from '../../components/Tag'
+import Tag from '../../components/Manage/Tag'
 import { db } from '../../helpers/db'
 import { sanitizeString } from '../../helpers/stringManipulation'
 
