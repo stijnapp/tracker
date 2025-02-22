@@ -1,5 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom';
-import Page from "../../components/Page";
+import { NavLink, Outlet } from 'react-router-dom'
+import Page from "../../components/Page"
 
 export default function Manage() {
     const tabItems = [

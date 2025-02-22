@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { db } from "../../helpers/db";
-import AnimateInOut from "../AnimateInOut";
-import Collapse from "../Collapse";
-import Textarea from "../Form/Textarea";
-import Set from "./Set";
+import { useState } from "react"
+import { db } from "../../helpers/db"
+import AnimateInOut from "../AnimateInOut"
+import Collapse from "../Collapse"
+import Textarea from "../Form/Textarea"
+import Set from "./Set"
 
 export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete, openByDefault = false }) {
     const [exerciseId] = useState(db.getWorkoutExerciseById(workoutId, workoutExerciseId).exerciseId)

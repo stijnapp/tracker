@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Badge from "../Badge";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Badge from "../Badge"
 
 /**
  * @typedef {Object} Option
