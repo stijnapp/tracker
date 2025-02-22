@@ -17,7 +17,7 @@ import Page from "../components/Page";
 
 export default function Progress() {
     const [text, setText] = useState(null)
-    const [restartOnChildKeyChange, setRestartOnChildKeyChange] = useState(false)
+    const [restartOnIdChange, setRestartOnIdChange] = useState(true)
 
     const [error, setError] = useState(null)
     const [absoluteAlerts, setAbsoluteAlerts] = useState(false)
@@ -63,13 +63,13 @@ export default function Progress() {
             </Card>
 
             <Card title="AnimateInOut test" className="flex flex-col gap-4">
-                <Switch label="Restart animation on change" checked={restartOnChildKeyChange} onChange={() => setRestartOnChildKeyChange(!restartOnChildKeyChange)} />
+                <Switch label="Restart animation on change" checked={restartOnIdChange} onChange={() => setRestartOnIdChange(!restartOnIdChange)} />
                 <button className="btn-primary" onClick={() => setText('First')}>Show &apos;First text&apos;</button>
                 <button className="btn-success" onClick={() => setText('Second')}>Show &apos;Second text&apos;</button>
                 <button className="btn-secondary" onClick={() => setText(null)}>Remove text</button>
-                <AnimateInOut restartOnChildKeyChange={restartOnChildKeyChange} hiddenClassName="-mt-4">
+                <AnimateInOut restartOnIdChange={restartOnIdChange} contentId={text} hiddenClassName="-mt-4">
                     {text && (
-                        <div key={text} className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
+                        <div className={`p-4 ${text === 'First' ? 'bg-primary/30' : 'bg-success/30'} rounded-md`}>
                             {text}
                         </div>
                     )}
