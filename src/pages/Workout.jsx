@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import AnimateInOut from '../components/AnimateInOut'
 import Search from '../components/Form/Search'
+import HR from '../components/HR'
 import Modal from '../components/Modal'
 import Page from '../components/Page'
 import ActiveWorkoutInfo from '../components/Workout/ActiveWorkoutInfo'
@@ -71,6 +72,10 @@ export default function Workout() {
                             <WorkoutExercise key={exerciseId} workoutId={activeWorkoutId} workoutExerciseId={exerciseId} onDelete={refreshWorkoutExercises} openByDefault={isLastWorkoutExercise} />
                         )
                     })}
+
+                    <AnimateInOut hiddenClassName="-mt-4">
+                        {workoutExerciseIds.length > 0 && <HR />}
+                    </AnimateInOut>
 
                     <button className="btn-primary" onClick={() => setIsAddingExerciseModalOpen(true)}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add exercise</button>
                     <button className="btn-secondary" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
