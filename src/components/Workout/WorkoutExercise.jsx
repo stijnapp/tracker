@@ -1,3 +1,5 @@
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { db } from '../../helpers/db'
 import AnimateInOut from '../AnimateInOut'
@@ -35,10 +37,14 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
         }, 300)
     }
 
+    const closeBtn = (
+        <button className="btn-danger !py-1.5 -my-1" onClick={handleDeleteExercise} aria-label="Delete empty exercise"><FontAwesomeIcon icon={faTrash} /></button>
+    )
+
     return (
         <AnimateInOut className='rounded-lg' hiddenClassName="-mt-4" disableOverflowSpace>
             {!isDeleted && (
-                <Collapse title={exercise.name} subtitle={exercise.nickname} openByDefault={openByDefault} className="flex flex-col gap-4 mt-1.5">
+                <Collapse title={exercise.name} subtitle={exercise.nickname} extraButton={closeBtn} showExtraButton={setIds.length <= 0} openByDefault={openByDefault} className="flex flex-col gap-4 mt-1.5">
                     <div className="flex gap-2">
                         <div className="w-0 border-2 rounded-full border-primary"></div>
                         <Textarea label="Description" value={exercise.description ?? ''} onChange={handleDescriptionChange} className="flex-grow" />
@@ -48,12 +54,6 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
                         <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} onDelete={handleDeleteSet} />
                     ))}
                     <button className="btn-primary w-full" onClick={handleAddSet}>Add set</button>
-
-                    <AnimateInOut hiddenClassName="-mt-4" animateOnMount>
-                        {setIds.length <= 0 && (
-                            <button className="btn-danger w-full" onClick={handleDeleteExercise}>Delete empty exercise</button>
-                        )}
-                    </AnimateInOut>
                 </Collapse>
             )}
         </AnimateInOut>
