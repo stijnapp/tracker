@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import useEventListener from './hooks/useEventListener';
-import useTheme from './hooks/useTheme';
-import History from './pages/History';
-import Exercises from './pages/Manage/Exercises';
-import Manage from './pages/Manage/Manage';
-import Tags from './pages/Manage/Tags';
-import NotFound from './pages/NotFound';
-import Progress from './pages/Progress';
-import Settings from './pages/Settings';
-import Workout from './pages/Workout';
+import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import useEventListener from './hooks/useEventListener'
+import useTheme from './hooks/useTheme'
+import History from './pages/History'
+import Exercises from './pages/Manage/Exercises'
+import Manage from './pages/Manage/Manage'
+import Tags from './pages/Manage/Tags'
+import NotFound from './pages/NotFound'
+import Progress from './pages/Progress'
+import Settings from './pages/Settings'
+import Workout from './pages/Workout'
 
 export default function App() {
     const [deferredPrompt, setDeferredPrompt] = useState(null)

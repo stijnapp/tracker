@@ -1,8 +1,8 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useRef } from "react"
-import { getMsFromDuration } from "../helpers/stringManipulation"
-import AnimateInOut from "./AnimateInOut"
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect, useRef } from 'react'
+import { getMsFromDuration } from '../helpers/stringManipulation'
+import AnimateInOut from './AnimateInOut'
 
 /**
  * An alert component that displays a message to the user

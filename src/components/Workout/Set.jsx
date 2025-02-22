@@ -1,9 +1,9 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from "react"
-import { db } from "../../helpers/db"
+import { useState } from 'react'
+import { db } from '../../helpers/db'
 import AnimateInOut from '../AnimateInOut'
-import Input from "../Form/Input"
+import Input from '../Form/Input'
 
 export default function Set({ workoutId, workoutExerciseId, setId, setNr, onDelete }) {
     const [set, setSet] = useState(db.getSetById(workoutId, workoutExerciseId, setId))

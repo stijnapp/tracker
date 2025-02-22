@@ -1,19 +1,19 @@
-import { fa1, fa2, fa3, faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import Alert from "../components/Alert";
-import AnimateInOut from "../components/AnimateInOut";
-import Card from "../components/Card";
-import Checkbox from "../components/Form/Checkbox";
-import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
-import FileInput from "../components/Form/FileInput";
-import Input from "../components/Form/Input";
-import RadioButtonGroup from "../components/Form/RadioButtonGroup";
-import Select from "../components/Form/Select";
-import Switch from "../components/Form/Switch";
-import Textarea from "../components/Form/Textarea";
-import HR from "../components/HR";
-import Page from "../components/Page";
+import { fa1, fa2, fa3, faHelmetSafety } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import Alert from '../components/Alert'
+import AnimateInOut from '../components/AnimateInOut'
+import Card from '../components/Card'
+import Checkbox from '../components/Form/Checkbox'
+import FancyRadioButtonGroup from '../components/Form/FancyRadioButtonGroup'
+import FileInput from '../components/Form/FileInput'
+import Input from '../components/Form/Input'
+import RadioButtonGroup from '../components/Form/RadioButtonGroup'
+import Select from '../components/Form/Select'
+import Switch from '../components/Form/Switch'
+import Textarea from '../components/Form/Textarea'
+import HR from '../components/HR'
+import Page from '../components/Page'
 
 export default function Progress() {
     const [text, setText] = useState(null)

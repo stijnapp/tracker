@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react"
-import { getMsFromDuration } from "../helpers/stringManipulation"
-import useEventListener from "../hooks/useEventListener"
+import { useEffect, useRef, useState } from 'react'
+import { getMsFromDuration } from '../helpers/stringManipulation'
+import useEventListener from '../hooks/useEventListener'
 
 /**
  * A modal component using the html `<dialog />` element

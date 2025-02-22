@@ -1,4 +1,4 @@
-import useLocalStorage from "./useLocalStorage";
+import useLocalStorage from './useLocalStorage'
 
 /**
  * Custom hook to manage the theme with localStorage.

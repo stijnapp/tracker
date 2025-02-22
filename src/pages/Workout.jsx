@@ -1,13 +1,13 @@
-import { faFlagCheckered, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import AnimateInOut from "../components/AnimateInOut";
-import Search from '../components/Form/Search';
-import Modal from "../components/Modal";
-import Page from "../components/Page";
-import ActiveWorkoutInfo from "../components/Workout/ActiveWorkoutInfo";
-import WorkoutExercise from "../components/Workout/WorkoutExercise";
-import { db } from "../helpers/db";
+import { faFlagCheckered, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import AnimateInOut from '../components/AnimateInOut'
+import Search from '../components/Form/Search'
+import Modal from '../components/Modal'
+import Page from '../components/Page'
+import ActiveWorkoutInfo from '../components/Workout/ActiveWorkoutInfo'
+import WorkoutExercise from '../components/Workout/WorkoutExercise'
+import { db } from '../helpers/db'
 
 export default function Workout() {
     const [activeWorkoutId, setActiveWorkoutId] = useState(db.getActiveWorkoutId())

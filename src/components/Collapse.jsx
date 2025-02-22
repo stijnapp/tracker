@@ -1,8 +1,8 @@
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
-import AnimateInOut from "./AnimateInOut"
-import HR from "./HR"
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import AnimateInOut from './AnimateInOut'
+import HR from './HR'
 
 /**
  * A collapsible component with a title and children

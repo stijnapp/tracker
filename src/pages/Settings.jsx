@@ -1,18 +1,18 @@
-import { faDesktop, faDownload, faMoon, faSun, faUpload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import Card from "../components/Card";
-import FancyRadioButtonGroup from "../components/Form/FancyRadioButtonGroup";
-import Input from "../components/Form/Input";
-import HR from "../components/HR";
-import Modal from "../components/Modal";
-import Page from "../components/Page";
-import Spinner from "../components/Spinner";
-import { downloadObjectAsJson, importJsonFileToDatabase, promptFileSelection } from "../helpers/data";
-import { dateToText, getCurrentDateTime, timeDifferenceToText } from "../helpers/dateTime";
-import { db } from "../helpers/db";
-import useLocalStorage from "../hooks/useLocalStorage";
-import useTheme from "../hooks/useTheme";
+import { faDesktop, faDownload, faMoon, faSun, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import Card from '../components/Card'
+import FancyRadioButtonGroup from '../components/Form/FancyRadioButtonGroup'
+import Input from '../components/Form/Input'
+import HR from '../components/HR'
+import Modal from '../components/Modal'
+import Page from '../components/Page'
+import Spinner from '../components/Spinner'
+import { downloadObjectAsJson, importJsonFileToDatabase, promptFileSelection } from '../helpers/data'
+import { dateToText, getCurrentDateTime, timeDifferenceToText } from '../helpers/dateTime'
+import { db } from '../helpers/db'
+import useLocalStorage from '../hooks/useLocalStorage'
+import useTheme from '../hooks/useTheme'
 
 /**
  * @param {{

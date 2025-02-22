@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { db } from "../../helpers/db"
-import Collapse from "../Collapse"
-import Input from "../Form/Input"
-import Select from "../Form/Select"
-import Textarea from "../Form/Textarea"
+import { useState } from 'react'
+import { db } from '../../helpers/db'
+import Collapse from '../Collapse'
+import Input from '../Form/Input'
+import Select from '../Form/Select'
+import Textarea from '../Form/Textarea'
 
 export default function Exercise({ exercise, onUpdate, onDelete }) {
     const [tags] = useState(db.getAllTags)

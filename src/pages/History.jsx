@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Card from "../components/Card";
-import Page from "../components/Page";
-import { dateTimeToText, timeDifferenceToText } from "../helpers/dateTime";
-import { db } from "../helpers/db";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Card from '../components/Card'
+import Page from '../components/Page'
+import { dateTimeToText, timeDifferenceToText } from '../helpers/dateTime'
+import { db } from '../helpers/db'
 
 export default function History() {
     const [workoutIds] = useState(db.getAllWorkoutIdsExcludingActive().reverse())

@@ -1,4 +1,4 @@
-import { getCurrentDateTime } from "./dateTime"
+import { getCurrentDateTime } from './dateTime'
 
 /**
  * @typedef {Object} DB

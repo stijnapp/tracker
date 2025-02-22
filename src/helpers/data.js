@@ -1,4 +1,4 @@
-import { db } from "./db"
+import { db } from './db'
 
 /**
  * Downloads an object as a JSON file
@@ -71,5 +71,6 @@ export function importJsonFileToDatabase(file, callback) {
  */
 export function isValidDataFormat(data) {
     // TODO: implement this
+    console.log('isValidDataFormat', data)
     return true
 }

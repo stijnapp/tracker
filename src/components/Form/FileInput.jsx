@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react"
-import AnimateInOut from "../AnimateInOut"
+import { useMemo, useState } from 'react'
+import AnimateInOut from '../AnimateInOut'
 
 /**
  * File input component with optional preview
