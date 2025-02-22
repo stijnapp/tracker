@@ -65,3 +65,7 @@ section {
 input {
     @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
 }
+
+.subtext {
+    @apply text-sm text-gray-500 dark:text-gray-400;
+}

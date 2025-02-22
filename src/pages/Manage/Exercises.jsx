@@ -40,7 +40,7 @@ export default function Exercises() {
         <>
             <Card title={<>Search exercises <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
                 <Search label="Exercise (nick)name" search={search} setSearch={setSearch} />
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Showing {filteredExercises.length} of {exercises.length} exercises</p>
+                <p className="mt-2 subtext">Showing {filteredExercises.length} of {exercises.length} exercises</p>
             </Card>
 
             {exercises.map((exercise) => (

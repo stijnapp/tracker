@@ -99,7 +99,7 @@ export default function Settings({ deferredPrompt }) {
                     <Card title="Download">
                         <p className="mb-2">Download the app to use it offline</p>
                         <button className={`${deferredPrompt ? 'btn-primary' : 'btn-secondary'} w-full`} disabled={!deferredPrompt} onClick={handleInstall}>Install{!deferredPrompt && <Spinner className="ml-2" />}</button>
-                        {!deferredPrompt && <p className="mt-1 text-sm text-gray-500">You may have already downloaded the app</p>}
+                        {!deferredPrompt && <p className="mt-1 subtext">You may have already downloaded the app</p>}
                     </Card>
                 )}
 

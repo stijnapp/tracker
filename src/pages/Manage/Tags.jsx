@@ -33,7 +33,7 @@ export default function Tags() {
         <>
             <Card title={<>Search tags <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
                 <Search label="Tag name" search={search} setSearch={setSearch} />
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Showing {filteredTags.length} of {tags.length} tags</p>
+                <p className="mt-2 subtext">Showing {filteredTags.length} of {tags.length} tags</p>
             </Card>
 
             {tags.map((tag) => (

@@ -28,7 +28,7 @@ export default function History() {
 
                 return (
                     <Card key={workoutId} title={dateTimeToText(workout.date)} className="flex flex-col gap-2">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{workout.exercises.length} exercises</p>
+                        <p className="subtext">{workout.exercises.length} exercises</p>
                     </Card>
                 )
             })}
