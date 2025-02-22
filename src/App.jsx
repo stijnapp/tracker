@@ -23,18 +23,20 @@ export default function App() {
     return (
         <>
             <Navbar />
-            <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 bg-body-light dark:bg-body-dark text-dark dark:text-light theme-transition break-words">
-                <Routes>
-                    <Route path="/" element={<History />} />
-                    <Route path="/progress" element={<Progress />} />
-                    <Route path="/workout" element={<Workout />} />
-                    <Route path="/manage" element={<Manage />}>
-                        <Route index element={<Exercises />} />
-                        <Route path="tags" element={<Tags />} />
-                    </Route>
-                    <Route path="/settings" element={<Settings deferredPrompt={deferredPrompt} />} />
-                    <Route path="/*" element={<NotFound />} />
-                </Routes>
+            <div className='text-dark dark:text-light bg-body-light dark:bg-body-dark theme-transition'>
+                <div className="flex flex-col gap-4 min-h-dvh max-w-[384px] mx-auto overflow-x-hidden px-4 break-words">
+                    <Routes>
+                        <Route path="/" element={<History />} />
+                        <Route path="/progress" element={<Progress />} />
+                        <Route path="/workout" element={<Workout />} />
+                        <Route path="/manage" element={<Manage />}>
+                            <Route index element={<Exercises />} />
+                            <Route path="tags" element={<Tags />} />
+                        </Route>
+                        <Route path="/settings" element={<Settings deferredPrompt={deferredPrompt} />} />
+                        <Route path="/*" element={<NotFound />} />
+                    </Routes>
+                </div>
             </div>
         </>
     )
