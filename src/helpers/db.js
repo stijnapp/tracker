@@ -430,16 +430,29 @@ export const db = {
     },
     /**
      * @param {number} exerciseId
-     * @returns {WorkoutExercise|null}
+     * @returns {Array<{
+     *  workoutId: number,
+     *  date: string,
+     *  sets: Array<Set>,
+     *  order: number
+     * }>}
      */
-    getPreviousWorkoutExerciseById(exerciseId) {
+    getExerciseHistoryById(exerciseId) {
+        // find all previous workouts that contain the exercise, except the active workout
         const allData = this.getAllData()
         const activeWorkoutId = this.getActiveWorkoutId()
-        const workoutWithPreviousExercise = allData.workouts
+        return allData.workouts
             .filter(workout => workout.id !== activeWorkoutId)
-            .find(workout => workout.exercises.some(exercise => exercise.exerciseId === exerciseId))
-        if (!workoutWithPreviousExercise) return null
-        return workoutWithPreviousExercise.exercises.find(exercise => exercise.exerciseId === exerciseId) ?? null
+            .map(workout => {
+                const exercises = workout.exercises
+                    .find(exercise => exercise.exerciseId === exerciseId) ?? null
+
+                if (!exercises) return null
+
+                return { workoutId: workout.id, date: workout.date, sets: exercises?.sets ?? null, order: exercises?.order ?? null }
+            })
+            .filter(exercise => exercise !== null)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
     },
 
     // ! Exercises

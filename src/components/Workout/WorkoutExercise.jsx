@@ -1,4 +1,4 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { db } from '../../helpers/db'
@@ -12,6 +12,7 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
     const [exercise, setExercise] = useState(db.getExerciseById(exerciseId))
     const [setIds, setSetIds] = useState(db.getSetIds(workoutId, workoutExerciseId))
     const [isDeleted, setIsDeleted] = useState(false)
+    const [exerciseHistory] = useState(db.getExerciseHistoryById(exerciseId))
 
     const handleDescriptionChange = (e) => {
         const newDescription = e.target.value
@@ -51,9 +52,9 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
                     </div>
 
                     {setIds.map((setId, index) => (
-                        <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} onDelete={handleDeleteSet} />
+                        <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} prevResult={exerciseHistory[0].sets[index]} onDelete={handleDeleteSet} />
                     ))}
-                    <button className="btn-primary w-full" onClick={handleAddSet}>Add set</button>
+                    <button className="btn-primary w-full" onClick={handleAddSet}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add set</button>
                 </Collapse>
             )}
         </AnimateInOut>
