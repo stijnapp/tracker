@@ -9,10 +9,11 @@ import useEventListener from '../hooks/useEventListener'
  * @param {() => void} props.onClose - Function to set parent state to close the modal
  * @param {string} props.title - The title of the modal
  * @param {boolean} [props.hasCloseBtn=true] - Whether to show the close button
+ * @param {string} [props.className=""] - Optional styling for the modal
  * @param {JSX.Element} props.children - The content of the modal
  * @returns {JSX.Element} The modal component
  */
-export default function Modal({ showModal, onClose, title, hasCloseBtn = true, children }) {
+export default function Modal({ showModal, onClose, title, hasCloseBtn = true, className = "", children }) {
     const dialogRef = useRef(null)
     const dialogElement = dialogRef.current
     const [isVisible, setIsVisible] = useState(false)
@@ -80,7 +81,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
                     </button>
                 }
             </div>
-            <div className="flex flex-col gap-2 max-h-[calc(100dvh-12rem)] overflow-y-auto p-4 pt-2">
+            <div className={`flex flex-col gap-2 max-h-[calc(100dvh-12rem)] overflow-y-auto p-4 pt-2 ${className}`}>
                 {children}
             </div>
         </dialog>
