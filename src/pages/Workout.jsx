@@ -1,4 +1,4 @@
-import { faFlagCheckered, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faFlagCheckered, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import AnimateInOut from '../components/AnimateInOut'
@@ -105,8 +105,8 @@ export default function Workout() {
                 }
                 {/* <p className="mb-2">You can always edit the workout later via the history page.</p> */}
                 {workoutExerciseIds.length <= 0 ? <>
-                    <button className="btn-primary w-full" onClick={discardWorkout}>Discard workout</button>
-                    <button className="btn-danger w-full" onClick={endworkout}>Save anyway</button>
+                    <button className="btn-primary w-full" onClick={discardWorkout}><FontAwesomeIcon icon={faTrash} className="mr-2" />Discard workout</button>
+                    <button className="btn-danger w-full" onClick={endworkout}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />Save anyway</button>
                 </> : (
                     <button className="btn-primary w-full" onClick={endworkout}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
                 )}
