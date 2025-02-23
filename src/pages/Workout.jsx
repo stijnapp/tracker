@@ -1,13 +1,14 @@
-import { faFlagCheckered, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import AnimateInOut from "../components/AnimateInOut";
-import Search from '../components/Form/Search';
-import Modal from "../components/Modal";
-import Page from "../components/Page";
-import ActiveWorkoutInfo from "../components/Workout/ActiveWorkoutInfo";
-import WorkoutExercise from "../components/Workout/WorkoutExercise";
-import { db } from "../helpers/db";
+import { faFlagCheckered, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import AnimateInOut from '../components/AnimateInOut'
+import Search from '../components/Form/Search'
+import HR from '../components/HR'
+import Modal from '../components/Modal'
+import Page from '../components/Page'
+import ActiveWorkoutInfo from '../components/Workout/ActiveWorkoutInfo'
+import WorkoutExercise from '../components/Workout/WorkoutExercise'
+import { db } from '../helpers/db'
 
 export default function Workout() {
     const [activeWorkoutId, setActiveWorkoutId] = useState(db.getActiveWorkoutId())
@@ -72,6 +73,10 @@ export default function Workout() {
                         )
                     })}
 
+                    <AnimateInOut hiddenClassName="-mt-4">
+                        {workoutExerciseIds.length > 0 && <HR />}
+                    </AnimateInOut>
+
                     <button className="btn-primary" onClick={() => setIsAddingExerciseModalOpen(true)}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add exercise</button>
                     <button className="btn-secondary" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
                 </>}
@@ -100,8 +105,8 @@ export default function Workout() {
                 }
                 {/* <p className="mb-2">You can always edit the workout later via the history page.</p> */}
                 {workoutExerciseIds.length <= 0 ? <>
-                    <button className="btn-primary w-full" onClick={discardWorkout}>Discard workout</button>
-                    <button className="btn-danger w-full" onClick={endworkout}>Save anyway</button>
+                    <button className="btn-primary w-full" onClick={discardWorkout}><FontAwesomeIcon icon={faTrash} className="mr-2" />Discard workout</button>
+                    <button className="btn-danger w-full" onClick={endworkout}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />Save anyway</button>
                 </> : (
                     <button className="btn-primary w-full" onClick={endworkout}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
                 )}

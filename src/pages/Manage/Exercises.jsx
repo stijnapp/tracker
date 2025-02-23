@@ -1,16 +1,15 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import AnimateInOut from "../components/AnimateInOut";
-import Card from "../components/Card";
-import Exercise from "../components/Exercises/Exercise";
-import Search from '../components/Form/Search';
-import Modal from "../components/Modal";
-import Page from "../components/Page";
-import { db } from "../helpers/db";
-import { sanitizeString } from "../helpers/stringManipulation";
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import AnimateInOut from '../../components/AnimateInOut'
+import Card from '../../components/Card'
+import Search from '../../components/Form/Search'
+import Exercise from '../../components/Manage/Exercise'
+import Modal from '../../components/Modal'
+import { db } from '../../helpers/db'
+import { sanitizeString } from '../../helpers/stringManipulation'
 
-export default function Manage() {
+export default function Exercises() {
     const [exercises, setExercises] = useState(db.getAllExercises())
     const [search, setSearch] = useState('')
     const [deleteId, setDeleteId] = useState(null)
@@ -38,22 +37,10 @@ export default function Manage() {
     }
 
     return (
-        <Page title="Manage">
-            {/* TODO: tabs */}
-            {/* <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-                <ul className="flex flex-wrap -mb-px">
-                    <li className="me-2">
-                        <a href="#" className="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Exercises</a>
-                    </li>
-                    <li className="me-2">
-                        <a href="#" className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Tags</a>
-                    </li>
-                </ul>
-            </div> */}
-
-            <Card title={<>Search <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
-                <Search label="Exercise name" search={search} setSearch={setSearch} />
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Showing {filteredExercises.length} of {exercises.length} exercises</p>
+        <>
+            <Card title={<>Search exercises <FontAwesomeIcon icon={faSearch} className="w-4 h-4" /></>}>
+                <Search label="Exercise (nick)name" search={search} setSearch={setSearch} />
+                <p className="mt-2 subtext">Showing {filteredExercises.length} of {exercises.length} exercises</p>
             </Card>
 
             {exercises.map((exercise) => (
@@ -73,10 +60,10 @@ export default function Manage() {
                 )}
             </AnimateInOut>
 
-            <AnimateInOut restartOnChildKeyChange>
+            <AnimateInOut>
                 {(exercises.length > 0 || search.length > 0) && filteredExercises.length <= 0 && (
-                    <Card key={'not found'} title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
-                        <button className="btn-primary" onClick={handleExerciseAdd}>Add &quot;{search}&quot; as new exercise</button>
+                    <Card title={<>&quot;<span className="normal-case">{sanitizeString(search)}</span>&quot; not found</>} className="flex flex-col gap-4">
+                        <button className="btn-primary" onClick={handleExerciseAdd}>Add a new exercise called &quot;{search}&quot;</button>
                     </Card>
                 )}
             </AnimateInOut>
@@ -88,6 +75,6 @@ export default function Manage() {
                 <button className="btn-danger w-full" onClick={handleExerciseDelete}>Delete exercise</button>
                 <button className="btn-secondary w-full" onClick={() => setDeleteId(null)}>Cancel</button>
             </Modal>
-        </Page>
+        </>
     )
 }

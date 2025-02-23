@@ -1,7 +1,7 @@
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AnimateInOut from '../AnimateInOut';
-import Input from './Input';
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import AnimateInOut from '../AnimateInOut'
+import Input from './Input'
 
 export default function Search({ label, search, setSearch }) {
     return (

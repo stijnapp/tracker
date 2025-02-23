@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react"
-import AnimateInOut from "../AnimateInOut"
+import { useMemo, useState } from 'react'
+import AnimateInOut from '../AnimateInOut'
 
 /**
  * File input component with optional preview
@@ -46,7 +46,7 @@ export default function FileInput({ label, value, onChange, showPreview = false,
                     <AnimateInOut className="rounded-md drop-shadow-md">
                         {isPreviewVisisible && <img src={filePreview} alt={value.name} className="w-full" />}
                     </AnimateInOut>
-                    <p className="mt-1 text-sm text-gray-500">Loading large files may take a while</p>
+                    <p className="mt-1 subtext">Loading large files may take a while</p>
                 </div>
             )}
         </div >

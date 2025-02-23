@@ -1,6 +1,6 @@
-import { faChartLine, faClockRotateLeft, faGear, faList, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from "react-router-dom";
+import { faChartLine, faClockRotateLeft, faGear, faList, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavLink } from 'react-router-dom'
 
 /**
  * @typedef {Object} NavItem
@@ -13,14 +13,14 @@ import { NavLink } from "react-router-dom";
  * @returns {JSX.Element}
  */
 export default function Navbar() {
-    const navButtonClasses = 'flex flex-col gap-1 text-center justify-center text-sm pb-1 pt-3 transition-[transform,font-weight,filter] duration-200';
+    const navButtonClasses = 'flex flex-col gap-1 text-center justify-center text-sm pb-1 pt-3 transition-[transform,font-weight,filter] duration-200'
     const navItems = [
         { to: '/', icon: faClockRotateLeft, text: 'History' },
         { to: '/progress', icon: faChartLine, text: 'Progress' },
         { to: '/workout', icon: faPlus, text: 'Workout' },
         { to: '/Manage', icon: faList, text: 'Manage' },
         { to: '/settings', icon: faGear, text: 'Settings' },
-    ];
+    ]
 
     return (
         <div className="fixed z-10 bottom-0 w-full bg-floating-light/85 dark:bg-floating-dark/85 backdrop-blur border-t border-gray-300 dark:border-white/20 theme-transition">

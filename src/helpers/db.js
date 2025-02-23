@@ -1,4 +1,4 @@
-import { getCurrentDateTime } from "./dateTime"
+import { getCurrentDateTime } from './dateTime'
 
 /**
  * @typedef {Object} DB
@@ -205,9 +205,9 @@ export const db = {
             exerciseId: exerciseReferenceId,
             order: workout.exercises.reduce((highestOrder, exercise) => Math.max(highestOrder, exercise.order), 0) + 1,
             sets: [
-                // { id: 1, weight: null, reps: null },
-                // { id: 2, weight: null, reps: null },
-                // { id: 3, weight: null, reps: null },
+                { id: 1, weight: null, reps: null },
+                { id: 2, weight: null, reps: null },
+                { id: 3, weight: null, reps: null },
             ],
         }
         workout.exercises.push(newExercise)
@@ -430,16 +430,29 @@ export const db = {
     },
     /**
      * @param {number} exerciseId
-     * @returns {WorkoutExercise|null}
+     * @returns {Array<{
+     *  workoutId: number,
+     *  date: string,
+     *  sets: Array<Set>,
+     *  order: number
+     * }>}
      */
-    getPreviousWorkoutExerciseById(exerciseId) {
+    getExerciseHistoryById(exerciseId) {
+        // find all previous workouts that contain the exercise, except the active workout
         const allData = this.getAllData()
         const activeWorkoutId = this.getActiveWorkoutId()
-        const workoutWithPreviousExercise = allData.workouts
+        return allData.workouts
             .filter(workout => workout.id !== activeWorkoutId)
-            .find(workout => workout.exercises.some(exercise => exercise.exerciseId === exerciseId))
-        if (!workoutWithPreviousExercise) return null
-        return workoutWithPreviousExercise.exercises.find(exercise => exercise.exerciseId === exerciseId) ?? null
+            .map(workout => {
+                const exercises = workout.exercises
+                    .find(exercise => exercise.exerciseId === exerciseId) ?? null
+
+                if (!exercises) return null
+
+                return { workoutId: workout.id, date: workout.date, sets: exercises?.sets ?? null, order: exercises?.order ?? null }
+            })
+            .filter(exercise => exercise !== null)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
     },
 
     // ! Exercises
@@ -551,6 +564,13 @@ export const db = {
      */
     getTagByName(name) {
         return this.getAllTags().find(tag => tag.name.trim().toLowerCase() === name.trim().toLowerCase()) ?? null
+    },
+    /**
+     * @param {number} id
+     * @returns {number}
+     */
+    getTagUsageAmount(id) {
+        return this.getAllExercises().filter(exercise => exercise.tagId === id).length
     },
     /**
      * @param {string} newTagName

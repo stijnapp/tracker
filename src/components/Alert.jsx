@@ -1,8 +1,8 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef } from "react";
-import { getMsFromDuration } from "../helpers/stringManipulation";
-import AnimateInOut from "./AnimateInOut";
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect, useRef } from 'react'
+import { getMsFromDuration } from '../helpers/stringManipulation'
+import AnimateInOut from './AnimateInOut'
 
 /**
  * An alert component that displays a message to the user
@@ -69,9 +69,9 @@ export default function Alert({ message, setMessage, type = "danger", isCloseabl
     }, [message])
 
     return (
-        <AnimateInOut restartOnChildKeyChange={isCloseable} className={className} {...props}>
+        <AnimateInOut restartOnIdChange={isCloseable} contentId={message} className={className} {...props}>
             {message && (
-                <div key={message} className={`flex items-center justify-between w-full px-4 py-4 gap-2 rounded-md ${textColor} bg-[currentColor]/5 border border-current overflow-hidden backdrop-blur brightness-110 dark:brightness-125`} role="alert">
+                <div className={`flex items-center justify-between w-full px-4 py-4 gap-2 rounded-md ${textColor} bg-[currentColor]/5 border border-current overflow-hidden backdrop-blur brightness-110 dark:brightness-125`} role="alert">
                     <div className="absolute w-full h-full top-0 left-0 bg-floating-light/85 dark:bg-floating-dark/85" />
                     <div className="absolute w-full h-full top-0 left-0 bg-[currentColor] opacity-20 dark:opacity-10" />
 

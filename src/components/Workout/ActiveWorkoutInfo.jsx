@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
-import { timeOfDayToText } from "../../helpers/dateTime"
-import { db } from "../../helpers/db"
-import Card from "../Card"
-import Input from "../Form/Input"
+import { useEffect, useState } from 'react'
+import { timeOfDayToText } from '../../helpers/dateTime'
+import { db } from '../../helpers/db'
+import Card from '../Card'
+import Input from '../Form/Input'
 
 export default function ActiveWorkoutInfo({ activeWorkoutId }) {
     const [activeWorkoutInfo, setActiveWorkoutInfo] = useState(db.getWorkoutInfo(activeWorkoutId))

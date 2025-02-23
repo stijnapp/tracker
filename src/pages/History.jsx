@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Card from "../components/Card";
-import Page from "../components/Page";
-import { dateTimeToText, timeDifferenceToText } from "../helpers/dateTime";
-import { db } from "../helpers/db";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Card from '../components/Card'
+import Page from '../components/Page'
+import { dateTimeToText, timeDifferenceToText } from '../helpers/dateTime'
+import { db } from '../helpers/db'
 
 export default function History() {
     const [workoutIds] = useState(db.getAllWorkoutIdsExcludingActive().reverse())
@@ -28,7 +28,7 @@ export default function History() {
 
                 return (
                     <Card key={workoutId} title={dateTimeToText(workout.date)} className="flex flex-col gap-2">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{workout.exercises.length} exercises</p>
+                        <p className="subtext">{workout.exercises.length} exercises</p>
                     </Card>
                 )
             })}

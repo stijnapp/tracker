@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import useEventListener from "../hooks/useEventListener"
+import { useEffect, useState } from 'react'
+import useEventListener from '../hooks/useEventListener'
 
 /**
  * Component that wraps a page with a header and a main section
