@@ -83,18 +83,21 @@ export default function Workout() {
             </AnimateInOut>
 
             <Modal showModal={isAddingExerciseModalOpen} onClose={() => setIsAddingExerciseModalOpen(false)} title="Add exercise" onFinishedClosing={() => setSearch("")}>
-                <Search label="Search for exercise" search={search} setSearch={setSearch} />
-                <div className="flex flex-col gap-2">
-                    {allExercises.map((exercise) => (
-                        <AnimateInOut key={exercise.id} hiddenClassName="-mt-2">
-                            {exercise.name.toLowerCase().includes(search.toLowerCase()) &&
-                                <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}</button>}
+                <div className='max-h-[calc(100dvh-16rem)] overflow-y-auto'>
+                    <div className="flex flex-col gap-2">
+                        {allExercises.map((exercise) => (
+                            <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
+                                {exercise.name.toLowerCase().includes(search.toLowerCase()) &&
+                                    <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}</button>}
+                            </AnimateInOut>
+                        ))}
+
+                        <AnimateInOut hiddenClassName="-mt-2" disableOverflowSpace>
+                            {!searchHasResults && <p className="text-gray-500 dark:text-gray-400">&quot;{search}&quot; not found</p>}
                         </AnimateInOut>
-                    ))}
-                    <AnimateInOut hiddenClassName="-mt-2">
-                        {!searchHasResults && <p className="text-gray-500 dark:text-gray-400">&quot;{search}&quot; not found</p>}
-                    </AnimateInOut>
+                    </div>
                 </div>
+                <Search label="Search for exercise" search={search} setSearch={setSearch} />
                 <button className="btn-secondary w-full" onClick={() => setIsAddingExerciseModalOpen(false)}>Cancel</button>
             </Modal>
 

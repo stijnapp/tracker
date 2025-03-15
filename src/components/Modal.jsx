@@ -86,7 +86,8 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, o
                     </button>
                 }
             </div>
-            <div className={`flex flex-col gap-2 max-h-[calc(100dvh-12rem)] overflow-y-auto p-4 pt-2 ${className}`}>
+            {/* max-h-[calc(100dvh-12rem)] overflow-y-auto */}
+            <div className={`flex flex-col gap-2 p-4 pt-2 ${className}`}>
                 {children}
             </div>
         </dialog>
