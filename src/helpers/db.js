@@ -194,21 +194,24 @@ export const db = {
     },
     /**
      * @param {number} workoutId
-     * @param {number} exerciseReferenceId
+     * @param {number} exerciseId
      * @returns {WorkoutExercise|null}
      */
-    addWorkoutExercise(workoutId, exerciseReferenceId) {
+    addWorkoutExercise(workoutId, exerciseId) {
         const workout = this.getWorkoutById(workoutId)
         if (!workout) return null
+
+        const lastExerciseData = this.getExerciseHistoryById(exerciseId)[0] ?? null
+        const lastExerciseSetsCount = lastExerciseData?.sets.length ?? 3
+        const sets = Array.from({ length: lastExerciseSetsCount }, (_, i) => {
+            return { id: i + 1, weight: null, reps: null }
+        })
+
         const newExercise = {
             id: workout.exercises.reduce((highestId, exercise) => Math.max(highestId, exercise.id), 0) + 1,
-            exerciseId: exerciseReferenceId,
+            exerciseId: exerciseId,
             order: workout.exercises.reduce((highestOrder, exercise) => Math.max(highestOrder, exercise.order), 0) + 1,
-            sets: [
-                { id: 1, weight: null, reps: null },
-                { id: 2, weight: null, reps: null },
-                { id: 3, weight: null, reps: null },
-            ],
+            sets,
         }
         workout.exercises.push(newExercise)
         this.updateWorkout(workoutId, workout)
