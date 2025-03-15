@@ -82,7 +82,7 @@ export default function Workout() {
                 </>}
             </AnimateInOut>
 
-            <Modal showModal={isAddingExerciseModalOpen} onClose={() => setIsAddingExerciseModalOpen(false)} title="Add exercise">
+            <Modal showModal={isAddingExerciseModalOpen} onClose={() => setIsAddingExerciseModalOpen(false)} title="Add exercise" onFinishedClosing={() => setSearch("")}>
                 <Search label="Search for exercise" search={search} setSearch={setSearch} />
                 <div className="flex flex-col gap-2">
                     {allExercises.map((exercise) => (

@@ -43,6 +43,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, o
         if (showModal) onClose()
         setIsVisible(false)
         document.body.style.overflow = 'auto'
+        onFinishedClosing()
     }, dialogElement)
 
     useEventListener('keydown', (e) => {
