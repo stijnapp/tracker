@@ -9,11 +9,12 @@ import useEventListener from '../hooks/useEventListener'
  * @param {() => void} props.onClose - Function to set parent state to close the modal
  * @param {string} props.title - The title of the modal
  * @param {boolean} [props.hasCloseBtn=true] - Whether to show the close button
+ * @param {() => void} [props.onFinishedClosing=() => {}] - Callback after the modal has finished closing
  * @param {string} [props.className=""] - Optional styling for the modal
  * @param {JSX.Element} props.children - The content of the modal
  * @returns {JSX.Element} The modal component
  */
-export default function Modal({ showModal, onClose, title, hasCloseBtn = true, className = "", children }) {
+export default function Modal({ showModal, onClose, title, hasCloseBtn = true, onFinishedClosing = () => { }, className = "", children }) {
     const dialogRef = useRef(null)
     const dialogElement = dialogRef.current
     const [isVisible, setIsVisible] = useState(false)
@@ -31,14 +32,17 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
             setTimeout(() => {
                 dialogElement.close()
                 document.body.style.overflow = 'auto'
+                onFinishedClosing()
             }, getMsFromDuration(duration))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showModal, dialogElement])
 
     useEventListener('close', () => {
         // When dialog gets closed but parent is unaware (e.g. back button on mobile)
         if (showModal) onClose()
         setIsVisible(false)
+        document.body.style.overflow = 'auto'
     }, dialogElement)
 
     useEventListener('keydown', (e) => {
