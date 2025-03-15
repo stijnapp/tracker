@@ -58,7 +58,7 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
                         </div>
 
                         {setIds.map((setId, index) => (
-                            <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} prevResult={exerciseHistory[0].sets[index]} onDelete={handleDeleteSet} />
+                            <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} prevResult={exerciseHistory[0]?.sets[index]} onDelete={handleDeleteSet} />
                         ))}
 
                         <button className="btn-primary" onClick={handleAddSet}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add set</button>
