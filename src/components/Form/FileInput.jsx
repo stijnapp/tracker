@@ -33,7 +33,7 @@ export default function FileInput({ label, value, onChange, showPreview = false,
                     type="file"
                     onChange={handleFileChange}
                     {...props}
-                    className="floating-label-input !p-0 peer file:px-2 file:py-1.5 file:mr-2 file:rounded-md file:transition-[border,box-shadow] file:duration-200 file:bg-transparent file:dark:text-light file:border-0 file:border-r file:border-white file:dark:border-gray-300 file:focus:border-primary file:focus:ring-2 file:focus:ring-primary"
+                    className="floating-label-input !p-0 peer file:px-2 file:py-1.5 file:mr-2 file:rounded-md file:motion-safe:transition-[border,box-shadow] file:motion-safe:duration-200 file:bg-transparent file:dark:text-light file:border-0 file:border-r file:border-white file:dark:border-gray-300 file:focus:border-primary file:focus:ring-2 file:focus:ring-primary"
                 />
                 <span className="floating-label">
                     {label}

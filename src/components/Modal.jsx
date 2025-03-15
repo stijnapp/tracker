@@ -68,7 +68,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, o
             ${isVisible
                 ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-[2px]'
                 : 'opacity-0 translate-y-[calc(1.5rem+5%)] scale-[.99] backdrop:bg-transparent backdrop:backdrop-blur-none'}
-            ${duration} transition-[opacity,transform]
+            motion-safe:${duration} motion-safe:transition-[opacity,transform]
             w-dvw mx-auto mb-4
             backdrop:transition-[background-color,backdrop-filter] backdrop:duration-[inherit]
             rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none

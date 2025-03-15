@@ -24,8 +24,8 @@ export default function Page({ title, className = "", children }) {
 
     return (
         <>
-            <div className={`${isScrolling ? 'border-b bg-floating-light/85 dark:bg-floating-dark/85 backdrop-blur' : 'bg-transparent backdrop-blur-none'} transition-[background-color,border] fixed top-0 left-0 z-10 w-full border-gray-300 dark:border-white/20 theme-transition`}>
-                <header className={`${isScrolling ? 'py-4 text-2xl' : 'py-7 text-4xl'} transition-[padding,font-size] max-w-[384px] mx-auto px-4 tracking-tight font-bold text-dark dark:text-light capitalize`}>
+            <div className={`${isScrolling ? 'h-16 bg-floating-light/85 dark:bg-floating-dark/85 backdrop-blur border-gray-300 dark:border-white/20' : 'h-24 bg-transparent backdrop-blur-none'} flex items-center justify-center motion-safe:transition-[height,background-color,backdrop-filter,border] fixed top-0 left-0 z-10 w-full border-b border-transparent theme-transition`}>
+                <header className={`${isScrolling ? 'text-2xl' : 'text-4xl'} motion-safe:transition-[padding,font-size] w-[384px] px-4 tracking-tight font-bold text-dark dark:text-light capitalize`}>
                     {title}
                 </header>
             </div>

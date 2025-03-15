@@ -26,7 +26,7 @@ export default function Collapse({ title = "", subtitle = "", extraButton = null
                         <h1 className="font-semibold text-xl capitalize">{title}</h1>
                         {subtitle && <p className="-mt-0.5 text-base font-normal capitalize text-gray-500 dark:text-gray-400">- {subtitle}</p>}
                     </div>
-                    <FontAwesomeIcon icon={faAngleDown} className={`${isOpened ? 'rotate-0' : 'rotate-90'} transition-[box-shadow,transform] mr-1 text-lg`} />
+                    <FontAwesomeIcon icon={faAngleDown} className={`${isOpened ? 'rotate-0' : 'rotate-90'} motion-safe:transition-[box-shadow,transform] mr-1 text-lg`} />
                 </button>
                 <AnimateInOut direction='horizontal' hiddenClassName="-ml-4" className='flex'>
                     {showExtraButton && extraButton}

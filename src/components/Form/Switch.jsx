@@ -9,8 +9,8 @@ export default function Switch({ label, className = "", ...props }) {
     return (
         <label className={`${className} flex items-center gap-2`}>
             <input type="checkbox" {...props} className="sr-only peer" />
-            <div className="bg-gray-500/50 peer-checked:bg-primary transition-[background-color] relative w-11 h-6 rounded-full
-                peer-checked:before:translate-x-full before:transition-[transform] before:absolute before:top-0.5 before:left-0.5 before:w-5 before:h-5 before:rounded-full before:bg-white peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
+            <div className="bg-gray-500/50 peer-checked:bg-primary motion-safe:transition-[background-color] relative w-11 h-6 rounded-full
+                peer-checked:before:translate-x-full before:motion-safe:transition-[transform] before:absolute before:top-0.5 before:left-0.5 before:w-5 before:h-5 before:rounded-full before:bg-white peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
             <span className="peer-required:after:content-['_*'] peer-required:after:text-danger peer-disabled:opacity-50 peer-disabled:cursor-not-allowed">{label}</span>
         </label>
     )
