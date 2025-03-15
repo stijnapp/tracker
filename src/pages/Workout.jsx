@@ -73,9 +73,7 @@ export default function Workout() {
                         )
                     })}
 
-                    <AnimateInOut hiddenClassName="-mt-4">
-                        {workoutExerciseIds.length > 0 && <HR />}
-                    </AnimateInOut>
+                    <HR />
 
                     <button className="btn-primary" onClick={() => setIsAddingExerciseModalOpen(true)}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add exercise</button>
                     <button className="btn-secondary" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
