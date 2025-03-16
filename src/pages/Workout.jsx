@@ -115,7 +115,7 @@ export default function Workout() {
                                     {tag.exercises.map((exercise) => (
                                         <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
                                             {isSearchInExercise(exercise) &&
-                                                <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}{exercise.nickname && ` (${exercise.nickname})`}</button>} {/* timeDifferenceToText(exercise.lastTime) */}
+                                                <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}{exercise.nickname && <span className='text-sm opacity-75'> ({exercise.nickname})</span>}</button>} {/* timeDifferenceToText(exercise.lastTime) */}
                                         </AnimateInOut>
                                     ))}
                                 </> : null}
