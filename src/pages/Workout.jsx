@@ -8,7 +8,6 @@ import Modal from '../components/Modal'
 import Page from '../components/Page'
 import ActiveWorkoutInfo from '../components/Workout/ActiveWorkoutInfo'
 import WorkoutExercise from '../components/Workout/WorkoutExercise'
-import { timeDifferenceToText } from '../helpers/dateTime'
 import { db } from '../helpers/db'
 
 const organizeExercisesByTag = () => {
@@ -41,9 +40,6 @@ export default function Workout() {
 
     const [allExercises] = useState(organizeExercisesByTag())
     const [search, setSearch] = useState("")
-    // const searchHasResults = allExercises.some((tag) => {
-    //     return tag.exercises.some((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))
-    // })
 
     const startNewWorkout = () => {
         const newWorkoutId = db.addWorkout().id
@@ -79,6 +75,10 @@ export default function Workout() {
         setWorkoutExerciseIds(db.getWorkoutExerciseIds(activeWorkoutId))
     }
 
+    const isSearchInExercise = (exercise) => {
+        return exercise.name.toLowerCase().includes(search.toLowerCase()) || (exercise.nickname && exercise.nickname.toLowerCase().includes(search.toLowerCase()))
+    }
+
     return (
         <Page title="Workout">
             <AnimateInOut className="flex flex-col gap-4" hiddenClassName="-mt-4">
@@ -108,20 +108,23 @@ export default function Workout() {
                 <div className='max-h-[calc(100dvh-16rem)] overflow-y-auto'>
                     <div className="flex flex-col gap-4">
                         {allExercises.map((tag) => (
-                            <AnimateInOut key={tag.id} className="flex flex-col gap-2" disableOverflowSpace>
-                                <h2 className="font-semibold text-lg/4 capitalize">{tag.name}</h2>
-                                {tag.exercises.map((exercise) => (
-                                    <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
-                                        {exercise.name.toLowerCase().includes(search.toLowerCase()) &&
-                                            <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name} ({timeDifferenceToText(exercise.lastTime)})</button>}
-                                    </AnimateInOut>
-                                ))}
+                            <AnimateInOut key={tag.id} hiddenClassName="-mt-4" className="flex flex-col gap-2" disableOverflowSpace>
+                                {tag.exercises.some((exercise) => isSearchInExercise(exercise)) ? <>
+                                    <h2 className="font-semibold text-lg/4 capitalize">{tag.name}</h2>
+
+                                    {tag.exercises.map((exercise) => (
+                                        <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
+                                            {isSearchInExercise(exercise) &&
+                                                <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}{exercise.nickname && ` (${exercise.nickname})`}</button>} {/* timeDifferenceToText(exercise.lastTime) */}
+                                        </AnimateInOut>
+                                    ))}
+                                </> : null}
                             </AnimateInOut>
                         ))}
 
-                        {/* <AnimateInOut hiddenClassName="-mt-2" disableOverflowSpace>
-                            {!searchHasResults && <p className="text-gray-500 dark:text-gray-400">&quot;{search}&quot; not found</p>}
-                        </AnimateInOut> */}
+                        <AnimateInOut hiddenClassName="-mt-4" disableOverflowSpace>
+                            {!allExercises.some((tag) => tag.exercises.some((exercise) => isSearchInExercise(exercise))) ? <p className="text-gray-500 dark:text-gray-400">No exercises found</p> : null}
+                        </AnimateInOut>
                     </div>
                 </div>
                 <Search label="Search for exercise" search={search} setSearch={setSearch} />
