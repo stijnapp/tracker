@@ -62,6 +62,7 @@ export function dateTimeToText(dateTime = null, includeSeconds = false) {
 export function timeDifferenceToText(date) {
     const now = new Date(getCurrentDateTime(true))
     const parsedDate = new Date(date)
+    if (parsedDate.getTime() === 0) return 'never'
     const seconds = Math.floor((now - parsedDate) / 1000)
 
     if (isNaN(seconds)) {

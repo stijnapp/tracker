@@ -8,7 +8,29 @@ import Modal from '../components/Modal'
 import Page from '../components/Page'
 import ActiveWorkoutInfo from '../components/Workout/ActiveWorkoutInfo'
 import WorkoutExercise from '../components/Workout/WorkoutExercise'
+import { timeDifferenceToText } from '../helpers/dateTime'
 import { db } from '../helpers/db'
+
+const organizeExercisesByTag = () => {
+    const allExercises = db.getAllExercises()
+        .map((exercise) => {
+            exercise.lastTime = new Date(db.getExerciseHistoryById(exercise.id)[0]?.date || 0)
+            return exercise
+        })
+    return db.getAllTags()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((tag) => {
+            tag.exercises = allExercises
+                .filter((exercise) => exercise.tagId === tag.id)
+                .sort((a, b) => {
+                    if (a.lastTime < b.lastTime) return 1
+                    if (a.lastTime > b.lastTime) return -1
+                    return 0
+                })
+            return tag
+        })
+        .filter((tag) => tag.exercises.length > 0)
+}
 
 export default function Workout() {
     const [activeWorkoutId, setActiveWorkoutId] = useState(db.getActiveWorkoutId())
@@ -17,9 +39,11 @@ export default function Workout() {
     const [isEndingModalOpen, setIsEndingModalOpen] = useState(false)
     const [isAddingExerciseModalOpen, setIsAddingExerciseModalOpen] = useState(false)
 
-    const [allExercises] = useState(db.getAllExercises())
+    const [allExercises] = useState(organizeExercisesByTag())
     const [search, setSearch] = useState("")
-    const searchHasResults = allExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())).length > 0
+    // const searchHasResults = allExercises.some((tag) => {
+    //     return tag.exercises.some((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))
+    // })
 
     const startNewWorkout = () => {
         const newWorkoutId = db.addWorkout().id
@@ -82,17 +106,22 @@ export default function Workout() {
 
             <Modal showModal={isAddingExerciseModalOpen} onClose={() => setIsAddingExerciseModalOpen(false)} title="Add exercise" onFinishedClosing={() => setSearch("")}>
                 <div className='max-h-[calc(100dvh-16rem)] overflow-y-auto'>
-                    <div className="flex flex-col gap-2">
-                        {allExercises.map((exercise) => (
-                            <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
-                                {exercise.name.toLowerCase().includes(search.toLowerCase()) &&
-                                    <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}</button>}
+                    <div className="flex flex-col gap-4">
+                        {allExercises.map((tag) => (
+                            <AnimateInOut key={tag.id} className="flex flex-col gap-2" disableOverflowSpace>
+                                <h2 className="font-semibold text-lg/4 capitalize">{tag.name}</h2>
+                                {tag.exercises.map((exercise) => (
+                                    <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
+                                        {exercise.name.toLowerCase().includes(search.toLowerCase()) &&
+                                            <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name} ({timeDifferenceToText(exercise.lastTime)})</button>}
+                                    </AnimateInOut>
+                                ))}
                             </AnimateInOut>
                         ))}
 
-                        <AnimateInOut hiddenClassName="-mt-2" disableOverflowSpace>
+                        {/* <AnimateInOut hiddenClassName="-mt-2" disableOverflowSpace>
                             {!searchHasResults && <p className="text-gray-500 dark:text-gray-400">&quot;{search}&quot; not found</p>}
-                        </AnimateInOut>
+                        </AnimateInOut> */}
                     </div>
                 </div>
                 <Search label="Search for exercise" search={search} setSearch={setSearch} />
