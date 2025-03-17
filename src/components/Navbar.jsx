@@ -13,7 +13,7 @@ import { NavLink } from 'react-router-dom'
  * @returns {JSX.Element}
  */
 export default function Navbar() {
-    const navButtonClasses = 'flex flex-col gap-1 text-center justify-center text-sm pb-1 pt-3 transition-[transform,font-weight,filter] duration-200'
+    const navButtonClasses = 'flex flex-col gap-1 text-center justify-center text-sm pb-1 pt-3 motion-safe:transition-[transform,font-weight,filter] motion-safe:duration-200'
     const navItems = [
         { to: '/', icon: faClockRotateLeft, text: 'History' },
         { to: '/progress', icon: faChartLine, text: 'Progress' },

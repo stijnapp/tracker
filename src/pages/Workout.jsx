@@ -10,6 +10,27 @@ import ActiveWorkoutInfo from '../components/Workout/ActiveWorkoutInfo'
 import WorkoutExercise from '../components/Workout/WorkoutExercise'
 import { db } from '../helpers/db'
 
+const organizeExercisesByTag = () => {
+    const allExercises = db.getAllExercises()
+        .map((exercise) => {
+            exercise.lastTime = new Date(db.getExerciseHistoryById(exercise.id)[0]?.date || 0)
+            return exercise
+        })
+    return db.getAllTags()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((tag) => {
+            tag.exercises = allExercises
+                .filter((exercise) => exercise.tagId === tag.id)
+                .sort((a, b) => {
+                    if (a.lastTime < b.lastTime) return 1
+                    if (a.lastTime > b.lastTime) return -1
+                    return 0
+                })
+            return tag
+        })
+        .filter((tag) => tag.exercises.length > 0)
+}
+
 export default function Workout() {
     const [activeWorkoutId, setActiveWorkoutId] = useState(db.getActiveWorkoutId())
     const [workoutExerciseIds, setWorkoutExerciseIds] = useState(db.getWorkoutExerciseIds(activeWorkoutId))
@@ -17,9 +38,8 @@ export default function Workout() {
     const [isEndingModalOpen, setIsEndingModalOpen] = useState(false)
     const [isAddingExerciseModalOpen, setIsAddingExerciseModalOpen] = useState(false)
 
-    const [allExercises] = useState(db.getAllExercises())
+    const [allExercises] = useState(organizeExercisesByTag())
     const [search, setSearch] = useState("")
-    const searchHasResults = allExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())).length > 0
 
     const startNewWorkout = () => {
         const newWorkoutId = db.addWorkout().id
@@ -55,6 +75,10 @@ export default function Workout() {
         setWorkoutExerciseIds(db.getWorkoutExerciseIds(activeWorkoutId))
     }
 
+    const isSearchInExercise = (exercise) => {
+        return exercise.name.toLowerCase().includes(search.toLowerCase()) || (exercise.nickname && exercise.nickname.toLowerCase().includes(search.toLowerCase()))
+    }
+
     return (
         <Page title="Workout">
             <AnimateInOut className="flex flex-col gap-4" hiddenClassName="-mt-4">
@@ -73,28 +97,37 @@ export default function Workout() {
                         )
                     })}
 
-                    <AnimateInOut hiddenClassName="-mt-4">
-                        {workoutExerciseIds.length > 0 && <HR />}
-                    </AnimateInOut>
+                    <HR />
 
                     <button className="btn-primary" onClick={() => setIsAddingExerciseModalOpen(true)}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add exercise</button>
                     <button className="btn-secondary" onClick={() => setIsEndingModalOpen(true)}><FontAwesomeIcon icon={faFlagCheckered} className="mr-2" />End workout</button>
                 </>}
             </AnimateInOut>
 
-            <Modal showModal={isAddingExerciseModalOpen} onClose={() => setIsAddingExerciseModalOpen(false)} title="Add exercise">
-                <Search label="Search for exercise" search={search} setSearch={setSearch} />
-                <div className="flex flex-col gap-2">
-                    {allExercises.map((exercise) => (
-                        <AnimateInOut key={exercise.id} hiddenClassName="-mt-2">
-                            {exercise.name.toLowerCase().includes(search.toLowerCase()) &&
-                                <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}</button>}
+            <Modal showModal={isAddingExerciseModalOpen} onClose={() => setIsAddingExerciseModalOpen(false)} title="Add exercise" onFinishedClosing={() => setSearch("")}>
+                <div className='max-h-[calc(100dvh-16rem)] overflow-y-auto'>
+                    <div className="flex flex-col gap-4">
+                        {allExercises.map((tag) => (
+                            <AnimateInOut key={tag.id} hiddenClassName="-mt-4" className="flex flex-col gap-2" disableOverflowSpace>
+                                {tag.exercises.some((exercise) => isSearchInExercise(exercise)) ? <>
+                                    <h2 className="font-semibold text-lg/4 capitalize">{tag.name}</h2>
+
+                                    {tag.exercises.map((exercise) => (
+                                        <AnimateInOut key={exercise.id} hiddenClassName="-mt-2" disableOverflowSpace>
+                                            {isSearchInExercise(exercise) &&
+                                                <button key={exercise.id} onClick={() => addExercise(exercise.id)} className="btn-primary w-full">{exercise.name}{exercise.nickname && <span className='text-sm opacity-75'> ({exercise.nickname})</span>}</button>} {/* timeDifferenceToText(exercise.lastTime) */}
+                                        </AnimateInOut>
+                                    ))}
+                                </> : null}
+                            </AnimateInOut>
+                        ))}
+
+                        <AnimateInOut hiddenClassName="-mt-4" disableOverflowSpace>
+                            {!allExercises.some((tag) => tag.exercises.some((exercise) => isSearchInExercise(exercise))) ? <p className="text-gray-500 dark:text-gray-400">No exercises found</p> : null}
                         </AnimateInOut>
-                    ))}
-                    <AnimateInOut hiddenClassName="-mt-2">
-                        {!searchHasResults && <p className="text-gray-500 dark:text-gray-400">&quot;{search}&quot; not found</p>}
-                    </AnimateInOut>
+                    </div>
                 </div>
+                <Search label="Search for exercise" search={search} setSearch={setSearch} />
                 <button className="btn-secondary w-full" onClick={() => setIsAddingExerciseModalOpen(false)}>Cancel</button>
             </Modal>
 

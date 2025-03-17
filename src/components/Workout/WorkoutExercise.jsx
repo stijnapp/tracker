@@ -58,15 +58,16 @@ export default function WorkoutExercise({ workoutId, workoutExerciseId, onDelete
                         </div>
 
                         {setIds.map((setId, index) => (
-                            <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} prevResult={exerciseHistory[0].sets[index]} onDelete={handleDeleteSet} />
+                            <Set key={setId} workoutId={workoutId} workoutExerciseId={workoutExerciseId} setId={setId} setNr={index + 1} prevResult={exerciseHistory[0]?.sets[index]} onDelete={handleDeleteSet} />
                         ))}
 
                         <button className="btn-primary" onClick={handleAddSet}><FontAwesomeIcon icon={faPlus} className="mr-2" />Add set</button>
-                        <button className="btn-secondary" onClick={() => setShowHistoryModal(true)}><FontAwesomeIcon icon={faHistory} className="mr-2" />Previous results</button>
+                        <button className="btn-secondary" onClick={() => setShowHistoryModal(true)}><FontAwesomeIcon icon={faHistory} className="mr-2" />Previous results ({exerciseHistory.length})</button>
                     </Collapse>
                 )}
             </AnimateInOut>
             <Modal showModal={showHistoryModal} onClose={() => setShowHistoryModal(false)} title="Exercise history" className="gap-6">
+                {exerciseHistory.length <= 0 && <p className="subtext">No history available</p>}
                 {exerciseHistory.map((entry, index) => (
                     <div key={index} className="flex flex-col">
                         <div className="flex flex-col">

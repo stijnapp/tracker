@@ -63,7 +63,7 @@ export default function AnimateInOut({ direction = "vertical", animateOnMount = 
     }
 
     return (
-        <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} transition-[height,width,padding,margin,opacity] duration-[300ms] overflow-hidden ${disableOverflowSpace ? '' : '-m-2 p-2'}`}>
+        <div className={`${className} ${isHiding ? `${hiddenSizes[direction] || hiddenSizes['vertical']} opacity-0 ${hiddenClassName}` : `${shownSizes[direction] || shownSizes['vertical']} opacity-100`} motion-safe:transition-[height,width,padding,margin,opacity] motion-safe:duration-[300ms] overflow-hidden ${disableOverflowSpace ? '' : '-m-2 p-2'}`}>
             {!isHiding && children ? (restartOnIdChange ? childrenCache : children) : childrenCache}
         </div>
     )

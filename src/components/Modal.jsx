@@ -9,11 +9,12 @@ import useEventListener from '../hooks/useEventListener'
  * @param {() => void} props.onClose - Function to set parent state to close the modal
  * @param {string} props.title - The title of the modal
  * @param {boolean} [props.hasCloseBtn=true] - Whether to show the close button
+ * @param {() => void} [props.onFinishedClosing=() => {}] - Callback after the modal has finished closing
  * @param {string} [props.className=""] - Optional styling for the modal
  * @param {JSX.Element} props.children - The content of the modal
  * @returns {JSX.Element} The modal component
  */
-export default function Modal({ showModal, onClose, title, hasCloseBtn = true, className = "", children }) {
+export default function Modal({ showModal, onClose, title, hasCloseBtn = true, onFinishedClosing = () => { }, className = "", children }) {
     const dialogRef = useRef(null)
     const dialogElement = dialogRef.current
     const [isVisible, setIsVisible] = useState(false)
@@ -31,14 +32,18 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
             setTimeout(() => {
                 dialogElement.close()
                 document.body.style.overflow = 'auto'
+                onFinishedClosing()
             }, getMsFromDuration(duration))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showModal, dialogElement])
 
     useEventListener('close', () => {
         // When dialog gets closed but parent is unaware (e.g. back button on mobile)
         if (showModal) onClose()
         setIsVisible(false)
+        document.body.style.overflow = 'auto'
+        onFinishedClosing()
     }, dialogElement)
 
     useEventListener('keydown', (e) => {
@@ -63,7 +68,7 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
             ${isVisible
                 ? 'opacity-100 translate-y-0 backdrop:bg-black/50 backdrop:backdrop-blur-[2px]'
                 : 'opacity-0 translate-y-[calc(1.5rem+5%)] scale-[.99] backdrop:bg-transparent backdrop:backdrop-blur-none'}
-            ${duration} transition-[opacity,transform]
+            motion-safe:${duration} motion-safe:transition-[opacity,transform]
             w-dvw mx-auto mb-4
             backdrop:transition-[background-color,backdrop-filter] backdrop:duration-[inherit]
             rounded-lg text-dark dark:text-light bg-floating-light dark:bg-floating-dark shadow-lg focus:outline-none
@@ -81,7 +86,8 @@ export default function Modal({ showModal, onClose, title, hasCloseBtn = true, c
                     </button>
                 }
             </div>
-            <div className={`flex flex-col gap-2 max-h-[calc(100dvh-12rem)] overflow-y-auto p-4 pt-2 ${className}`}>
+            {/* max-h-[calc(100dvh-12rem)] overflow-y-auto */}
+            <div className={`flex flex-col gap-2 p-4 pt-2 ${className}`}>
                 {children}
             </div>
         </dialog>
