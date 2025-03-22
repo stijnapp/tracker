@@ -23,7 +23,7 @@ export default function Exercise({ exercise, onUpdate, onDelete }) {
     }
 
     const handleTagChange = (e) => {
-        onUpdate({ ...exercise, tagId: e.target.value })
+        onUpdate({ ...exercise, tagId: parseInt(e.target.value) })
     }
 
     const handleDelete = () => {
