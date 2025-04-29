@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound'
 import Progress from './pages/Progress'
 import Settings from './pages/Settings'
 import Workout from './pages/Workout'
+import StrongExport from './pages/StrongExport'
 
 export default function App() {
     const [deferredPrompt, setDeferredPrompt] = useState(null)
@@ -34,6 +35,7 @@ export default function App() {
                             <Route path="tags" element={<Tags />} />
                         </Route>
                         <Route path="/settings" element={<Settings deferredPrompt={deferredPrompt} />} />
+                        <Route path="/settings/strong-export" element={<StrongExport />} />
                         <Route path="/*" element={<NotFound />} />
                     </Routes>
                 </div>
