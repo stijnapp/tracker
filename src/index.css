@@ -69,3 +69,7 @@ input {
 .subtext {
     @apply text-sm text-gray-500 dark:text-gray-400;
 }
+
+.link {
+    @apply text-primary font-semibold underline underline-offset-2;
+}
