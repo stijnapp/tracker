@@ -14,7 +14,7 @@ import useLocalStorage from '../hooks/useLocalStorage'
 const STORAGE_KEY = 'strongExportProgress';
 
 export default function StrongExport() {
-	const [dbData, setDbData] = useState(db.getAllData() || {})
+	const [dbData] = useState(db.getAllData() || {})
 
 	// State for modal
 	const [isResetModalOpen, setIsResetModalOpen] = useState(false)
@@ -141,24 +141,48 @@ export default function StrongExport() {
 	// Helper function to create custom collapse title with checkbox
 	const renderWorkoutTitle = (workout) => {
 		// Count checked exercises in this workout
-		const totalExercises = workout.exercises.length;
-		const checkedCount = workout.exercises.filter(exercise =>
+		const totalExercises = workout.exercises ? workout.exercises.length : 0;
+		const checkedCount = totalExercises > 0 ? workout.exercises.filter(exercise =>
 			checkedState.checkedWorkoutExercises.includes(getWorkoutExerciseKey(workout.id, exercise.id))
-		).length;
+		).length : 0;
+
+		// For empty workouts, show full green progress bar when the workout itself is checked
+		const isEmptyWorkout = totalExercises === 0;
+		const isEmptyWorkoutChecked = isEmptyWorkout && checkedState.checkedWorkouts.includes(workout.id);
+
+		// Progress percentage is 100% for empty checked workouts, otherwise it's calculated normally
+		const progressPercentage = isEmptyWorkout ?
+			(isEmptyWorkoutChecked ? 100 : 0) :
+			(totalExercises > 0 ? (checkedCount / totalExercises) * 100 : 0);
+
+		// A workout is complete if it's a checked empty workout or if all exercises are checked
+		const isComplete = isEmptyWorkoutChecked || (checkedCount === totalExercises && totalExercises > 0);
 
 		return (
-			<div className="flex items-center">
-				<Checkbox
-					label=""
-					checked={checkedState.checkedWorkouts.includes(workout.id)}
-					onChange={(e) => {
-						e.stopPropagation(); // Prevent collapse toggle when clicking checkbox
-						handleWorkoutCheckboxChange(workout.id);
-					}}
-					className="mr-2"
-				/>
-				<span className="font-semibold">{dateTimeToText(workout.date, false, true)}</span>
-				<span className="subtext ml-2">({checkedCount}/{workout.exercises.length} checked)</span>
+			<div className="flex flex-col w-full">
+				<div className="flex items-center">
+					<Checkbox
+						label=""
+						checked={checkedState.checkedWorkouts.includes(workout.id)}
+						onChange={(e) => {
+							e.stopPropagation(); // Prevent collapse toggle when clicking checkbox
+							handleWorkoutCheckboxChange(workout.id);
+						}}
+						className="mr-2"
+					/>
+					<span className="text-lg font-semibold">{dateTimeToText(workout.date, false, true)}</span>
+					<span className="subtext ml-2">
+						{isEmptyWorkout ?
+							"(No exercises)" :
+							`(${checkedCount}/${totalExercises} checked)`}
+					</span>
+				</div>
+				<div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-1">
+					<div
+						className={`${isComplete ? 'bg-success' : 'bg-primary'} h-1.5 rounded-full transition-all duration-300`}
+						style={{ width: `${progressPercentage}%` }}
+					></div>
+				</div>
 			</div>
 		);
 	};
@@ -206,7 +230,15 @@ export default function StrongExport() {
 
 			<div className="flex flex-col gap-4 mt-4">
 				<h2 className="text-2xl font-bold">Workouts</h2>
-				<p className='-mt-2'>Count: {fullyCheckedWorkoutsCount}/{workouts.length} checked</p>
+				<div className="-mt-2">
+					<p>Count: {fullyCheckedWorkoutsCount}/{workouts.length} checked</p>
+					<div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mt-2">
+						<div
+							className={`${fullyCheckedWorkoutsCount === workouts.length && workouts.length > 0 ? 'bg-success' : 'bg-primary'} h-2.5 rounded-full transition-all duration-300`}
+							style={{ width: `${workouts.length > 0 ? (fullyCheckedWorkoutsCount / workouts.length) * 100 : 0}%` }}
+						></div>
+					</div>
+				</div>
 
 				{workouts.map((workout) => (
 					<div
@@ -217,7 +249,7 @@ export default function StrongExport() {
 							title={renderWorkoutTitle(workout)}
 						>
 							{workout.exercises && workout.exercises.length > 0 ? (
-								<div className="pl-2">
+								<div className="pl-2 flex flex-col gap-2">
 									{workout.exercises
 										// Sort by exerciseId instead of order
 										.sort((a, b) => a.exerciseId - b.exerciseId)
@@ -226,8 +258,8 @@ export default function StrongExport() {
 											if (!exercise) return null;
 
 											return (
-												<div key={workoutExercise.id} className="mb-4 border-b pb-2 last:border-b-0">
-													<div className="flex items-center">
+												<div key={workoutExercise.id} className={`last:border-b-0 ${checkedState.checkedWorkoutExercises.includes(getWorkoutExerciseKey(workout.id, workoutExercise.id)) ? 'opacity-60 bg-gray-100 dark:bg-gray-800 rounded-md' : ''}`}>
+													<div className="flex items-center p-1">
 														<Checkbox
 															label=""
 															checked={checkedState.checkedWorkoutExercises.includes(getWorkoutExerciseKey(workout.id, workoutExercise.id))}
@@ -239,7 +271,7 @@ export default function StrongExport() {
 															{exercise.nickname && <span className="subtext"> ({exercise.nickname})</span>}
 														</div>
 													</div>
-													<div className="mt-1 pl-4">
+													<div className="mt-1 pl-4 pb-1">
 														{workoutExercise.sets && workoutExercise.sets.map((set, index) => (
 															<div key={set.id} className="flex space-x-4 mb-1">
 																<span className="text-gray-500 w-14">Set {index + 1}:</span>
