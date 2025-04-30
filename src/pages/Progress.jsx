@@ -14,8 +14,14 @@ import Switch from '../components/Form/Switch'
 import Textarea from '../components/Form/Textarea'
 import HR from '../components/HR'
 import Page from '../components/Page'
+import Modal from '../components/modal/Modal'
+import ModalHeader from '../components/modal/ModalHeader'
+import ModalBody from '../components/modal/ModalBody'
+import ModalFooter from '../components/modal/ModalFooter'
 
 export default function Progress() {
+    const [isOpen, setIsOpen] = useState(false)
+
     const [text, setText] = useState(null)
     const [restartOnIdChange, setRestartOnIdChange] = useState(true)
 
@@ -60,6 +66,22 @@ export default function Progress() {
         <Page title="Progress">
             <Card title={<span className="block text-center"><FontAwesomeIcon icon={faHelmetSafety} className="text-warning" /> Under construction <FontAwesomeIcon icon={faHelmetSafety} className="text-warning" /></span>}>
                 <p className="text-center">This page is under construction. Check back later for updates.</p>
+            </Card>
+
+            <Card title="Modals" className="flex flex-col gap-4">
+                <button className="btn-primary" onClick={() => setIsOpen(true)}>Open modal</button>
+                <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                    <ModalHeader>
+                        Deactivate account
+                    </ModalHeader>
+                    <ModalBody>
+                        Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.
+                    </ModalBody>
+                    <ModalFooter>
+                        <button type="button" className="inline-flex w-auto justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500">Deactivate</button>
+                        <button type="button" className="inline-flex w-auto justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0" onClick={() => setIsOpen(false)}>Cancel</button>
+                    </ModalFooter>
+                </Modal>
             </Card>
 
             <Card title="AnimateInOut test" className="flex flex-col gap-4">

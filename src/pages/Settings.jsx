@@ -13,6 +13,7 @@ import { dateToText, getCurrentDateTime, timeDifferenceToText } from '../helpers
 import { db } from '../helpers/db'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useTheme from '../hooks/useTheme'
+import { Link } from 'react-router-dom'
 
 /**
  * @param {{
@@ -111,7 +112,12 @@ export default function Settings({ deferredPrompt }) {
                     </div>
                     {dbHasData && <p className="mt-2">Your last export was <strong>{timeDifferenceToText(lastExportDate)}</strong></p>}
 
-                    <HR className="-my-1" />
+                    <HR className='-my-1' />
+
+                    <h1 className='font-semibold mb-1'>Export to <a href='https://www.strong.app/' className='link'>Strong app</a></h1>
+                    <Link to="/settings/strong-export" className="btn-primary block text-center">View data to export to Strong</Link>
+
+                    <HR className='-mb-1' />
 
                     <p className="mb-2 font-semibold text-danger">Danger zone</p>
                     <button className="btn-danger w-full mb-4" disabled={dbHasData ? false : true} onClick={() => setShowDeleteModal(true)}>Delete all data</button>

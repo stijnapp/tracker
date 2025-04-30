@@ -1,5 +1,8 @@
 const timeFormat = { hour: '2-digit', minute: '2-digit', second: '2-digit' }
-const dateFormat = { year: 'numeric', month: 'numeric', day: 'numeric' }
+const dateFormats = {
+    numeric: { year: 'numeric', month: 'numeric', day: 'numeric' },
+    text: { year: 'numeric', month: 'short', day: 'numeric' }
+}
 
 /**
  * @param {boolean} [includeSeconds=false]
@@ -41,14 +44,19 @@ export function timeToText(time = null, includeSeconds = false) {
 /**
  * @param {string} [dateTime=null]
  * @param {boolean} [includeSeconds=false]
+ * @param {boolean} [textMonth=false] - If true, displays month as text (e.g., 'Jan', 'Feb')
  * @returns {string}
  * @example
  * dateTimeToText() // '2-22-2022, 15:00'
  * dateTimeToText('2022-02-22T15:00') // '2-22-2022, 15:00'
  * dateTimeToText('2022-02-22T15:00', true) // '2-22-2022, 15:00:00'
+ * dateTimeToText('2022-02-22T15:00', false, true) // '22 Feb 2022, 15:00'
  */
-export function dateTimeToText(dateTime = null, includeSeconds = false) {
-    return new Date(dateTime ?? getCurrentDateTime(includeSeconds)).toLocaleString([], includeSeconds ? { ...dateFormat, ...timeFormat } : { ...dateFormat, hour: timeFormat.hour, minute: timeFormat.minute })
+export function dateTimeToText(dateTime = null, includeSeconds = false, textMonth = false) {
+    const dateFormatToUse = textMonth ? dateFormats.text : dateFormats.numeric;
+    return new Date(dateTime ?? getCurrentDateTime(includeSeconds)).toLocaleString([], includeSeconds ? 
+        { ...dateFormatToUse, ...timeFormat } : 
+        { ...dateFormatToUse, hour: timeFormat.hour, minute: timeFormat.minute })
 }
 
 /**
