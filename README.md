@@ -6,25 +6,29 @@ A simple workout tracker to keep track of your progress over time.
 
 ## Features
 
-- Manage workouts (exercises, sets, reps)
-- Get weight suggestions based on previous workouts
-- Show progression over time
+- Keep track of your progress
+- Manage workouts, including:
+  - Exercises
+  - Sets
+  - Reps
+- View the weight of previous workouts
+- Add notes to workouts
 - Mobile friendly design
 - Light/dark mode support
 - Option to export data
+  - Easily copy data to [Strong App](https://strong.app)
 
 
 ## Tech Stack
 
-**Client:** React, React Router, TailwindCSS
-
-<!-- **Server:** Java, Maven, Spring Boot -->
+**React**, JavaScript, React Router, TailwindCSS
 
 
 ## Prerequisites
 
 - [Node.js and npm](https://nodejs.org/) installed
 - [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/) installed
+
 
 ## Run Locally
 
@@ -33,19 +37,19 @@ A simple workout tracker to keep track of your progress over time.
 Clone the project using GitHub Desktop or the command line
 
 ```bash
-  git clone https://github.com/stijnapp/tracker.git
+git clone https://github.com/stijnapp/tracker.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd tracker
+cd tracker
 ```
 
 Install dependencies
 
 ```bash
-  npm install
+npm install
 ```
 
 ### Run
@@ -53,7 +57,7 @@ Install dependencies
 Start the development server
 
 ```bash
-  npm run dev
+npm run dev
 ```
 
 
@@ -71,4 +75,4 @@ To run tests, run the following command
 The deployment is automated using GitHub Actions. The workflow file can be found at [`.github/workflows/deployment.yml`](.github/workflows/deployment.yml).
 
 
-Any push or pull request to the `main` branch will trigger the deployment. The live version can be found at [stijnapp.github.io/tracker](https://stijnapp.github.io/tracker/).
+Any **push** or **pull request** to the `main` branch will trigger the deployment. The live version can be found at [stijnapp.github.io/tracker](https://stijnapp.github.io/tracker/).
