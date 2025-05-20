@@ -63,6 +63,19 @@ Tracker uses the browser's LocalStorage to store all your workout data. This mea
 - You can export your data for backup or transfer
 - Data persists between sessions
 
+## Project Structure
+
+```
+tracker/
+├── public/             # Static assets and PWA resources
+└── src/                # Source code
+    ├── components/     # Reusable UI components
+    ├── helpers/        # Utility functions
+    ├── hooks/          # Custom React hooks
+    ├── pages/          # Application pages
+    └── App.jsx         # Main application component
+```
+
 ## Prerequisites
 
 - [Node.js and npm](https://nodejs.org/) (v16 or newer recommended)
@@ -109,7 +122,7 @@ Create a production build:
 npm run build
 ```
 
-> [!Note] Manual building is typically not necessary as deployment is handled automatically through GitHub Actions when changes are pushed to the main branch.
+> **Note**: Manual building is typically not necessary as deployment is handled automatically through GitHub Actions when changes are pushed to the main branch.
 
 ### Preview Production Build
 
@@ -121,19 +134,6 @@ npm run preview
 
 ## Deployment
 
-The deployment is automated using GitHub Actions. The workflow file can be found at [`.github/workflows/deployment.yml`](.github/workflows/deployment.yml).
+The deployment is automated using GitHub Actions. The workflow file can be found at [`.github/workflows/deployment.yml`](.github/workflows/deployment.yml). Any **push** or **pull request** to the `main` branch will trigger the deployment.
 
-Any **push** or **pull request** to the `main` branch will trigger the deployment. The live version can be found at [stijnapp.github.io/tracker](https://stijnapp.github.io/tracker/).
-
-## Project Structure
-
-```
-tracker/
-├── public/             # Static assets and PWA resources
-├── src/                # Source code
-│   ├── components/     # Reusable UI components
-│   ├── helpers/        # Utility functions
-│   ├── hooks/          # Custom React hooks
-│   ├── pages/          # Application pages
-│   └── App.jsx         # Main application component
-```
+The live version can be found at [stijnapp.github.io/tracker](https://stijnapp.github.io/tracker/).
